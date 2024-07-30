@@ -1,0 +1,53 @@
+<%- include('../common/header') ; -%>
+
+
+<%- include('../common/testSearchForm') ; -%>
+
+<% 
+  function show(heading, val, suppressBR) {
+    if (val) return ((suppressBR) ? "" : "<BR>") + ((heading) ? (heading + ": ") : "") + val ;
+    else return "" ;
+  }
+
+  function genImageSrc(id) {
+    let im = id.replace('https://nla.gov.au', '/static/pics')
+            .replace('http://nla.gov.au', '/static/pics')
+            .replace("/image", ".jpg")
+            .replace("/representativeImage", ".jpg") ;
+    // something like   /static/pics/nla.obj-161515917.jpg
+    let i = im.indexOf('/nla.obj-') ;
+    let j = im.indexOf('.jpg') ;
+    let idd = Number(im.substring(i+9, j)) ;
+    let subDir = idd % 1000 ;
+    return im.substring(0, i) + "/" + subDir + im.substring(i) ;
+  }
+
+%>
+<div id="results">
+
+  <% if (aRes) {  %>
+
+    <TABLE CELLSPACING="10">
+      <TR>
+        <TH>
+          Set A: <%= JSON.stringify(abSets[a]) %>
+        </TH>
+        <TH>
+          Set B: <%= JSON.stringify(abSets[b]) %>
+        </TH>
+      </TR>
+
+      <TR>
+        <TD>
+          <%= JSON.stringify(aRes) %>
+        </TD>
+        <TD>
+          <%= JSON.stringify(bRes) %>
+        </TD>
+      </TR>
+    </TABLE>
+  <% } %>
+</div>
+
+<%- include('../common/footer') ; -%>
+

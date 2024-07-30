@@ -1,0 +1,50 @@
+<%function setSelect(t, value) {
+
+  return (t == value) ? " selected " : "" ;
+}
+%>
+
+<form action="test" method="get" id="searchForm">
+  <table>
+    <tr valign='top'>
+      <td nowrap>
+        <input type='text' size='60' id='stxt' name="stxt" style='font-size:105%' value='<%=stxt%>' class='veryLightMauve'/>
+        <button id='searchButton' type="submit" class='searchButton'><span id='searchText' class='searchText'>Search</span></button>
+      </td>
+      <td nowrap style='padding-left:1em;font-variant:small-caps'>
+         
+        search A:
+        <select name="a" id="a">
+          <option value="0" <%=setSelect(0, a)%>>CLIP Image similarity</option>
+          <option value="1" <%=setSelect(1, a)%>>NLA metadata keyword</option>
+          <option value="2" <%=setSelect(2, a)%>>OpenAI description keyword</option>
+          <option value="3" <%=setSelect(3, a)%>>Phi-3 description keyword</option>
+          <option value="4" <%=setSelect(4, a)%>>80% CLIP 20% NLA metadata</option>
+          <option value="5" <%=setSelect(5, a)%>>50% CLIP 50% NLA metadata</option>
+          <option value="6" <%=setSelect(6, a)%>>80% CLIP 20% OpenAI description</option>
+          <option value="7" <%=setSelect(7, a)%>>50% CLIP 50% OpenAI description</option>
+          <option value="8" <%=setSelect(8, a)%>>80% CLIP 20% Phi-3 description</option>
+          <option value="9" <%=setSelect(9, a)%>>50% CLIP 50% Phi-3 description</option>
+        </select>
+         
+        <P>
+        search B:
+        <select name="b" id="b">
+          <option value="0" <%=setSelect(0, b)%>>CLIP Image similarity</option>
+          <option value="1" <%=setSelect(1, b)%>>NLA metadata keyword</option>
+          <option value="2" <%=setSelect(2, b)%>>OpenAI description keyword</option>
+          <option value="3" <%=setSelect(3, b)%>>Phi-3 description keyword</option>
+          <option value="4" <%=setSelect(4, b)%>>80% CLIP 20% NLA metadata</option>
+          <option value="5" <%=setSelect(5, b)%>>50% CLIP 50% NLA metadata</option>
+          <option value="6" <%=setSelect(6, b)%>>80% CLIP 20% OpenAI description</option>
+          <option value="7" <%=setSelect(7, b)%>>50% CLIP 50% OpenAI description</option>
+          <option value="8" <%=setSelect(8, b)%>>80% CLIP 20% Phi-3 description</option>
+          <option value="9" <%=setSelect(9, b)%>>50% CLIP 50% Phi-3 description</option>
+        </select>
+        </P>
+      </td>
+    </tr>
+
+  </table>
+</form>
+

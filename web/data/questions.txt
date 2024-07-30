@@ -1,0 +1,46 @@
+# Questions
+# Empty lines and lines starting with # or // are ignored.
+# Format is {number}{space}{question}
+# Number should be 1 or 2 digits, no leading zeros
+# Number/question combo must never be changed - if you want to remove a question, comment it out
+
+
+1 aircraft, pilots, mechanics
+2 animals trapped by a flood
+3 art deco movie theatre
+4 art deco movie theatre interior
+5 Australian prime minister with Amercian president
+6 man with head bowed behind another man giving a speech
+7 ballet
+8 book covers
+9 bridge construction
+10 busy country town street
+11 children having fun in the snow
+12 cigarette cards featuring people on horseback
+13 civil disobediance [sic]
+14 energetic and fast motion
+15 fancy dress party
+16 flamboyent, outrageous, colorful hat
+17 gothic building
+18 having fun at the beach
+19 human mother and child
+20 lake burley griffen 
+21 man giving a speech. Man standing behind him with his head bowed.
+22 mining with heavy machinery
+23 old movie houses
+24 people looking very happy, smiling or laughing outside
+25 people on boat
+26 people studying in a library
+27 playing music
+28 politician in a suit
+29 propaganda posters
+30 surveyors at work with theodolite
+31 three people in a photograph
+32 using horses for agricultural work
+33 vintage promotional posters for airlines
+34 walking in the bush
+35 a woman protesting, holding a sign
+36 world war one tanks in france
+37 Japanese print showing the sea or ocean
+38 Japanese print with lots of red
+39 Japanese image of mountains

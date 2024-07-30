@@ -1,0 +1,61 @@
+<%- include('../common/header') ; -%>
+
+<div class="indent">
+
+  <H1>Thank you for helping us evaluate image search</H1>
+
+  <H2>Background</H2>
+  <div class="indent">
+      <P>New semantic searching techniques which use descriptions and images directly offer better ways to find images, even those with little or no 
+        descriptive metadata.  But there are so many options and knobs to tweak that we need human judgement to reveal the better options.      
+      </P>
+      <P>By evaluating the quality of image search results produced using some of these techniques, you'll help us produce a better
+        image search engine for the Australia public.  So, thanks in advance!
+      </P>
+
+      <H3>How does it work?</H3>
+      <P>You'll be shown an endless series of searches.  For each search, two methods are chosen at random to produce the search
+        results: the results from each method are shown in a column.  You are asked to choose which column has the best results.
+      </P>
+      <P>Please evaluate as many or as few search results as you want.</P>
+
+      <H3>Who's 'us'</H3>
+      <P>
+          This web site has been created by Francis Crimmins and Kent Fitch.  Contact us for more information.
+      </P>
+      
+      <% if (optionalUserIdentifier) {%>
+        <H3>Welcome back, <%=optionalUserIdentifier%>.</H3>
+        <P>The optional user identifier you chose has been retained as a cookie.
+        If you wish remove this user identifier from this site, just clear your cookies for this site in your browser.
+        </P
+      <%}
+       else {%>
+        <H3>Do you want to tell us who you are?</H3>
+        <P>It may be helpful if we can correlate evaluations from the same person, or, in very rare cases, ask you
+          for information about some of your evaluations (which of course, you can totally ignore). So, if you
+          don't mind, we'd appreciate it if you'd enter your name or email address, or, if you want to remain
+          anonymous but help us correlate evaluations, enter a random name of your choosing.
+        </P>
+        <P>Again, this is completely optional, so feel free to skip.
+        </P>
+        <P>
+          <FORM action="/" method="post">
+            <label>Sure - track my evaluations using this real name, email address, or made-up name:</label>
+            <input type="text" name="optionalUserIdentifier" size="20"/>
+            <input type="submit" value="Track me!"/>
+          </FORM>
+        </P>
+      <%}%>
+      </P>
+  </div>
+
+
+  <div>
+      <FORM action="/search" method="post">
+        <center><input type="submit" value="Show me the first result"/></center>
+      </FORM>
+  </div>
+</div>
+
+<%- include('../common/footer') ; -%>
