@@ -19,12 +19,12 @@ const abSets = [
   {id:1, desc: "NLA metadata keyword: compares the NLA metadata text with the query text (traditional Lucene TF/IDF approach)", bq: metaBQ},
   {id:2, desc: "OpenAI description keyword: compares the OpenAI description text with the query text (traditional Lucene TF/IDF approach).", bq: openAIBQ},
   {id:3, desc: "Phi-3 description keyword: compares the Phi-3 description text with the query text (traditional Lucene TF/IDF approach).", bq: phi3BQ},
-  {id:4, blend1Id: 0, blend1Perc: 80, blend2Id: 1, blend1Perc:20},
-  {id:5, blend1Id: 0, blend1Perc: 50, blend2Id: 1, blend1Perc:50},
-  {id:6, blend1Id: 0, blend1Perc: 80, blend2Id: 2, blend1Perc:20},
-  {id:7, blend1Id: 0, blend1Perc: 50, blend2Id: 2, blend1Perc:50},
-  {id:8, blend1Id: 0, blend1Perc: 80, blend2Id: 3, blend1Perc:20},
-  {id:9, blend1Id: 0, blend1Perc: 50, blend2Id: 3, blend1Perc:50}
+  {id:4, blend1Id: 0, blend1Perc: 80, blend2Id: 1, blend2Perc:20},
+  {id:5, blend1Id: 0, blend1Perc: 50, blend2Id: 1, blend2Perc:50},
+  {id:6, blend1Id: 0, blend1Perc: 80, blend2Id: 2, blend2Perc:20},
+  {id:7, blend1Id: 0, blend1Perc: 50, blend2Id: 2, blend2Perc:50},
+  {id:8, blend1Id: 0, blend1Perc: 80, blend2Id: 3, blend2Perc:20},
+  {id:9, blend1Id: 0, blend1Perc: 50, blend2Id: 3, blend2Perc:50}
 ] ;
 
 
@@ -62,7 +62,8 @@ async function test(req, res) {
 
 async function runSet(set, stxt) {
 
-    let searchParameters = await buildQuery(set, stxt) ;
+    console.log("runSet " + JSON.stringify(set)) ;
+    let searchParameters = SEARCH_COMMON + "&q=" + await buildQuery(set, stxt) ;
 
     console.log("set: " + JSON.stringify(set) + "\nquery: len" + searchParameters.length + ": " + searchParameters.replaceAll(/\[[^\]]*\]/gi, "[..vectors..]")) ;
 
@@ -71,13 +72,14 @@ async function runSet(set, stxt) {
 
 async function buildQuery(set, stxt) {
 
-  if (set.blend1Id) {
-    let q1 = await buildQuery(abSets[blend1Id], stxt) ;
-    let q2 = await buildQuery(abSets[blend2Id], stxt) ;
+  if (set.hasOwnProperty("blend1Id")) {
+    let q1 = await buildQuery(abSets[set.blend1Id], stxt) ;
+    let q2 = await buildQuery(abSets[set.blend2Id], stxt) ;
 
-    return "(" + q1 + ")^" + set.blend1Perc + "  OR (" + q2 + ")^" + set.blend2Perc ;
+    return "(" + q1 + ")^" + (set.blend1Perc / 100) + 
+      "  OR (" + q2 + ")^" + (set.blend2Perc / 100) ;
   }
-  return set.bq(stxt) ;
+  return  await set.bq(stxt) ;
 }
 
 const SEARCH_COMMON = 
@@ -88,27 +90,30 @@ const SEARCH_COMMON =
 
 async function clipBQ(stxt) {
 
+  console.log("getting CLIP embedding for " + stxt) ;
   let embedding = await utils.getClipTextEmbedding(stxt) ;
-  return SEARCH_COMMON + "&q=({!knn f=imageVector topK=50}" + JSON.stringify(embedding) + ")"  ;
+  console.log(" got clip emedding len " + JSON.stringify(embedding).length) ;
+
+  return "({!knn f=imageVector topK=50}" + JSON.stringify(embedding) + ")"  ;
 }
 
 async function metaBQ(stxt) {
 
-  return SEARCH_COMMON + "&q=metadataText:(\"" + stxt + "\")^1 OR metadataTextStemmed:(" + stxt + ")^0.5" ;
+  return "metadataText:(\"" + stxt + "\")^1 OR metadataTextStemmed:(" + stxt + ")^0.5" ;
 }
 
 async function openAIBQ(stxt) {
 
-  console.log("getting embedding for " + stxt) ;
+  console.log("getting nomic embedding for " + stxt) ;
   let embedding = await utils.getNomicEmbedding(stxt) ;
-  console.log("GOT openai embedding: ") + JSON.stringify(embedding) ;
-  return SEARCH_COMMON + "&q=({!knn f=nomicOpenAIDescriptionEmbedding topK=50}" + JSON.stringify(embedding) + ")"  ;
+  console.log("GOT nomic embedding len: ") + JSON.stringify(embedding).length ;
+  return "({!knn f=nomicOpenAIDescriptionEmbedding topK=50}" + JSON.stringify(embedding) + ")"  ;
 }
 
 async function phi3BQ(stxt) {
 
   let embedding = await utils.getNomicEmbedding(stxt) ;
-  return SEARCH_COMMON + "&q=({!knn f=nomicMsVisionDescriptionEmbedding topK=50}" + JSON.stringify(embedding) + ")"  ;
+  return "({!knn f=nomicMsVisionDescriptionEmbedding topK=50}" + JSON.stringify(embedding) + ")"  ;
 }
 
 

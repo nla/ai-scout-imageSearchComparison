@@ -22,29 +22,123 @@
     return im.substring(0, i) + "/" + subDir + im.substring(i) ;
   }
 
+  function OLDshowDocs(docs) {
+
+    let res = "<OL>" ;
+    for (let doc of docs) {
+      res += "<LI>" ;
+      res += "id: " + doc.id + "<BR>" +
+             "title: " + doc.title + "<BR>" +
+             "bibId: " + doc.bibId + "<BR>" +
+             "metadataText: " + doc.metadataText.join("\n") + "<BR>" +
+             "originalDescription: " + doc.originalDescription + "<BR>" +
+             "openAIDescription: " + doc.openAIDescription + "<BR>" +    
+             "msVisionDescription: " + doc.msVisionDescription + "<BR>" +
+            "<IMG src='" + genImageSrc(doc.id) + "'>" ;
+            
+      res += "</LI>" ;
+    }
+    res += "</OL>" ;
+    return res ;
+  }
+
+  function formatDoc(docs, len, seq) {
+    if (seq >= len) {
+      if (seq == 0) return "<TD>no results</TD>" ;
+      return "<TD></TD>" ;
+    }
+    let doc = docs[seq] ;
+
+    return "<TD>" +
+      /*
+            "id: " + doc.id + "<BR>" +
+            "title: " + doc.title + "<BR>" +
+            "bibId: " + doc.bibId + "<BR>" +
+            "metadataText: " + doc.metadataText.join("\n") + "<BR>" +
+            "originalDescription: " + doc.originalDescription + "<BR>" +
+            "openAIDescription: " + doc.openAIDescription + "<BR>" +    
+            "msVisionDescription: " + doc.msVisionDescription + "<BR>" +
+              */
+            "<IMG src='" + genImageSrc(doc.id) + "' class='medSizeImage'>" +
+            "<BR>" + doc.title 
+            "</TD>" ;
+  }
+  function showDocs(a, b) {
+
+    let aLen = (a) ? a.length : 0 ;
+    let bLen = (b) ? b.length : 0 ;
+
+    let maxLen = Math.max(aLen, bLen) ;
+
+    if (maxLen == 0) return "<TR><TD>No results</TD></TR>" ;
+
+    let rows = [] ;
+    for (let i=0;i<=maxLen;i++) {
+      let row = "<TR valign='top'>" ;
+      row += formatDoc(a, aLen, i) ;
+      row += formatDoc(b, bLen, i) ;
+
+      rows.push(row + "</TR>") ;
+    }
+    return rows.join("\n") ;
+    
+/*
+    let res = "<OL>" ;
+    for (let doc of docs) {
+      res += "<LI>" ;
+      res += "id: " + doc.id + "<BR>" +
+            "title: " + doc.title + "<BR>" +
+            "bibId: " + doc.bibId + "<BR>" +
+            "metadataText: " + doc.metadataText.join("\n") + "<BR>" +
+            "originalDescription: " + doc.originalDescription + "<BR>" +
+            "openAIDescription: " + doc.openAIDescription + "<BR>" +    
+            "msVisionDescription: " + doc.msVisionDescription + "<BR>" +
+            "<IMG src='" + genImageSrc(doc.id) + "'>" ;
+            
+      res += "</LI>" ;
+    }
+    res += "</OL>" ;
+    return res ;
+    */
+}
+
+
 %>
 <div id="results">
 
   <% if (aRes) {  %>
 
     <TABLE CELLSPACING="10">
-      <TR>
+      <TR valign="top">
         <TH>
-          Set A: <%= JSON.stringify(abSets[a]) %>
+          Set A: <%- JSON.stringify(abSets[a]) %>
         </TH>
         <TH>
-          Set B: <%= JSON.stringify(abSets[b]) %>
+          Set B: <%- JSON.stringify(abSets[b]) %>
         </TH>
       </TR>
 
-      <TR>
+     
+        <%- showDocs(aRes.docs, bRes.docs) %>
+        <!--
+         <TR valign="top">
+        <TD>
+          <%- showDocs(aRes.docs) %>
+        </TD>
+        <TD>
+          <%- showDocs(bRes.docs) %>
+        </TD>
+        </TR>
+        -->
+        <!--
         <TD>
           <%= JSON.stringify(aRes) %>
         </TD>
         <TD>
           <%= JSON.stringify(bRes) %>
         </TD>
-      </TR>
+        -->
+      
     </TABLE>
   <% } %>
 </div>

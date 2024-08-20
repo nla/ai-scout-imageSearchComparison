@@ -212,7 +212,8 @@ module.exports = {
 			
 		console.log("search status: " + solrRes.status) ;
 				
-		if ((solrRes.status == 200) && solrRes.data) return  solrRes.data.response ;
+		if ((solrRes.status == 200) && solrRes.data) return solrRes.data.response ;
+		console.log("no data") ;
 		throw new Error("status:" + solrRes.status + ", no data") ;
 	},
 
