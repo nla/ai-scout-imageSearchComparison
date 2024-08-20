@@ -22,32 +22,20 @@
     return im.substring(0, i) + "/" + subDir + im.substring(i) ;
   }
 
-  function OLDshowDocs(docs) {
-
-    let res = "<OL>" ;
-    for (let doc of docs) {
-      res += "<LI>" ;
-      res += "id: " + doc.id + "<BR>" +
-             "title: " + doc.title + "<BR>" +
-             "bibId: " + doc.bibId + "<BR>" +
-             "metadataText: " + doc.metadataText.join("\n") + "<BR>" +
-             "originalDescription: " + doc.originalDescription + "<BR>" +
-             "openAIDescription: " + doc.openAIDescription + "<BR>" +    
-             "msVisionDescription: " + doc.msVisionDescription + "<BR>" +
-            "<IMG src='" + genImageSrc(doc.id) + "'>" ;
-            
-      res += "</LI>" ;
-    }
-    res += "</OL>" ;
-    return res ;
-  }
-
-  function formatDoc(docs, len, seq) {
+  function formatDoc(docs, len, seq, descSource) {
     if (seq >= len) {
       if (seq == 0) return "<TD>no results</TD>" ;
       return "<TD></TD>" ;
     }
     let doc = docs[seq] ;
+
+    let desc = ["<B>" + doc.metadataText[0] + "</B>"]  ;
+    if (doc.metadataText.length > 2)  // sheesh - they repeat for some reason
+      for (let i = 2;i<1+doc.metadataText.length/2;i++) desc.push(doc.metadataText[i]) ;
+
+    let descAI = "" ;
+    if (descSource) 
+      descAI =  ((descSource == 'p') ? ("Phi-3: " + doc.msVisionDescription) : ("OpenAI: " + doc.openAIDescription)) ;
 
     return "<TD>" +
       /*
@@ -59,11 +47,15 @@
             "openAIDescription: " + doc.openAIDescription + "<BR>" +    
             "msVisionDescription: " + doc.msVisionDescription + "<BR>" +
               */
-            "<IMG src='" + genImageSrc(doc.id) + "' class='medSizeImage'>" +
-            "<BR>" + doc.title 
+             
+            "<IMG src='" + genImageSrc(doc.id) + "' class='medSizeImage' style='float:left;width:350px'>" +
+              descAI +
+            "<BR clear='all'>" + // doc.title 
+              desc.join("<BR/>") +
+              "<BR/>Score: " + doc.score +
             "</TD>" ;
   }
-  function showDocs(a, b) {
+  function showDocs(a, b, aDescSource, bDescSource) {
 
     let aLen = (a) ? a.length : 0 ;
     let bLen = (b) ? b.length : 0 ;
@@ -75,31 +67,42 @@
     let rows = [] ;
     for (let i=0;i<=maxLen;i++) {
       let row = "<TR valign='top'>" ;
-      row += formatDoc(a, aLen, i) ;
-      row += formatDoc(b, bLen, i) ;
+      row += formatDoc(a, aLen, i, aDescSource) ;
+      row += formatDoc(b, bLen, i, bDescSource) ;
 
       rows.push(row + "</TR>") ;
     }
     return rows.join("\n") ;
-    
-/*
-    let res = "<OL>" ;
-    for (let doc of docs) {
-      res += "<LI>" ;
-      res += "id: " + doc.id + "<BR>" +
-            "title: " + doc.title + "<BR>" +
-            "bibId: " + doc.bibId + "<BR>" +
-            "metadataText: " + doc.metadataText.join("\n") + "<BR>" +
-            "originalDescription: " + doc.originalDescription + "<BR>" +
-            "openAIDescription: " + doc.openAIDescription + "<BR>" +    
-            "msVisionDescription: " + doc.msVisionDescription + "<BR>" +
-            "<IMG src='" + genImageSrc(doc.id) + "'>" ;
-            
-      res += "</LI>" ;
-    }
-    res += "</OL>" ;
-    return res ;
-    */
+}
+
+function getSearchedDescription(sets, id) { // return 'o' if openAi, 'p' is phi, null otherwise
+
+  if (sets[id].desc) {
+    if (sets[id].desc.includes("OpenAI")) return 'o' ;
+    if (sets[id].desc.includes("Phi-3")) return 'p' ;
+    return null ;
+  }
+  for (let i=1;i<10;i++) {
+    let pb = "blend" + i ;
+    if (!sets[id].hasOwnProperty(pb + "Perc")) break ;
+    if (sets[sets[id][pb + "Id"]].desc.includes("OpenAI")) return 'o' ;
+    if (sets[sets[id][pb + "Id"]].desc.includes("Phi-3")) return 'p' ;
+  }
+  return null ;
+}
+
+function showHeading(sets, id) {
+
+  if (sets[id].desc) return sets[id].desc ;
+
+  let parts = [] ;
+  for (let i=1;i<10;i++) {
+    let pb = "blend" + i ;
+    if (!sets[id].hasOwnProperty(pb + "Perc")) break ;
+    parts.push(sets[id][pb + "Perc"] + "% of " + sets[sets[id][pb + "Id"]].desc) ;
+  }
+
+  return parts.join(" and <BR/>") ;
 }
 
 
@@ -110,34 +113,16 @@
 
     <TABLE CELLSPACING="10">
       <TR valign="top">
-        <TH>
-          Set A: <%- JSON.stringify(abSets[a]) %>
+        <TH width="45%">
+          Set A: <%- showHeading(abSets, a) %>
         </TH>
-        <TH>
-          Set B: <%- JSON.stringify(abSets[b]) %>
+        <TH  width="45%">
+          Set B: <%- showHeading(abSets, b) %>
         </TH>
       </TR>
 
      
-        <%- showDocs(aRes.docs, bRes.docs) %>
-        <!--
-         <TR valign="top">
-        <TD>
-          <%- showDocs(aRes.docs) %>
-        </TD>
-        <TD>
-          <%- showDocs(bRes.docs) %>
-        </TD>
-        </TR>
-        -->
-        <!--
-        <TD>
-          <%= JSON.stringify(aRes) %>
-        </TD>
-        <TD>
-          <%= JSON.stringify(bRes) %>
-        </TD>
-        -->
+        <%- showDocs(aRes.docs, bRes.docs, getSearchedDescription(abSets, a), getSearchedDescription(abSets, b)) %>
       
     </TABLE>
   <% } %>

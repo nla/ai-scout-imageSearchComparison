@@ -1,2 +1,2 @@
 .indent {margin-left:1em}
-.medSizeImage {max-width:350px;max-height:350px}
+.medSizeImage {max-width:350px;max-height:350px;float:left;width:350px;margin-right:10px;margin-bottom: 10px}

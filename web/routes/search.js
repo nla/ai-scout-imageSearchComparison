@@ -24,7 +24,8 @@ const abSets = [
   {id:6, blend1Id: 0, blend1Perc: 80, blend2Id: 2, blend2Perc:20},
   {id:7, blend1Id: 0, blend1Perc: 50, blend2Id: 2, blend2Perc:50},
   {id:8, blend1Id: 0, blend1Perc: 80, blend2Id: 3, blend2Perc:20},
-  {id:9, blend1Id: 0, blend1Perc: 50, blend2Id: 3, blend2Perc:50}
+  {id:9, blend1Id: 0, blend1Perc: 50, blend2Id: 3, blend2Perc:50},
+  {id:10, blend1Id: 0, blend1Perc: 50, blend2Id: 3, blend2Perc:30, blend3Id: 1, blend3Perc:20}
 ] ;
 
 
@@ -41,7 +42,6 @@ async function test(req, res) {
       if (req.query.stxt) stxt = req.query.stxt ;
       if (req.query.a) a = req.query.a ;
       if (req.query.b) b = req.query.b ;
-
     }
     if ((a >= abSets.length) || (b >= abSets.length)) throw ("a and b must be less than " + abSets.length) ;
     stxt = cleanseLite(stxt).trim() ;
@@ -72,12 +72,24 @@ async function runSet(set, stxt) {
 
 async function buildQuery(set, stxt) {
 
+
   if (set.hasOwnProperty("blend1Id")) {
+    let clauses = [] ;
+    for (let i=1;i<10;i++) {
+      let pb = "blend" + i ;
+      if (!set.hasOwnProperty(pb + "Perc")) break ;
+      clauses.push("(" + await buildQuery(abSets[set[pb + "Id"]], stxt) + ")^" + set[pb + "Perc"]) ;
+    }
+    return clauses.join(" OR ") ;
+
+/*
+
     let q1 = await buildQuery(abSets[set.blend1Id], stxt) ;
     let q2 = await buildQuery(abSets[set.blend2Id], stxt) ;
 
     return "(" + q1 + ")^" + (set.blend1Perc / 100) + 
       "  OR (" + q2 + ")^" + (set.blend2Perc / 100) ;
+      */
   }
   return  await set.bq(stxt) ;
 }
@@ -86,7 +98,7 @@ const SEARCH_COMMON =
   "&wt=json&rows=20" + 
   "&q.op=AND" +
   "&fl=id,url,contentType,title,metadataText,bibId,formGenre,format,author,originalDescription,notes,incomingUrls," +
-      "openAIDescription,msVisionDescription" ; 
+      "openAIDescription,msVisionDescription,score" ; 
 
 async function clipBQ(stxt) {
 
@@ -106,7 +118,7 @@ async function openAIBQ(stxt) {
 
   console.log("getting nomic embedding for " + stxt) ;
   let embedding = await utils.getNomicEmbedding(stxt) ;
-  console.log("GOT nomic embedding len: ") + JSON.stringify(embedding).length ;
+  console.log("GOT nomic embedding len: " + JSON.stringify(embedding).length) ;
   return "({!knn f=nomicOpenAIDescriptionEmbedding topK=50}" + JSON.stringify(embedding) + ")"  ;
 }
 
