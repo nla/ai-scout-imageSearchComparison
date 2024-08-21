@@ -4,10 +4,6 @@
 <%- include('../common/testSearchForm') ; -%>
 
 <% 
-  function show(heading, val, suppressBR) {
-    if (val) return ((suppressBR) ? "" : "<BR>") + ((heading) ? (heading + ": ") : "") + val ;
-    else return "" ;
-  }
 
   function genImageSrc(id) {
     let im = id.replace('https://nla.gov.au', '/static/pics')
@@ -31,7 +27,7 @@
 
     let desc = ["<B>" + doc.metadataText[0] + "</B>"]  ;
     if (doc.metadataText.length > 2)  // sheesh - they repeat for some reason
-      for (let i = 2;i<1+doc.metadataText.length/2;i++) desc.push(doc.metadataText[i]) ;
+      for (let i = 2;i<1+doc.metadataText.length/2;i++) if (doc.metadataText[i]) desc.push(doc.metadataText[i]) ;
 
     let descAI = "" ;
     if (descSource) 
@@ -55,6 +51,7 @@
               "<BR/>Score: " + doc.score +
             "</TD>" ;
   }
+  
   function showDocs(a, b, aDescSource, bDescSource) {
 
     let aLen = (a) ? a.length : 0 ;
@@ -82,11 +79,9 @@ function getSearchedDescription(sets, id) { // return 'o' if openAi, 'p' is phi,
     if (sets[id].desc.includes("Phi-3")) return 'p' ;
     return null ;
   }
-  for (let i=1;i<10;i++) {
-    let pb = "blend" + i ;
-    if (!sets[id].hasOwnProperty(pb + "Perc")) break ;
-    if (sets[sets[id][pb + "Id"]].desc.includes("OpenAI")) return 'o' ;
-    if (sets[sets[id][pb + "Id"]].desc.includes("Phi-3")) return 'p' ;
+  for (let blend of sets[id].blends) {
+    if (sets[blend.source].desc.includes("OpenAI")) return 'o' ;
+    if (sets[blend.source].desc.includes("Phi-3")) return 'p' ;
   }
   return null ;
 }
@@ -96,17 +91,14 @@ function showHeading(sets, id) {
   if (sets[id].desc) return sets[id].desc ;
 
   let parts = [] ;
-  for (let i=1;i<10;i++) {
-    let pb = "blend" + i ;
-    if (!sets[id].hasOwnProperty(pb + "Perc")) break ;
-    parts.push(sets[id][pb + "Perc"] + "% of " + sets[sets[id][pb + "Id"]].desc) ;
+  for (let blend of sets[id].blends) {
+    parts.push(blend.perc + "% of " + sets[blend.source].desc) ;
   }
 
   return parts.join(" and <BR/>") ;
 }
-
-
 %>
+
 <div id="results">
 
   <% if (aRes) {  %>
@@ -120,9 +112,8 @@ function showHeading(sets, id) {
           Set B: <%- showHeading(abSets, b) %>
         </TH>
       </TR>
-
      
-        <%- showDocs(aRes.docs, bRes.docs, getSearchedDescription(abSets, a), getSearchedDescription(abSets, b)) %>
+      <%- showDocs(aRes.docs, bRes.docs, getSearchedDescription(abSets, a), getSearchedDescription(abSets, b)) %>
       
     </TABLE>
   <% } %>

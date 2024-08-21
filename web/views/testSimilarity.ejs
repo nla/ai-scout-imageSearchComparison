@@ -1,0 +1,65 @@
+<%- include('../common/header') ; -%>
+
+<% 
+
+  function genImageSrc(id) {
+    let im = id.replace('https://nla.gov.au', '/static/pics')
+            .replace('http://nla.gov.au', '/static/pics')
+            .replace("/image", ".jpg")
+            .replace("/representativeImage", ".jpg") ;
+    // something like   /static/pics/nla.obj-161515917.jpg
+    let i = im.indexOf('/nla.obj-') ;
+    let j = im.indexOf('.jpg') ;
+    let idd = Number(im.substring(i+9, j)) ;
+    let subDir = idd % 1000 ;
+    return im.substring(0, i) + "/" + subDir + im.substring(i) ;
+  }
+
+  function showDocs(docs) {
+
+    let r = "" ;
+    let seq = 0 ;
+    for (let doc of docs) 
+      r +=  "<IMG src='" + genImageSrc(doc.id) + "' class='smallSizeImage' style='width:200px' title='Seq: " + seq++ +
+              " Score: " +  doc.score + ", title:" + doc.title + "'>" ;
+
+    return r ;
+     
+}
+%>
+
+<div id="results">
+
+  <H3><CENTER><SPAN>Target image</SPAN><BR/>
+    <IMG src='<%=genImageSrc(targetImage.id)%>' class='medSizeImage' style='width:350px;float:none'>
+    </CENTER>
+  </H3>
+  <BR clear="all"/>
+  <% if (aRes) {  %>
+
+    <TABLE CELLSPACING="10">
+      <TR valign="top">
+        <TH width="45%">
+          Set A: <%= abSets[a].desc %>
+        </TH>
+        <TH  width="45%">
+          Set B: <%= abSets[b].desc %>
+        </TH>
+      </TR>
+     
+      <TR valign="top">
+        <TD>
+          <%- showDocs(aRes.docs) %>
+        </TD>
+        <TD>
+          <%- showDocs(bRes.docs) %>
+        </TD>
+      </TR>
+     
+      
+    </TABLE>
+  <% } %>
+</div>
+
+<%- include('../common/footer') ; -%>
+
