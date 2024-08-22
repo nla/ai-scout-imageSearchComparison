@@ -68,19 +68,19 @@ async function evaluate(req, res) {
 function clean(x) {
   
   x = "" + x ;
-  x = x.replace(/[^-a-zA-Z0-9 \_\@\.\,\?\!\[\]]/g, ' ').trim() ;
+  x = x.replace(/[^-a-zA-Z0-9 \_\@\.\,\?\!\[\]\%]/g, ' ').trim() ;
   if (x.length > 60) x = x.substring(0, 60).trim() ;
   return x ;
 }
 
-async function writeEval(req, evalType, anyUser, seq, questionOrImage, a, b, eval) {
+async function writeEval(req, evalType, anyUser, seq, questionOrImage, a, aDesc, b, bDesc, eval) {
 
   if (!anyUser) anyUser = "_anonymous_" ;
   let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress || '_unknown_' ;
   let ts = utils.currentTimestampAsYYYYMMDDHHmmSS() ;
   let line = ts + "\t" + ip + "\t" + 
             clean(anyUser) + "\t" + clean(seq) + "\t" + clean(questionOrImage) + "\t" +
-            clean(a) + "\t" + clean(b) + "\t" + clean(eval) + "\n" ;
+            clean(a) + "\t" + clean(aDesc) + "\t" + clean(b) + "\t" + clean(bDesc) + "\t" + clean(eval) + "\n" ;
   fs.appendFileSync("data/" + evalType + ".tsv", line) ;
 }
 
@@ -98,7 +98,10 @@ async function showSearchEval(req, res, seq, optionalUserIdentifier) {
 
     if (lastQuestion != req.body.question) throw "cookie/question mismatch " + req.body.seq + ": " + lastQuestion + "/" + req.body.question ;
     // save
-    await writeEval(req, "search", optionalUserIdentifier, req.body.seq, req.body.question, req.body.a, req.body.b, req.body.eval) ; 
+    await writeEval(req, "search", optionalUserIdentifier, req.body.seq, req.body.question, 
+      req.body.a, abSearchSets[parseInt(req.body.a)].desc || abSearchSets[parseInt(req.body.a)].sdesc,
+      req.body.b, abSearchSets[parseInt(req.body.b)].desc || abSearchSets[parseInt(req.body.b)].sdesc,
+      req.body.eval) ; 
      
     seq = parseInt(req.body.seq) + 1 ;      
   }
@@ -151,7 +154,8 @@ async function showSimEval(req, res, seq, optionalUserIdentifier) {
 
     if (lastImage != req.body.image) throw "cookie/image mismatch " + req.body.seq + ": " + lastImage + "/" + req.body.image ;
     // save
-    await writeEval(req, "similarity", optionalUserIdentifier, req.body.seq, req.body.image, req.body.a, req.body.b, req.body.eval) ; 
+    await writeEval(req, "similarity", optionalUserIdentifier, req.body.seq, req.body.image, req.body.a, 
+      abSimilaritySets[parseInt(req.body.a)].desc, req.body.b, abSimilaritySets[parseInt(req.body.b)].desc, req.body.eval) ; 
      
 
     seq = parseInt(req.body.seq) + 1 ;      
@@ -303,15 +307,16 @@ const abSearchSets = [
   {id:1,  desc: "NLA metadata keyword: compares the NLA metadata text with the query text (traditional Lucene TF/IDF approach)", bq: metaBQ},
   {id:2,  desc: "OpenAI description keyword: compares the OpenAI description text with the query text (traditional Lucene TF/IDF approach).", bq: openAIBQ},
   {id:3,  desc: "Phi-3 description keyword: compares the Phi-3 description text with the query text (traditional Lucene TF/IDF approach).", bq: phi3BQ},
-  {id:4,  blends: [{source: 0, perc: 80}, {source: 1, perc:20}]},
-  {id:5,  blends: [{source: 0, perc: 50}, {source: 1, perc:50}]},
-  {id:6,  blends: [{source: 0, perc: 80}, {source: 2, perc:20}]},
-  {id:7,  blends: [{source: 0, perc: 50}, {source: 2, perc:50}]},
-  {id:8,  blends: [{source: 0, perc: 80}, {source: 3, perc:20}]},
-  {id:9,  blends: [{source: 0, perc: 20}, {source: 3, perc:50}]},
-  {id:10, blends: [{source: 0, perc: 50}, {source: 2, perc:30}, {source: 1, perc:20}]},
-  {id:10, blends: [{source: 0, perc: 50}, {source: 3, perc:30}, {source: 1, perc:20}]}
+  {id:4,  blends: [{source: 0, perc: 80}, {source: 1, perc:20}], sdesc: "80% CLIP 20% NLA metadata"},
+  {id:5,  blends: [{source: 0, perc: 50}, {source: 1, perc:50}], sdesc: "50% CLIP 50% NLA metadata"},
+  {id:6,  blends: [{source: 0, perc: 80}, {source: 2, perc:20}], sdesc: "80% CLIP 20% OpenAI description"},
+  {id:7,  blends: [{source: 0, perc: 50}, {source: 2, perc:50}], sdesc: "50% CLIP 50% OpenAI description"},
+  {id:8,  blends: [{source: 0, perc: 80}, {source: 3, perc:20}], sdesc: "80% CLIP 20% Phi-3 description"},
+  {id:9,  blends: [{source: 0, perc: 20}, {source: 3, perc:50}], sdesc: "50% CLIP 50% Phi-3 description"},
+  {id:10, blends: [{source: 0, perc: 50}, {source: 2, perc:30}, {source: 1, perc:20}], sdesc: "50% CLIP 30% OpenAI description 20% NLA metadata"},
+  {id:10, blends: [{source: 0, perc: 50}, {source: 3, perc:30}, {source: 1, perc:20}], sdesc: "50% CLIP 30% Phi-3 description 20% NLA metadata"}
 ] ;
+
 
 
 async function testSearch(req, res) {
