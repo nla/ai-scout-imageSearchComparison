@@ -1,0 +1,23 @@
+<%- include('../common/header') ; -%>
+
+<div class="indent">
+
+  <H1>Thanks
+    <% if (optionalUserIdentifier) {%>
+      <%=optionalUserIdentifier%>
+   <%}%>
+    - that's the end of the search evaluations!</H1>
+    
+  <div class="indent">
+    <H3>Please continue to the similarity evaluations</H3>
+
+      <div>
+          <FORM action="/evaluate" method="post">
+            <center><input type="submit" value="Show me the first similarity evaluation"/></center>
+          </FORM>
+      </div>      
+
+  </div>
+</div>
+
+<%- include('../common/footer') ; -%>

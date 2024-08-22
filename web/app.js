@@ -89,10 +89,8 @@ app.set('view engine', 'ejs');
 
 app.use(appConfig.urlPrefix + '/',        require('./routes/home')		  .init(appConfig)) ;
 
-app.use(appConfig.urlPrefix + '/search',  require('./routes/search')	  .init(appConfig)) ;
-/*
-app.use(appConfig.urlPrefix + '/proxy',		require('./routes/proxyImage').init(appConfig)) ;
-*/
+app.use(appConfig.urlPrefix + '/evaluate',  require('./routes/evaluate').init(appConfig)) ;
+
 app.use(appConfig.urlPrefix + '/admin',		require('./routes/admin')			.init(appConfig)) ; // one day, authenticate
 
 //  -----  errors  -----

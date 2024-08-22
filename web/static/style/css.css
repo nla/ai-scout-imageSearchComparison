@@ -1,3 +1,6 @@
 .indent {margin-left:1em}
 .medSizeImage {max-width:350px;max-height:350px;float:left;width:350px;margin-right:10px;margin-bottom: 10px}
 .smallSizeImage {max-width:200px;max-height:200px;width:200px;margin-right:5px;margin-bottom: 5px}
+
+.eb {padding:8px;border-radius: 4px; border:none; text-align:center;text-decoration: none; display:inline-block;cursor:pointer}
+.invisibleButton{ display:none} 

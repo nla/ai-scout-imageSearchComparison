@@ -1,5 +1,4 @@
-200-images-audio/
-5000/
+
 *.class
 HarvestAndLoadPictures.java
 clipAsAserviceLog
@@ -22,3 +21,6 @@ web/*log
 web/nohup.out
 web/visionGenLog*
 web/visionScanCheckpoint.data
+data/*.tsv
+web/data/search.tsv
+web/data/similarity.tsv

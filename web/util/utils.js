@@ -181,18 +181,17 @@ module.exports = {
 			if (i < 0) continue ;
 			reloadedQuestions.push({num: parseInt(line.substring(0, i)),
 														  q: line.substring(i).trim()}) ;
+			//if (reloadedQuestions.length > 5) break ; // DEBUG
 		}
 		if (reloadedQuestions.length == 0) throw "No questions in file " + appConfig.questionFilename ;
 		QUESTIONS = reloadedQuestions ;		
 		console.log("loaded questions from " +  appConfig.questionFilename + ":\n" +
-				JSON.stringify(QUESTIONS)) ;
+				JSON.stringify(QUESTIONS)) ;		
 	},
 
 	getQuestions: async function() {
 
-		if (!QUESTIONS) QUESTIONS = await this.loadQuestions() ;
+		if (!QUESTIONS) await this.loadQuestions() ;
 		return QUESTIONS ;
 	}
-
-
 } ;

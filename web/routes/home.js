@@ -18,18 +18,39 @@ function init(appConfigParm) {
 
 async function setName(req, res) {
 
-  let optionalUserIdentifier = req.body.optionalUserIdentifier ;
-  if (optionalUserIdentifier)  
-    res.cookie('optionalUserIdentifier', optionalUserIdentifier, { maxAge: 3600 * 24 * 100, httpOnly: true }) ;
-
-  res.render('home', {req: req, optionalUserIdentifier: optionalUserIdentifier}) ;
+  try {
+    let optionalUserIdentifier = req.body.optionalUserIdentifier ;
+    if (optionalUserIdentifier)  
+      res.cookie('optionalUserIdentifier', optionalUserIdentifier, { maxAge: 3600 * 24 * 100, httpOnly: true }) ;
+    else {  // clear cookies
+      console.log("clearing cookies") ;
+      res.clearCookie('optionalUserIdentifier') ;
+      res.clearCookie('evaluationProgress') ;    
+    }
+    res.render('home', {req: req, optionalUserIdentifier: optionalUserIdentifier}) ;
+  }
+  catch (err) {
+    res.send("Error: " + err) ;
+    res.end() ;
+    console.log("setName err:" + err) ;
+    console.log(err.stack) ;
+  }
 }
 
 async function index(req, res) {
 
-  let optionalUserIdentifier = req.cookies.optionalUserIdentifier ;
+  try {
+    let optionalUserIdentifier = req.cookies.optionalUserIdentifier ;
+    let evaluationProgress = req.cookies.evaluationProgress ; // next search S-nn    or next similarity M-nn
 
-  res.render('home', {req: req, optionalUserIdentifier: optionalUserIdentifier}) ;
+    res.render('home', {req: req, optionalUserIdentifier: optionalUserIdentifier, evaluationProgress: evaluationProgress}) ;
+  }
+  catch (err) {
+    res.send("Error: " + err) ;
+    res.end() ;
+    console.log("index err:" + err) ;
+    console.log(err.stack) ;
+  }
 }
 
 module.exports.init = init ;

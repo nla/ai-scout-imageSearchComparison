@@ -67,7 +67,9 @@ run webserver like this
 
 `node app.js`
 
+## service
 
+/etc/systemd/system/imageSearchComparisonNode.service
 
 
 ## SOLR schema

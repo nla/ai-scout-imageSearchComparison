@@ -8,7 +8,7 @@
 1 aircraft, pilots, mechanics
 2 animals trapped by a flood
 3 art deco movie theatre
-4 art deco movie theatre interior
+4 Duntroon
 5 person giving a speech at a lecturn
 6 flock of sheep
 7 ballet
@@ -52,4 +52,6 @@
 45 broken hill
 46 person looking at the water
 47 people working in a factory
+48 Frensham School
+
 

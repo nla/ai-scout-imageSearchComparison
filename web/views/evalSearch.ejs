@@ -1,0 +1,128 @@
+<%- include('../common/header') ; -%>
+
+<% 
+
+  function genImageSrc(id) {
+    let im = id.replace('https://nla.gov.au', '/static/pics')
+            .replace('http://nla.gov.au', '/static/pics')
+            .replace("/image", ".jpg")
+            .replace("/representativeImage", ".jpg") ;
+    // something like   /static/pics/nla.obj-161515917.jpg
+    let i = im.indexOf('/nla.obj-') ;
+    let j = im.indexOf('.jpg') ;
+    let idd = Number(im.substring(i+9, j)) ;
+    let subDir = idd % 1000 ;
+    return im.substring(0, i) + "/" + subDir + im.substring(i) ;
+  }
+
+  function clean(title) {
+
+    if (!title) return "No title" ;
+    title = title.replace("[picture]", "").replace('[', "").replace(']', "") ;
+    let i = title.indexOf("/") ;
+    if (i > 5) title = title.substring(0, i) ;
+    if (title.length > 60) title = title.substring(0, title.lastIndexOf(' ', 55)) + "..." ;
+    return title ;
+  }
+
+  function formatDoc(docs, len, seq) {
+    if (seq >= len) {
+      if (seq == 0) return "<TD>no results</TD>" ;
+      return "<TD></TD>" ;
+    }
+    let doc = docs[seq] ;
+
+    return "<TD>" +
+              (seq + 1) + ". " + clean(doc.title) + "<BR/>" +
+             "<IMG src='" + genImageSrc(doc.id) + "' class='medSizeImage' style='float:none;width:350px'>" +              
+            "</TD>" ;
+  }
+  
+  function showDocs(a, b) {
+
+    let aLen = (a) ? a.length : 0 ;
+    let bLen = (b) ? b.length : 0 ;
+
+    let maxLen = Math.max(aLen, bLen) ;
+    if (maxLen == 0) return "<TR><TD>No results</TD></TR>" ;
+
+    let rows = [] ;
+    for (let i=0;i<=maxLen;i++) {
+      let row = "<TR valign='top'>" ;
+      row += formatDoc(a, aLen, i) ;
+      row += "<TD></TD>" ;
+      row += formatDoc(b, bLen, i) ;
+      rows.push(row + "</TR>") ;
+    }
+    return rows.join("\n") ;
+}
+
+function genClass(docs) {
+
+  return (docs && (docs.length > 0)) ? "eb" : "invisibleButton" ;
+}
+
+%>
+
+
+<div id="results">
+
+  <DIV style="float:right;font-size:75%">
+    Question <%=seq%> of <%= totalSeq %><BR/>
+    Click a button to record your evaluation
+  </DIV>
+
+  <H3>Search query: <%= question %></H3>
+ 
+  <FORM action="/evaluate" method="post" name="evalForm" id="evalForm">
+    <input type="hidden" name="seq" value="<%=seq%>"/>
+    <input type="hidden" name="a" value="<%=a%>"/>
+    <input type="hidden" name="b" value="<%=b%>"/>
+    <input type="hidden" name="question" value="<%=question%>"/>
+    <input type="hidden" name="eval" id="eval" value="?"/>
+
+    <TABLE CELLSPACING="10">
+      <TR valign="top">
+        <TH width="45%">
+          Set A<BR/>
+          <button id="a3" class="<%=genClass(aRes.docs)%>" style="color:white; background-color: rgb(4, 92, 146)">Much better</button>
+          <button id="a2" class="<%=genClass(aRes.docs)%>" style="background-color: lightskyblue">Somewhat better</button>
+          <button id="a1" class="<%=genClass(aRes.docs)%>" style="background-color: rgba(135, 206, 250, 0.308)">Marginally better</button>
+        </TH>
+        <TH>&nbsp;<BR/>
+          <button id="abx" class="eb" style="background-color:#dddddd">About the same</button>
+        </TH>
+        <TH  width="45%">
+          Set B<BR/>
+          <button id="b1" class="<%=genClass(bRes.docs)%>" style="background-color: rgba(241, 215, 169, 0.322)">Marginally better</button>
+          <button id="b2" class="<%=genClass(bRes.docs)%>" style="background-color: rgba(243, 156, 5, 0.411)">Somewhat better</button>
+          <button id="b3" class="<%=genClass(bRes.docs)%>" style="color:white;background-color: rgba(158, 102, 4, 0.719)"">Much better</button>
+        </TH>
+      </TR>
+     
+      <%- showDocs(aRes.docs, bRes.docs) %>
+      
+      <TR valign="top">
+        <TH width="45%">
+          Set A<BR/>
+          <button id="a3x" class="eb" style="color:white; background-color: rgb(4, 92, 146)">Much better</button>
+          <button id="a2x" class="eb" style="background-color: lightskyblue">Somewhat better</button>
+          <button id="a1x" class="eb" style="background-color: rgba(135, 206, 250, 0.308)">Marginally better</button>
+        </TH>
+        <TH>&nbsp;<BR/>
+          <button id="abx" class="eb" style="background-color:#dddddd">About the same</button>
+        </TH>
+        <TH  width="45%">
+          Set B<BR/>
+          <button id="b1x" class="eb" style="background-color: rgba(241, 215, 169, 0.322)">Marginally better</button>
+          <button id="b2x" class="eb" style="background-color: rgba(243, 156, 5, 0.411)">Somewhat better</button>
+          <button id="b3x" class="eb" style="color:white;background-color: rgba(158, 102, 4, 0.719)"">Much better</button>
+        </TH>
+      </TR>
+    </TABLE>
+  </FORM>
+
+</div>
+
+<%- include('../common/footer') ; -%>
+
