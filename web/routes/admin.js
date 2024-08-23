@@ -13,7 +13,7 @@ let appConfig = null ;
 function init(appConfigParm) {
 
   appConfig = appConfigParm ;
-  //router.get('/recreateSOLRindex',		async (req, res) => { recreateSOLRindex(req, res) }) ;
+  router.get('/recreateSOLRindex',		async (req, res) => { recreateSOLRindex(req, res) }) ;
   router.get('/reloadQuestions',		  async (req, res) => { reloadQuestions(req, res) }) ;
 //router.get('/showEvaluations',      async (req, res) => { showEvaluations(req, res) }) ;
   return router ;  
@@ -72,7 +72,7 @@ async function recreateSOLRindex(req, res) {
     // index due to a misconfiguration
 
     res.write("deleting docs in " + appConfig.comparisonImageSearchPicturesCore + "...\n") ;
-    //await solr.deleteByQuery("evaluationField:Y", appConfig.comparisonImageSearchPicturesCore) ;
+    await solr.deleteByQuery("evaluationField:Y", appConfig.comparisonImageSearchPicturesCore) ;
     res.write("deleted docs in " + appConfig.comparisonImageSearchPicturesCore + "\n") ;
   }
   catch (e) {
@@ -85,7 +85,8 @@ async function recreateSOLRindex(req, res) {
     let newDocs = [] ; // 5000 in one transaction, no problem..
     let searchParameters =
     "&wt=json&rows=999999" +  // only expecting 500   Skip the noise images
-    "&q=openAIDescription:* AND -openAIDescription:(\"No preview available\") AND -openAIDescription:(\"I can't provide assistance with that request\")" +
+    "&q=openAIDescription:* AND -openAIDescription:(\"No preview available\") AND " +
+        "-openAIDescription:(\"I can't provide assistance with that request\") AND -suppressed:*" + // added not suppressed 23Aug24 - removed 268 recs bring total down to 4363
     "&q.op=AND" +
     "&fl=id,url,contentType,title,metadataText,bibId,formGenre,format,author,originalDescription,notes,incomingUrls," +
         "openAIDescription,msVisionDescription,imageVector,suppressed" ; // we dont get the text vectors (done with clip) because we are redoing them with nomic
@@ -99,6 +100,7 @@ async function recreateSOLRindex(req, res) {
       // get embeddings of the metadata and generated descriptions
 
       res.write("DOC " + doc.id + "\n") ;
+
       doc.nomicMetadataEmbedding = setEmbeddingsAsFloats(await utils.getNomicEmbedding(doc.metadataText.join(" ").trim())) ;
       
       doc.nomicOpenAIDescriptionEmbedding = setEmbeddingsAsFloats(await utils.getNomicEmbedding(doc.openAIDescription.trim())) ;

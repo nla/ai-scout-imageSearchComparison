@@ -72,7 +72,7 @@ function genClass(docs) {
     Click a button to record your evaluation
   </DIV>
 
-  <H3>Search query: <%= question %></H3>
+  <H3><span style='font-weight:100'>Search query:</span> <%= question %></H3>
  
   <FORM action="/evaluate" method="post" name="evalForm" id="evalForm">
     <input type="hidden" name="seq" value="<%=seq%>"/>
@@ -90,7 +90,7 @@ function genClass(docs) {
           <button id="a1" class="<%=genClass(aRes.docs)%>" style="background-color: rgba(135, 206, 250, 0.308)">Marginally better</button>
         </TH>
         <TH>&nbsp;<BR/>
-          <button id="abx" class="eb" style="background-color:#dddddd">About the same</button>
+          <button id="abx" class="eb" style="background-color:#dddddd">No preference</button>
         </TH>
         <TH  width="45%">
           Set B<BR/>
@@ -110,7 +110,7 @@ function genClass(docs) {
           <button id="a1x" class="eb" style="background-color: rgba(135, 206, 250, 0.308)">Marginally better</button>
         </TH>
         <TH>&nbsp;<BR/>
-          <button id="abx" class="eb" style="background-color:#dddddd">About the same</button>
+          <button id="abx" class="eb" style="background-color:#dddddd">No preference</button>
         </TH>
         <TH  width="45%">
           Set B<BR/>

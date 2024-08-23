@@ -28,7 +28,7 @@ const similarityCallibrationImages = ["", // dummy seq=0 entry - we start at 1 (
   "nla.obj-161285481", "nla.obj-159249858", "nla.obj-162422253",
   "nla.obj-3284516716", "nla.obj-148911391" , "nla.obj-136835710", "nla.obj-159893642",
   "nla.obj-147716313", "nla.obj-232652175", "nla.obj-139829745", "nla.obj-2881549102",
-  "nla.obj-152044606", "nla.obj-3088810834", "nla.obj-152406399", "nla.obj-139328926",
+  "nla.obj-152044606", "nla.obj-3088810834", "nla.obj-136469065", "nla.obj-139328926",
   "nla.obj-159092668", "nla.obj-145170241", "nla.obj-152573561" , "nla.obj-151447880",
   "nla.obj-1209799016", "nla.obj-153533075", "nla.obj-503947443", "nla.obj-140357064",
   "nla.obj-160451786", "nla.obj-142838917", "nla.obj-150140881", "nla.obj-146286848",
@@ -118,11 +118,19 @@ async function showSearchEval(req, res, seq, optionalUserIdentifier) {
   // now run the search
 
   // choose a and b methods
-  let a = Math.floor(Math.random() * abSearchSets.length) ;
+  let a = -1 ;
+  while (true) {
+    a = Math.floor(Math.random() * abSearchSets.length) ;
+    if (abSearchSets[a].notSelectable) continue ;   // some have been removed to reduce count and improve stats
+    break ;
+
+  }
   let b = -1 ;
   while (true) {
     b = Math.floor(Math.random() * abSearchSets.length) ;
-    if (b != a) break ;
+    if (b == a) continue  ;
+    if (abSearchSets[b].notSelectable) continue ; // some have been removed to reduce count and improve stats
+    break ;
   }
   let question = findQuestionForSeq(questions, seq) ;
   question = cleanseLite(question).trim() ;
@@ -307,16 +315,16 @@ const abSearchSets = [
   {id:1,  desc: "NLA metadata keyword: compares the NLA metadata text with the query text (traditional Lucene TF/IDF approach)", bq: metaBQ},
   {id:2,  desc: "OpenAI description keyword: compares the OpenAI description text with the query text (traditional Lucene TF/IDF approach).", bq: openAIBQ},
   {id:3,  desc: "Phi-3 description keyword: compares the Phi-3 description text with the query text (traditional Lucene TF/IDF approach).", bq: phi3BQ},
-  {id:4,  blends: [{source: 0, perc: 80}, {source: 1, perc:20}], sdesc: "80% CLIP 20% NLA metadata"},
-  {id:5,  blends: [{source: 0, perc: 50}, {source: 1, perc:50}], sdesc: "50% CLIP 50% NLA metadata"},
-  {id:6,  blends: [{source: 0, perc: 80}, {source: 2, perc:20}], sdesc: "80% CLIP 20% OpenAI description"},
-  {id:7,  blends: [{source: 0, perc: 50}, {source: 2, perc:50}], sdesc: "50% CLIP 50% OpenAI description"},
+  {id:4,  notSelectable: true, blends: [{source: 0, perc: 80}, {source: 1, perc:20}], sdesc: "80% CLIP 20% NLA metadata"},
+  {id:5,  notSelectable: true, blends: [{source: 0, perc: 50}, {source: 1, perc:50}], sdesc: "50% CLIP 50% NLA metadata"},
+  {id:4,  blends: [{source: 0, perc: 80}, {source: 2, perc:20}], sdesc: "80% CLIP 20% OpenAI description"},
+  {id:7,  notSelectable: true, blends: [{source: 0, perc: 50}, {source: 2, perc:50}], sdesc: "50% CLIP 50% OpenAI description"},
   {id:8,  blends: [{source: 0, perc: 80}, {source: 3, perc:20}], sdesc: "80% CLIP 20% Phi-3 description"},
-  {id:9,  blends: [{source: 0, perc: 20}, {source: 3, perc:50}], sdesc: "50% CLIP 50% Phi-3 description"},
+  {id:9,  notSelectable: true, blends: [{source: 0, perc: 50}, {source: 3, perc:50}], sdesc: "50% CLIP 50% Phi-3 description"},
   {id:10, blends: [{source: 0, perc: 50}, {source: 2, perc:30}, {source: 1, perc:20}], sdesc: "50% CLIP 30% OpenAI description 20% NLA metadata"},
-  {id:10, blends: [{source: 0, perc: 50}, {source: 3, perc:30}, {source: 1, perc:20}], sdesc: "50% CLIP 30% Phi-3 description 20% NLA metadata"}
+  {id:11, blends: [{source: 0, perc: 50}, {source: 3, perc:30}, {source: 1, perc:20}], sdesc: "50% CLIP 30% Phi-3 description 20% NLA metadata"}
 ] ;
-
+// we dont allow 4, 5, 7, 9 to be selected
 
 
 async function testSearch(req, res) {
