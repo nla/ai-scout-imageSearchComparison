@@ -1,57 +1,60 @@
 # Questions
 # Empty lines and lines starting with # or // are ignored.
-# Format is {number}{space}{question}
-# Number should be 1 or 2 digits, no leading zeros
-# Number/question combo must never be changed - if you want to remove a question, comment it out
+# Format is {question}
+# Question sequence should not be changed.  Actually, just dont edit this file..
+# (was changeable, but too much pointless hassle)
 
 
-1 aircraft, pilots, mechanics
-2 animals trapped by a flood
-3 art deco movie theatre
-4 Duntroon
-5 person giving a speech at a lecturn
-6 flock of sheep
-7 ballet
-8 book covers
-9 bridge construction
-10 busy country town street
-11 children having fun in the snow
-12 people on horseback
-13 civil disobediance [sic]
-14 energetic and fast motion
-15 fancy dress party
-16 flamboyent, outrageous, colorful hat
-17 gothic building
-18 having fun at the beach
-19 mother and child
-20 scenic view of a lake 
-21 man in front of bookcase
-22 mining with heavy machinery
-23 old movie houses
-24 people looking very happy, smiling or laughing outside
-25 people on boat
-26 people studying in a library
-27 playing music
-28 politician in a suit
-29 propaganda posters
-30 surveyors at work with theodolite
-31 three people in a photograph
-32 using horses for agricultural work
-33 olympic games
-34 walking in the bush
-35 train passengers
-36 scences from world war two
-37 Japanese print showing the sea or ocean
-38 Japanese print with lots of red
-39 Japanese image of mountains
-40 house in Bowral
-41 tennis court
-42 Sydney Cricket Ground
-43 Sydney Town Hall
-44 Alexander Downer
-45 broken hill
-46 person looking at the water
-47 people working in a factory
-48 Frensham School
+aircraft, pilots, mechanics
+purple flowers or foilage
+gothic building
+animals trapped by a flood
+art deco movie theatre
+Duntroon
+person giving a speech at a lecturn
+flock of sheep
+ballet
+black and white images of big city streets
+50 colour images of big city streets
+book covers
+bridge construction
+busy country town street
+snow skiing
+people on horseback
+civil disobediance [sic]
+athletic events
+fancy dress party
+having fun at the beach
+mother and child
+scenic view of a lake 
+man in front of bookcase
+mining with heavy machinery
+old movie houses
+people looking very happy, smiling or laughing outside
+people on boat
+bottle factory
+selling cattle
+politician in a suit
+propaganda posters
+surveyors at work with theodolite
+three people in a photograph
+using horses for agricultural work
+scenes of isolation
+child with their toys
+train passengers
+scences from world war two
+Japanese print showing the sea or ocean
+Japanese print with lots of red
+racing yachts
+boy scouts
+car dealerships
+Sydney Cricket Ground
+Sydney Town Hall
+Alexander Downer
+broken hill
+person looking at the water
+people working in a factory
+Frensham School
+
 
 

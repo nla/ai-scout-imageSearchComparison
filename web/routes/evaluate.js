@@ -24,7 +24,7 @@ const abSimilaritySets = [
   {id:3,  desc: "Phi-3 description similarity", matchField: "nomicMsVisionDescriptionEmbedding"}
 ]
 
-const similarityCallibrationImages = ["", // dummy seq=0 entry - we start at 1 (like questions..)
+const similarityCallibrationImages = [
   "nla.obj-161285481", "nla.obj-159249858", "nla.obj-162422253",
   "nla.obj-3284516716", "nla.obj-148911391" , "nla.obj-136835710", "nla.obj-159893642",
   "nla.obj-147716313", "nla.obj-232652175", "nla.obj-139829745", "nla.obj-2881549102",
@@ -41,23 +41,38 @@ async function evaluate(req, res) {
   try {
     let optionalUserIdentifier = req.cookies.optionalUserIdentifier ;
     let evaluationProgress = req.cookies.evaluationProgress ; // next search S-nn    or next similarity M-nn
+    let startingPoint = req.cookies.startingPoint ;
+    if ((startingPoint === undefined) || (startingPoint === null) || isNaN(startingPoint)) {
+      let questions = await utils.getQuestions() ;
+      startingPoint = Math.floor(Math.random() * questions.length) ;
+      res.cookie('startingPoint', "" + startingPoint, { maxAge: 3600 * 24 * 100, httpOnly: true }) ;
+    }
+    else startingPoint = parseInt(startingPoint) ;
 
-    if (!evaluationProgress || !evaluationProgress.match(/^[SM]\-\d\d$/)) evaluationProgress = "S-01" ; // "S-01" ;
+    if (!evaluationProgress || !evaluationProgress.match(/^[SM]\-\d\d$/)) evaluationProgress = "S-00" ; // "S-01" ;
 
     let match = evaluationProgress.match(/^([SM])\-(\d\d)$/) ;
     let series = match[1] ;
-    let seq = parseInt(match[2]) ;
-    if (seq < 1) seq = 1 ; // sheesh..
+    let seq = parseInt(match[2], 10) ;
+    if (seq < 0) seq = 0 ; // sheesh..
+
+    // NOTE (coz this changed from initial design and code may be confusing):
+    // seq starts at 0 and goes to length of question list or length of similarity image list.  It is incremented.
+    // startingPoint is same range but randomised and constant (for a cookie-defined session)
+    // image shown and being evaluated is (seq + startingPoint) mod question (or simialrity image list) length
 
     switch (series) {
-      case 'S': await showSearchEval(req, res, seq, optionalUserIdentifier) ;
+      case 'S': await showSearchEval(req, res, seq, optionalUserIdentifier, startingPoint) ;
                 break ;
-      case 'M': await showSimEval(req, res, seq, optionalUserIdentifier) ;
+      case 'M': await showSimEval(req, res, seq, optionalUserIdentifier, startingPoint) ;
                break ;
     }
   }
   catch (err) {
-    res.send("Error: " + err) ;
+    res.send("<HTML><BODY>Error: " + err + 
+     ' <FORM action="/evaluate" method="post"><center><input type="submit" value="Resume evaluations"/></center></FORM>' +
+     "</BODY></HTML>"
+    ) ;
     res.end() ;
     console.log("evaluate err:" + err) ;
     console.log(err.stack) ;
@@ -73,41 +88,48 @@ function clean(x) {
   return x ;
 }
 
-async function writeEval(req, evalType, anyUser, seq, questionOrImage, a, aDesc, b, bDesc, eval) {
+async function writeEval(req, evalType, anyUser, realSeq, questionOrImage, a, aDesc, b, bDesc, eval) {
 
   if (!anyUser) anyUser = "_anonymous_" ;
   let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress || '_unknown_' ;
   let ts = utils.currentTimestampAsYYYYMMDDHHmmSS() ;
   let line = ts + "\t" + ip + "\t" + 
-            clean(anyUser) + "\t" + clean(seq) + "\t" + clean(questionOrImage) + "\t" +
+            clean(anyUser) + "\t" + clean(realSeq) + "\t" + clean(questionOrImage) + "\t" +
             clean(a) + "\t" + clean(aDesc) + "\t" + clean(b) + "\t" + clean(bDesc) + "\t" + clean(eval) + "\n" ;
   fs.appendFileSync("data/" + evalType + ".tsv", line) ;
+  console.log("WROTE EVAL for realSeq " + realSeq + ": " + line) ;
 }
 
-async function showSearchEval(req, res, seq, optionalUserIdentifier) {
+async function showSearchEval(req, res, seq, optionalUserIdentifier, startingPoint) {
 
-  console.log("\nin searchEval seq= " + seq + " req=" +JSON.stringify(req.body));
+  console.log("\nin searchEval seq= " + seq + " startingPoint= " +startingPoint + " req=" +JSON.stringify(req.body));
 
   let questions = await utils.getQuestions() ;
   console.log("questions:" + JSON.stringify(questions) );
 
   // if eval, save it and increment seq
   if (req.body.question) {
-    let lastQuestion = findQuestionForSeq(questions, parseInt(req.body.seq)) ;
+    let realSeq = seq + startingPoint ;
+    if (realSeq >= questions.length) realSeq -= questions.length ;
+    let lastQuestion = questions[realSeq] ;
     lastQuestion = cleanseLite(lastQuestion).trim() ;
 
     if (lastQuestion != req.body.question) throw "cookie/question mismatch " + req.body.seq + ": " + lastQuestion + "/" + req.body.question ;
     // save
-    await writeEval(req, "search", optionalUserIdentifier, req.body.seq, req.body.question, 
+
+
+    await writeEval(req, "search", optionalUserIdentifier, "" + realSeq, req.body.question, 
       req.body.a, abSearchSets[parseInt(req.body.a)].desc || abSearchSets[parseInt(req.body.a)].sdesc,
       req.body.b, abSearchSets[parseInt(req.body.b)].desc || abSearchSets[parseInt(req.body.b)].sdesc,
       req.body.eval) ; 
      
-    seq = parseInt(req.body.seq) + 1 ;      
+    seq++ ;      
   }
 
-  if (seq > questions.length) {  // all done!!
-    res.cookie('evaluationProgress', "M-01", { maxAge: 3600 * 24 * 100, httpOnly: true }) ;
+  console.log(" seq now " + seq) ;
+
+  if ((seq >= questions.length)) {  // all done!!
+    res.cookie('evaluationProgress', "M-00", { maxAge: 3600 * 24 * 100, httpOnly: true }) ;
     res.render('endOfSearchEvals', {req: req, optionalUserIdentifier: optionalUserIdentifier}) ;
     return ;
   }
@@ -132,8 +154,12 @@ async function showSearchEval(req, res, seq, optionalUserIdentifier) {
     if (abSearchSets[b].notSelectable) continue ; // some have been removed to reduce count and improve stats
     break ;
   }
-  let question = findQuestionForSeq(questions, seq) ;
-  question = cleanseLite(question).trim() ;
+
+  let targetQuestionSeq = seq + startingPoint ;
+  if (targetQuestionSeq >= questions.length) targetQuestionSeq -= questions.length ;
+
+
+  let question =  cleanseLite(questions[targetQuestionSeq]).trim() ;
 
   console.log("question:" + question) ;
 
@@ -144,29 +170,26 @@ async function showSearchEval(req, res, seq, optionalUserIdentifier) {
       aRes: aRes, bRes: bRes, seq: seq, totalSeq: questions.length}) ;
 }
 
-function findQuestionForSeq(questions, seq) {
 
-  for (let q of questions) 
-    if (q.num == seq) return q.q ;
-  console.log("No question seq: " + seq) ;
-  throw "No question seq: " + seq ;
-}
+async function showSimEval(req, res, seq, optionalUserIdentifier, startingPoint) {
 
-async function showSimEval(req, res, seq, optionalUserIdentifier) {
+  console.log("\nin showSimEval seq= " + seq + " startingPoint=" + startingPoint + " req=" +JSON.stringify(req.body));
 
-  console.log("\nin showSimEval seq= " + seq + " req=" +JSON.stringify(req.body));
+  if (startingPoint >= similarityCallibrationImages.length) startingPoint = 0 ; // hack - more questions than sim images
 
   // if eval, save it and increment seq
   if (req.body.image) {
-    let lastImage = similarityCallibrationImages[parseInt(req.body.seq)] ;
+    let realSeq = seq + startingPoint ;
+    if (realSeq >= similarityCallibrationImages.length) realSeq -= similarityCallibrationImages.length ;
+
+    let lastImage = similarityCallibrationImages[realSeq] ;
 
     if (lastImage != req.body.image) throw "cookie/image mismatch " + req.body.seq + ": " + lastImage + "/" + req.body.image ;
     // save
-    await writeEval(req, "similarity", optionalUserIdentifier, req.body.seq, req.body.image, req.body.a, 
+    await writeEval(req, "similarity", optionalUserIdentifier, "" + realSeq, req.body.image, req.body.a, 
       abSimilaritySets[parseInt(req.body.a)].desc, req.body.b, abSimilaritySets[parseInt(req.body.b)].desc, req.body.eval) ; 
-     
-
-    seq = parseInt(req.body.seq) + 1 ;      
+  
+    seq++ ;      
   }
 
   if (seq >= similarityCallibrationImages.length) {  // all done!!
@@ -187,8 +210,11 @@ async function showSimEval(req, res, seq, optionalUserIdentifier) {
     b = Math.floor(Math.random() * abSimilaritySets.length) ;
     if (b != a) break ;
   }
-  let image = similarityCallibrationImages[seq] ;
 
+  let targetImageSeq = seq + startingPoint ;
+  if (targetImageSeq >= similarityCallibrationImages.length) targetImageSeq -= similarityCallibrationImages.length ;
+
+  let image = similarityCallibrationImages[targetImageSeq] ;
 
   let targetImage = await getTargetImageForSimilarity(image) ;
   console.log(" got a=" + a + " b=" + b + " targetImage =" + targetImage) ;
@@ -199,7 +225,7 @@ async function showSimEval(req, res, seq, optionalUserIdentifier) {
       " targetImage id" + targetImage.id + " aRes count " + aRes.docs.length + " bRes count " + bRes.docs.length) ;
 
   res.render('evalSimilarity', {req: req, appConfig: appConfig, image: image, abSets: abSearchSets, a: a, b: b,
-        aRes: aRes, bRes: bRes, seq: seq, totalSeq: similarityCallibrationImages.length - 1}) ;
+        aRes: aRes, bRes: bRes, seq: seq, totalSeq: similarityCallibrationImages.length }) ;
 }
 
 async function testSimilarity(req, res) {

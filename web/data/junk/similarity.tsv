@@ -1,0 +1,92 @@
+20240823-082611	::ffff:192.102.239.195	kent test2	1	nla.obj-161285481	3	Phi-3 description similarity	2	OpenAI description similarity	a1
+20240823-083407	::ffff:192.102.239.195	kent test2	2	nla.obj-159249858	0	CLIP similarity	2	OpenAI description similarity	a1
+20240823-083417	::ffff:192.102.239.195	kent test2	3	nla.obj-162422253	2	OpenAI description similarity	0	CLIP similarity	b1
+20240823-083424	::ffff:192.102.239.195	kent test2	4	nla.obj-3284516716	1	Metadata similarity	3	Phi-3 description similarity	a2
+20240823-083429	::ffff:192.102.239.195	kent test2	5	nla.obj-148911391	0	CLIP similarity	2	OpenAI description similarity	ab
+20240823-083435	::ffff:192.102.239.195	kent test2	6	nla.obj-136835710	0	CLIP similarity	1	Metadata similarity	a2
+20240823-095537	::ffff:192.102.239.197	_anonymous_	1	nla.obj-161285481	2	OpenAI description similarity	3	Phi-3 description similarity	b1
+20240823-095551	::ffff:192.102.239.197	_anonymous_	2	nla.obj-159249858	0	CLIP similarity	3	Phi-3 description similarity	ab
+20240823-095605	::ffff:192.102.239.197	_anonymous_	3	nla.obj-162422253	1	Metadata similarity	3	Phi-3 description similarity	b3
+20240823-095612	::ffff:192.102.239.197	_anonymous_	4	nla.obj-3284516716	2	OpenAI description similarity	3	Phi-3 description similarity	a3
+20240823-095623	::ffff:192.102.239.197	_anonymous_	5	nla.obj-148911391	2	OpenAI description similarity	3	Phi-3 description similarity	ab
+20240823-095701	::ffff:192.102.239.197	_anonymous_	6	nla.obj-136835710	0	CLIP similarity	1	Metadata similarity	ab
+20240823-095706	::ffff:192.102.239.197	_anonymous_	7	nla.obj-159893642	1	Metadata similarity	2	OpenAI description similarity	ab
+20240823-095716	::ffff:192.102.239.197	_anonymous_	8	nla.obj-147716313	3	Phi-3 description similarity	0	CLIP similarity	b2
+20240823-095724	::ffff:192.102.239.197	_anonymous_	9	nla.obj-232652175	0	CLIP similarity	2	OpenAI description similarity	ab
+20240823-095738	::ffff:192.102.239.197	_anonymous_	10	nla.obj-139829745	0	CLIP similarity	3	Phi-3 description similarity	a2
+20240823-095743	::ffff:192.102.239.197	_anonymous_	11	nla.obj-2881549102	2	OpenAI description similarity	3	Phi-3 description similarity	ab
+20240823-095750	::ffff:192.102.239.197	_anonymous_	12	nla.obj-152044606	1	Metadata similarity	0	CLIP similarity	ab
+20240823-095754	::ffff:192.102.239.197	_anonymous_	13	nla.obj-3088810834	2	OpenAI description similarity	0	CLIP similarity	ab
+20240823-095759	::ffff:192.102.239.197	_anonymous_	14	nla.obj-152406399	2	OpenAI description similarity	1	Metadata similarity	a2
+20240823-095809	::ffff:192.102.239.197	_anonymous_	15	nla.obj-139328926	1	Metadata similarity	2	OpenAI description similarity	a1
+20240823-095815	::ffff:192.102.239.197	_anonymous_	16	nla.obj-159092668	2	OpenAI description similarity	1	Metadata similarity	ab
+20240823-095821	::ffff:192.102.239.197	_anonymous_	17	nla.obj-145170241	0	CLIP similarity	3	Phi-3 description similarity	a3
+20240823-095833	::ffff:192.102.239.197	_anonymous_	18	nla.obj-152573561	0	CLIP similarity	2	OpenAI description similarity	ab
+20240823-095839	::ffff:192.102.239.197	_anonymous_	19	nla.obj-151447880	3	Phi-3 description similarity	2	OpenAI description similarity	ab
+20240823-095843	::ffff:192.102.239.197	_anonymous_	20	nla.obj-1209799016	2	OpenAI description similarity	3	Phi-3 description similarity	ab
+20240823-095852	::ffff:192.102.239.197	_anonymous_	21	nla.obj-153533075	0	CLIP similarity	3	Phi-3 description similarity	b1
+20240823-095858	::ffff:192.102.239.197	_anonymous_	22	nla.obj-503947443	3	Phi-3 description similarity	2	OpenAI description similarity	ab
+20240823-095906	::ffff:192.102.239.197	_anonymous_	23	nla.obj-140357064	1	Metadata similarity	3	Phi-3 description similarity	ab
+20240823-095916	::ffff:192.102.239.197	_anonymous_	24	nla.obj-160451786	0	CLIP similarity	2	OpenAI description similarity	b2
+20240823-095925	::ffff:192.102.239.197	_anonymous_	25	nla.obj-142838917	0	CLIP similarity	2	OpenAI description similarity	a2
+20240823-095931	::ffff:192.102.239.197	_anonymous_	26	nla.obj-150140881	2	OpenAI description similarity	1	Metadata similarity	a3
+20240823-095939	::ffff:192.102.239.197	_anonymous_	27	nla.obj-146286848	0	CLIP similarity	1	Metadata similarity	a3
+20240823-095947	::ffff:192.102.239.197	_anonymous_	28	nla.obj-159763640	2	OpenAI description similarity	3	Phi-3 description similarity	a2
+20240823-095952	::ffff:192.102.239.197	_anonymous_	29	nla.obj-137409017	2	OpenAI description similarity	0	CLIP similarity	ab
+20240823-095959	::ffff:192.102.239.197	_anonymous_	30	nla.obj-847179341	0	CLIP similarity	3	Phi-3 description similarity	a3
+20240823-100011	::ffff:192.102.239.197	_anonymous_	31	nla.obj-160981535	3	Phi-3 description similarity	0	CLIP similarity	b2
+20240823-100017	::ffff:192.102.239.197	_anonymous_	32	nla.obj-160529463	2	OpenAI description similarity	3	Phi-3 description similarity	ab
+20240823-100023	::ffff:192.102.239.197	_anonymous_	33	nla.obj-151500576	2	OpenAI description similarity	1	Metadata similarity	b2
+20240823-100031	::ffff:192.102.239.197	_anonymous_	34	nla.obj-137011934	1	Metadata similarity	3	Phi-3 description similarity	b2
+20240823-100037	::ffff:192.102.239.197	_anonymous_	35	nla.obj-133000693	1	Metadata similarity	2	OpenAI description similarity	b3
+20240823-170158	::ffff:203.4.203.133	cvallance@nla.gov.au	1	nla.obj-161285481	0	CLIP similarity	2	OpenAI description similarity	a2
+20240823-170214	::ffff:203.4.203.133	cvallance@nla.gov.au	2	nla.obj-159249858	1	Metadata similarity	0	CLIP similarity	b3
+20240823-170231	::ffff:203.4.203.133	cvallance@nla.gov.au	3	nla.obj-162422253	3	Phi-3 description similarity	1	Metadata similarity	a2
+20240823-170238	::ffff:203.4.203.133	cvallance@nla.gov.au	4	nla.obj-3284516716	0	CLIP similarity	1	Metadata similarity	ab
+20240823-170248	::ffff:203.4.203.133	cvallance@nla.gov.au	5	nla.obj-148911391	1	Metadata similarity	3	Phi-3 description similarity	b2
+20240823-170301	::ffff:203.4.203.133	cvallance@nla.gov.au	6	nla.obj-136835710	3	Phi-3 description similarity	0	CLIP similarity	ab
+20240823-175409	::ffff:192.102.239.195	the bubble-headed-booby	1	nla.obj-161285481	3	Phi-3 description similarity	1	Metadata similarity	a2
+20240823-175414	::ffff:192.102.239.195	the bubble-headed-booby	2	nla.obj-159249858	3	Phi-3 description similarity	0	CLIP similarity	b1
+20240823-175424	::ffff:192.102.239.195	the bubble-headed-booby	3	nla.obj-162422253	0	CLIP similarity	2	OpenAI description similarity	a1
+20240823-175430	::ffff:192.102.239.195	the bubble-headed-booby	4	nla.obj-3284516716	0	CLIP similarity	2	OpenAI description similarity	a1
+20240823-175442	::ffff:192.102.239.195	the bubble-headed-booby	5	nla.obj-148911391	3	Phi-3 description similarity	1	Metadata similarity	ab
+20240823-175451	::ffff:192.102.239.195	the bubble-headed-booby	6	nla.obj-136835710	3	Phi-3 description similarity	0	CLIP similarity	b1
+20240823-175458	::ffff:192.102.239.195	the bubble-headed-booby	7	nla.obj-159893642	0	CLIP similarity	3	Phi-3 description similarity	a1
+20240823-175506	::ffff:192.102.239.195	the bubble-headed-booby	8	nla.obj-147716313	2	OpenAI description similarity	1	Metadata similarity	ab
+20240823-175521	::ffff:192.102.239.195	the bubble-headed-booby	9	nla.obj-232652175	1	Metadata similarity	3	Phi-3 description similarity	ab
+20240823-175528	::ffff:192.102.239.195	the bubble-headed-booby	10	nla.obj-139829745	2	OpenAI description similarity	3	Phi-3 description similarity	ab
+20240823-175539	::ffff:192.102.239.195	the bubble-headed-booby	11	nla.obj-2881549102	2	OpenAI description similarity	0	CLIP similarity	ab
+20240823-175548	::ffff:192.102.239.195	the bubble-headed-booby	12	nla.obj-152044606	2	OpenAI description similarity	3	Phi-3 description similarity	a1
+20240823-175554	::ffff:192.102.239.195	the bubble-headed-booby	13	nla.obj-3088810834	0	CLIP similarity	1	Metadata similarity	ab
+20240823-175607	::ffff:192.102.239.195	the bubble-headed-booby	14	nla.obj-136469065	1	Metadata similarity	3	Phi-3 description similarity	ab
+20240823-175617	::ffff:192.102.239.195	the bubble-headed-booby	15	nla.obj-139328926	3	Phi-3 description similarity	0	CLIP similarity	b1
+20240823-175627	::ffff:192.102.239.195	the bubble-headed-booby	16	nla.obj-159092668	3	Phi-3 description similarity	0	CLIP similarity	ab
+20240823-175635	::ffff:192.102.239.195	the bubble-headed-booby	17	nla.obj-145170241	3	Phi-3 description similarity	2	OpenAI description similarity	ab
+20240823-175639	::ffff:192.102.239.195	the bubble-headed-booby	18	nla.obj-152573561	0	CLIP similarity	2	OpenAI description similarity	ab
+20240823-175642	::ffff:192.102.239.195	the bubble-headed-booby	19	nla.obj-151447880	0	CLIP similarity	1	Metadata similarity	ab
+20240823-175651	::ffff:192.102.239.195	the bubble-headed-booby	20	nla.obj-1209799016	3	Phi-3 description similarity	2	OpenAI description similarity	a1
+20240823-175700	::ffff:192.102.239.195	the bubble-headed-booby	21	nla.obj-153533075	0	CLIP similarity	1	Metadata similarity	ab
+20240823-175709	::ffff:192.102.239.195	the bubble-headed-booby	22	nla.obj-503947443	3	Phi-3 description similarity	1	Metadata similarity	ab
+20240823-175715	::ffff:192.102.239.195	the bubble-headed-booby	23	nla.obj-140357064	3	Phi-3 description similarity	0	CLIP similarity	b1
+20240823-175725	::ffff:192.102.239.195	the bubble-headed-booby	24	nla.obj-160451786	3	Phi-3 description similarity	0	CLIP similarity	ab
+20240823-175735	::ffff:192.102.239.195	the bubble-headed-booby	25	nla.obj-142838917	1	Metadata similarity	3	Phi-3 description similarity	a1
+20240823-175744	::ffff:192.102.239.195	the bubble-headed-booby	26	nla.obj-150140881	3	Phi-3 description similarity	2	OpenAI description similarity	ab
+20240823-175752	::ffff:192.102.239.195	the bubble-headed-booby	27	nla.obj-146286848	2	OpenAI description similarity	1	Metadata similarity	ab
+20240823-175802	::ffff:192.102.239.195	the bubble-headed-booby	28	nla.obj-159763640	0	CLIP similarity	3	Phi-3 description similarity	a1
+20240823-175806	::ffff:192.102.239.195	the bubble-headed-booby	29	nla.obj-137409017	1	Metadata similarity	2	OpenAI description similarity	ab
+20240823-175813	::ffff:192.102.239.195	the bubble-headed-booby	30	nla.obj-847179341	0	CLIP similarity	3	Phi-3 description similarity	a1
+20240823-175828	::ffff:192.102.239.195	the bubble-headed-booby	31	nla.obj-160981535	3	Phi-3 description similarity	0	CLIP similarity	a1
+20240823-175834	::ffff:192.102.239.195	the bubble-headed-booby	32	nla.obj-160529463	0	CLIP similarity	1	Metadata similarity	a1
+20240823-175839	::ffff:192.102.239.195	the bubble-headed-booby	33	nla.obj-151500576	1	Metadata similarity	3	Phi-3 description similarity	ab
+20240823-175848	::ffff:192.102.239.195	the bubble-headed-booby	34	nla.obj-137011934	1	Metadata similarity	2	OpenAI description similarity	ab
+20240823-175854	::ffff:192.102.239.195	the bubble-headed-booby	35	nla.obj-133000693	1	Metadata similarity	0	CLIP similarity	a1
+20240826-150909	::ffff:192.102.239.195	dsd1	0	nla.obj-161285481	3	Phi-3 description similarity	1	Metadata similarity	a1
+20240826-150910	::ffff:192.102.239.195	dsd1	1	nla.obj-159249858	1	Metadata similarity	2	OpenAI description similarity	a1
+20240826-150912	::ffff:192.102.239.195	dsd1	2	nla.obj-162422253	0	CLIP similarity	2	OpenAI description similarity	a1
+20240826-150920	::ffff:192.102.239.195	dsd1	3	nla.obj-3284516716	2	OpenAI description similarity	0	CLIP similarity	a1
+20240826-150922	::ffff:192.102.239.195	dsd1	4	nla.obj-148911391	3	Phi-3 description similarity	0	CLIP similarity	a1
+20240826-151945	::ffff:192.102.239.195	xx11	3	nla.obj-3284516716	1	Metadata similarity	3	Phi-3 description similarity	a1
+20240826-152000	::ffff:192.102.239.195	xx11	4	nla.obj-148911391	3	Phi-3 description similarity	0	CLIP similarity	a1
+20240826-152048	::ffff:192.102.239.195	xx11	0	nla.obj-161285481	0	CLIP similarity	1	Metadata similarity	a1
+20240826-152108	::ffff:192.102.239.195	xx11	1	nla.obj-159249858	0	CLIP similarity	3	Phi-3 description similarity	b1
+20240826-152116	::ffff:192.102.239.195	xx11	2	nla.obj-162422253	1	Metadata similarity	3	Phi-3 description similarity	a2

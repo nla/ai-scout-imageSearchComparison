@@ -25,7 +25,8 @@ async function setName(req, res) {
     else {  // clear cookies
       console.log("clearing cookies") ;
       res.clearCookie('optionalUserIdentifier') ;
-      res.clearCookie('evaluationProgress') ;    
+      res.clearCookie('evaluationProgress') ;   
+      res.clearCookie('startingPoint') ;  
     }
     res.render('home', {req: req, optionalUserIdentifier: optionalUserIdentifier}) ;
   }

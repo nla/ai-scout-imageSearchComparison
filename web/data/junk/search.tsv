@@ -1,0 +1,215 @@
+20240823-081414	::ffff:192.102.239.195	kent test2	1	aircraft  pilots  mechanics	7	50% CLIP 50% OpenAI description	9	50% CLIP 50% Phi-3 description	ab
+20240823-081434	::ffff:192.102.239.195	kent test2	2	animals trapped by a flood	4	80% CLIP 20% NLA metadata	10	50% CLIP 30% OpenAI description 20% NLA metadata	ab
+20240823-081457	::ffff:192.102.239.195	kent test2	3	art deco movie theatre	0	Image semantic similarity  compares the CLIP embedding of th	11	50% CLIP 30% Phi-3 description 20% NLA metadata	a1
+20240823-081516	::ffff:192.102.239.195	kent test2	4	Duntroon	9	50% CLIP 50% Phi-3 description	5	50% CLIP 50% NLA metadata	b2
+20240823-081527	::ffff:192.102.239.195	kent test2	5	person giving a speech at a lecturn	8	80% CLIP 20% Phi-3 description	4	80% CLIP 20% NLA metadata	a2
+20240823-081532	::ffff:192.102.239.195	kent test2	6	flock of sheep	4	80% CLIP 20% NLA metadata	1	NLA metadata keyword  compares the NLA metadata text with th	a3
+20240823-081604	::ffff:192.102.239.195	kent test2	7	ballet	2	OpenAI description keyword  compares the OpenAI description	6	80% CLIP 20% OpenAI description	ab
+20240823-081615	::ffff:192.102.239.195	kent test2	8	book covers	4	80% CLIP 20% NLA metadata	10	50% CLIP 30% OpenAI description 20% NLA metadata	ab
+20240823-081636	::ffff:192.102.239.195	kent test2	9	bridge construction	1	NLA metadata keyword  compares the NLA metadata text with th	9	50% CLIP 50% Phi-3 description	b1
+20240823-081644	::ffff:192.102.239.195	kent test2	10	busy country town street	11	50% CLIP 30% Phi-3 description 20% NLA metadata	1	NLA metadata keyword  compares the NLA metadata text with th	a3
+20240823-081705	::ffff:192.102.239.195	kent test2	11	children having fun in the snow	5	50% CLIP 50% NLA metadata	11	50% CLIP 30% Phi-3 description 20% NLA metadata	ab
+20240823-081721	::ffff:192.102.239.195	kent test2	12	people on horseback	6	80% CLIP 20% OpenAI description	10	50% CLIP 30% OpenAI description 20% NLA metadata	ab
+20240823-081734	::ffff:192.102.239.195	kent test2	13	civil disobediance  sic	10	50% CLIP 30% OpenAI description 20% NLA metadata	2	OpenAI description keyword  compares the OpenAI description	a1
+20240823-081749	::ffff:192.102.239.195	kent test2	14	energetic and fast motion	6	80% CLIP 20% OpenAI description	9	50% CLIP 50% Phi-3 description	b1
+20240823-081756	::ffff:192.102.239.195	kent test2	15	fancy dress party	4	80% CLIP 20% NLA metadata	1	NLA metadata keyword  compares the NLA metadata text with th	a3
+20240823-081809	::ffff:192.102.239.195	kent test2	16	flamboyent  outrageous  colorful hat	6	80% CLIP 20% OpenAI description	11	50% CLIP 30% Phi-3 description 20% NLA metadata	ab
+20240823-081820	::ffff:192.102.239.195	kent test2	17	gothic building	0	Image semantic similarity  compares the CLIP embedding of th	5	50% CLIP 50% NLA metadata	ab
+20240823-081831	::ffff:192.102.239.195	kent test2	18	having fun at the beach	8	80% CLIP 20% Phi-3 description	2	OpenAI description keyword  compares the OpenAI description	a1
+20240823-081845	::ffff:192.102.239.195	kent test2	19	mother and child	2	OpenAI description keyword  compares the OpenAI description	0	Image semantic similarity  compares the CLIP embedding of th	ab
+20240823-081851	::ffff:192.102.239.195	kent test2	20	scenic view of a lake	8	80% CLIP 20% Phi-3 description	3	Phi-3 description keyword  compares the Phi-3 description te	ab
+20240823-081901	::ffff:192.102.239.195	kent test2	21	man in front of bookcase	3	Phi-3 description keyword  compares the Phi-3 description te	2	OpenAI description keyword  compares the OpenAI description	a1
+20240823-081914	::ffff:192.102.239.195	kent test2	22	mining with heavy machinery	3	Phi-3 description keyword  compares the Phi-3 description te	11	50% CLIP 30% Phi-3 description 20% NLA metadata	b1
+20240823-081924	::ffff:192.102.239.195	kent test2	23	old movie houses	4	80% CLIP 20% NLA metadata	7	50% CLIP 50% OpenAI description	a3
+20240823-081934	::ffff:192.102.239.195	kent test2	24	people looking very happy  smiling or laughing outside	4	80% CLIP 20% NLA metadata	0	Image semantic similarity  compares the CLIP embedding of th	ab
+20240823-081948	::ffff:192.102.239.195	kent test2	25	people on boat	0	Image semantic similarity  compares the CLIP embedding of th	11	50% CLIP 30% Phi-3 description 20% NLA metadata	a1
+20240823-082004	::ffff:192.102.239.195	kent test2	26	people studying in a library	2	OpenAI description keyword  compares the OpenAI description	8	80% CLIP 20% Phi-3 description	ab
+20240823-082017	::ffff:192.102.239.195	kent test2	27	playing music	6	80% CLIP 20% OpenAI description	1	NLA metadata keyword  compares the NLA metadata text with th	a3
+20240823-082031	::ffff:192.102.239.195	kent test2	28	politician in a suit	4	80% CLIP 20% NLA metadata	7	50% CLIP 50% OpenAI description	b1
+20240823-082034	::ffff:192.102.239.195	kent test2	29	propaganda posters	1	NLA metadata keyword  compares the NLA metadata text with th	5	50% CLIP 50% NLA metadata	b3
+20240823-082056	::ffff:192.102.239.195	kent test2	30	surveyors at work with theodolite	11	50% CLIP 30% Phi-3 description 20% NLA metadata	4	80% CLIP 20% NLA metadata	a1
+20240823-082114	::ffff:192.102.239.195	kent test2	31	three people in a photograph	9	50% CLIP 50% Phi-3 description	0	Image semantic similarity  compares the CLIP embedding of th	b1
+20240823-082129	::ffff:192.102.239.195	kent test2	32	using horses for agricultural work	7	50% CLIP 50% OpenAI description	11	50% CLIP 30% Phi-3 description 20% NLA metadata	ab
+20240823-082144	::ffff:192.102.239.195	kent test2	33	olympic games	8	80% CLIP 20% Phi-3 description	4	80% CLIP 20% NLA metadata	b1
+20240823-082159	::ffff:192.102.239.195	kent test2	34	walking in the bush	8	80% CLIP 20% Phi-3 description	0	Image semantic similarity  compares the CLIP embedding of th	b1
+20240823-082214	::ffff:192.102.239.195	kent test2	35	train passengers	7	50% CLIP 50% OpenAI description	5	50% CLIP 50% NLA metadata	ab
+20240823-082239	::ffff:192.102.239.195	kent test2	36	scences from world war two	2	OpenAI description keyword  compares the OpenAI description	11	50% CLIP 30% Phi-3 description 20% NLA metadata	ab
+20240823-082252	::ffff:192.102.239.195	kent test2	37	Japanese print showing the sea or ocean	10	50% CLIP 30% OpenAI description 20% NLA metadata	11	50% CLIP 30% Phi-3 description 20% NLA metadata	ab
+20240823-082302	::ffff:192.102.239.195	kent test2	38	Japanese print with lots of red	8	80% CLIP 20% Phi-3 description	4	80% CLIP 20% NLA metadata	b1
+20240823-082315	::ffff:192.102.239.195	kent test2	39	Japanese image of mountains	1	NLA metadata keyword  compares the NLA metadata text with th	9	50% CLIP 50% Phi-3 description	b1
+20240823-082332	::ffff:192.102.239.195	kent test2	40	house in Bowral	9	50% CLIP 50% Phi-3 description	6	80% CLIP 20% OpenAI description	ab
+20240823-082354	::ffff:192.102.239.195	kent test2	41	tennis court	6	80% CLIP 20% OpenAI description	2	OpenAI description keyword  compares the OpenAI description	ab
+20240823-082411	::ffff:192.102.239.195	kent test2	42	Sydney Cricket Ground	8	80% CLIP 20% Phi-3 description	11	50% CLIP 30% Phi-3 description 20% NLA metadata	ab
+20240823-082427	::ffff:192.102.239.195	kent test2	43	Sydney Town Hall	6	80% CLIP 20% OpenAI description	3	Phi-3 description keyword  compares the Phi-3 description te	ab
+20240823-082435	::ffff:192.102.239.195	kent test2	44	Alexander Downer	6	80% CLIP 20% OpenAI description	0	Image semantic similarity  compares the CLIP embedding of th	ab
+20240823-082453	::ffff:192.102.239.195	kent test2	45	broken hill	9	50% CLIP 50% Phi-3 description	10	50% CLIP 30% OpenAI description 20% NLA metadata	ab
+20240823-082528	::ffff:192.102.239.195	kent test2	46	person looking at the water	2	OpenAI description keyword  compares the OpenAI description	3	Phi-3 description keyword  compares the Phi-3 description te	a1
+20240823-082543	::ffff:192.102.239.195	kent test2	47	people working in a factory	8	80% CLIP 20% Phi-3 description	7	50% CLIP 50% OpenAI description	ab
+20240823-082556	::ffff:192.102.239.195	kent test2	48	Frensham School	5	50% CLIP 50% NLA metadata	1	NLA metadata keyword  compares the NLA metadata text with th	ab
+20240823-085955	::ffff:192.102.239.197	_anonymous_	1	aircraft  pilots  mechanics	4	80% CLIP 20% NLA metadata	6	80% CLIP 20% OpenAI description	ab
+20240823-090023	::ffff:192.102.239.197	_anonymous_	2	animals trapped by a flood	8	80% CLIP 20% Phi-3 description	2	OpenAI description keyword  compares the OpenAI description	a1
+20240823-090112	::ffff:192.102.239.197	_anonymous_	3	art deco movie theatre	8	80% CLIP 20% Phi-3 description	2	OpenAI description keyword  compares the OpenAI description	ab
+20240823-090437	::ffff:192.102.239.197	_anonymous_	4	Duntroon	8	80% CLIP 20% Phi-3 description	3	Phi-3 description keyword  compares the Phi-3 description te	ab
+20240823-094249	::ffff:192.102.239.197	_anonymous_	5	person giving a speech at a lecturn	0	Image semantic similarity  compares the CLIP embedding of th	5	50% CLIP 50% NLA metadata	ab
+20240823-094309	::ffff:192.102.239.197	_anonymous_	6	flock of sheep	0	Image semantic similarity  compares the CLIP embedding of th	9	50% CLIP 50% Phi-3 description	ab
+20240823-094325	::ffff:192.102.239.197	_anonymous_	7	ballet	3	Phi-3 description keyword  compares the Phi-3 description te	7	50% CLIP 50% OpenAI description	b1
+20240823-094338	::ffff:192.102.239.197	_anonymous_	8	book covers	1	NLA metadata keyword  compares the NLA metadata text with th	9	50% CLIP 50% Phi-3 description	b3
+20240823-094356	::ffff:192.102.239.197	_anonymous_	9	bridge construction	7	50% CLIP 50% OpenAI description	8	80% CLIP 20% Phi-3 description	a2
+20240823-094447	::ffff:192.102.239.197	_anonymous_	10	busy country town street	9	50% CLIP 50% Phi-3 description	1	NLA metadata keyword  compares the NLA metadata text with th	a3
+20240823-094452	::ffff:192.102.239.197	_anonymous_	11	children having fun in the snow	4	80% CLIP 20% NLA metadata	1	NLA metadata keyword  compares the NLA metadata text with th	a3
+20240823-094509	::ffff:192.102.239.197	_anonymous_	12	people on horseback	0	Image semantic similarity  compares the CLIP embedding of th	8	80% CLIP 20% Phi-3 description	ab
+20240823-094527	::ffff:192.102.239.197	_anonymous_	13	civil disobediance  sic	3	Phi-3 description keyword  compares the Phi-3 description te	5	50% CLIP 50% NLA metadata	b3
+20240823-094557	::ffff:192.102.239.197	_anonymous_	14	energetic and fast motion	11	50% CLIP 30% Phi-3 description 20% NLA metadata	0	Image semantic similarity  compares the CLIP embedding of th	ab
+20240823-094614	::ffff:192.102.239.197	_anonymous_	15	fancy dress party	10	50% CLIP 30% OpenAI description 20% NLA metadata	5	50% CLIP 50% NLA metadata	ab
+20240823-094650	::ffff:192.102.239.197	_anonymous_	16	flamboyent  outrageous  colorful hat	5	50% CLIP 50% NLA metadata	3	Phi-3 description keyword  compares the Phi-3 description te	ab
+20240823-094704	::ffff:192.102.239.197	_anonymous_	17	gothic building	6	80% CLIP 20% OpenAI description	9	50% CLIP 50% Phi-3 description	a2
+20240823-094724	::ffff:192.102.239.197	_anonymous_	18	having fun at the beach	6	80% CLIP 20% OpenAI description	11	50% CLIP 30% Phi-3 description 20% NLA metadata	ab
+20240823-094802	::ffff:192.102.239.197	_anonymous_	19	mother and child	3	Phi-3 description keyword  compares the Phi-3 description te	11	50% CLIP 30% Phi-3 description 20% NLA metadata	ab
+20240823-094809	::ffff:192.102.239.197	_anonymous_	20	scenic view of a lake	6	80% CLIP 20% OpenAI description	7	50% CLIP 50% OpenAI description	ab
+20240823-094830	::ffff:192.102.239.197	_anonymous_	21	man in front of bookcase	9	50% CLIP 50% Phi-3 description	3	Phi-3 description keyword  compares the Phi-3 description te	ab
+20240823-094840	::ffff:192.102.239.197	_anonymous_	22	mining with heavy machinery	11	50% CLIP 30% Phi-3 description 20% NLA metadata	2	OpenAI description keyword  compares the OpenAI description	ab
+20240823-094905	::ffff:192.102.239.197	_anonymous_	23	old movie houses	8	80% CLIP 20% Phi-3 description	2	OpenAI description keyword  compares the OpenAI description	a1
+20240823-094924	::ffff:192.102.239.197	_anonymous_	24	people looking very happy  smiling or laughing outside	2	OpenAI description keyword  compares the OpenAI description	5	50% CLIP 50% NLA metadata	a2
+20240823-094940	::ffff:192.102.239.197	_anonymous_	25	people on boat	6	80% CLIP 20% OpenAI description	0	Image semantic similarity  compares the CLIP embedding of th	ab
+20240823-094959	::ffff:192.102.239.197	_anonymous_	26	people studying in a library	5	50% CLIP 50% NLA metadata	3	Phi-3 description keyword  compares the Phi-3 description te	ab
+20240823-095012	::ffff:192.102.239.197	_anonymous_	27	playing music	11	50% CLIP 30% Phi-3 description 20% NLA metadata	0	Image semantic similarity  compares the CLIP embedding of th	a2
+20240823-095022	::ffff:192.102.239.197	_anonymous_	28	politician in a suit	4	80% CLIP 20% NLA metadata	0	Image semantic similarity  compares the CLIP embedding of th	ab
+20240823-095030	::ffff:192.102.239.197	_anonymous_	29	propaganda posters	10	50% CLIP 30% OpenAI description 20% NLA metadata	5	50% CLIP 50% NLA metadata	ab
+20240823-095034	::ffff:192.102.239.197	_anonymous_	30	surveyors at work with theodolite	0	Image semantic similarity  compares the CLIP embedding of th	1	NLA metadata keyword  compares the NLA metadata text with th	a3
+20240823-095043	::ffff:192.102.239.197	_anonymous_	31	three people in a photograph	5	50% CLIP 50% NLA metadata	0	Image semantic similarity  compares the CLIP embedding of th	ab
+20240823-095107	::ffff:192.102.239.197	_anonymous_	32	using horses for agricultural work	5	50% CLIP 50% NLA metadata	0	Image semantic similarity  compares the CLIP embedding of th	ab
+20240823-095117	::ffff:192.102.239.197	_anonymous_	33	olympic games	7	50% CLIP 50% OpenAI description	8	80% CLIP 20% Phi-3 description	ab
+20240823-095128	::ffff:192.102.239.197	_anonymous_	34	walking in the bush	0	Image semantic similarity  compares the CLIP embedding of th	10	50% CLIP 30% OpenAI description 20% NLA metadata	ab
+20240823-095137	::ffff:192.102.239.197	_anonymous_	35	train passengers	2	OpenAI description keyword  compares the OpenAI description	3	Phi-3 description keyword  compares the Phi-3 description te	ab
+20240823-095302	::ffff:192.102.239.197	_anonymous_	36	scences from world war two	5	50% CLIP 50% NLA metadata	10	50% CLIP 30% OpenAI description 20% NLA metadata	ab
+20240823-095313	::ffff:192.102.239.197	_anonymous_	37	Japanese print showing the sea or ocean	10	50% CLIP 30% OpenAI description 20% NLA metadata	8	80% CLIP 20% Phi-3 description	ab
+20240823-095318	::ffff:192.102.239.197	_anonymous_	38	Japanese print with lots of red	1	NLA metadata keyword  compares the NLA metadata text with th	5	50% CLIP 50% NLA metadata	b3
+20240823-095331	::ffff:192.102.239.197	_anonymous_	39	Japanese image of mountains	7	50% CLIP 50% OpenAI description	2	OpenAI description keyword  compares the OpenAI description	ab
+20240823-095337	::ffff:192.102.239.197	_anonymous_	40	house in Bowral	5	50% CLIP 50% NLA metadata	3	Phi-3 description keyword  compares the Phi-3 description te	ab
+20240823-095356	::ffff:192.102.239.197	_anonymous_	41	tennis court	0	Image semantic similarity  compares the CLIP embedding of th	10	50% CLIP 30% OpenAI description 20% NLA metadata	a2
+20240823-095408	::ffff:192.102.239.197	_anonymous_	42	Sydney Cricket Ground	5	50% CLIP 50% NLA metadata	10	50% CLIP 30% OpenAI description 20% NLA metadata	ab
+20240823-095420	::ffff:192.102.239.197	_anonymous_	43	Sydney Town Hall	4	80% CLIP 20% NLA metadata	8	80% CLIP 20% Phi-3 description	b2
+20240823-095430	::ffff:192.102.239.197	_anonymous_	44	Alexander Downer	2	OpenAI description keyword  compares the OpenAI description	5	50% CLIP 50% NLA metadata	b3
+20240823-095439	::ffff:192.102.239.197	_anonymous_	45	broken hill	4	80% CLIP 20% NLA metadata	1	NLA metadata keyword  compares the NLA metadata text with th	a3
+20240823-095453	::ffff:192.102.239.197	_anonymous_	46	person looking at the water	10	50% CLIP 30% OpenAI description 20% NLA metadata	0	Image semantic similarity  compares the CLIP embedding of th	a2
+20240823-095500	::ffff:192.102.239.197	_anonymous_	47	people working in a factory	11	50% CLIP 30% Phi-3 description 20% NLA metadata	2	OpenAI description keyword  compares the OpenAI description	ab
+20240823-095506	::ffff:192.102.239.197	_anonymous_	48	Frensham School	5	50% CLIP 50% NLA metadata	7	50% CLIP 50% OpenAI description	a3
+20240823-151702	::ffff:203.4.203.133	cvallance@nla.gov.au	1	aircraft  pilots  mechanics	4	80% CLIP 20% NLA metadata	9	50% CLIP 50% Phi-3 description	b3
+20240823-151709	::ffff:203.4.203.133	cvallance@nla.gov.au	2	animals trapped by a flood	0	Image semantic similarity  compares the CLIP embedding of th	4	80% CLIP 20% NLA metadata	b3
+20240823-151730	::ffff:203.4.203.133	cvallance@nla.gov.au	3	art deco movie theatre	3	Phi-3 description keyword  compares the Phi-3 description te	8	80% CLIP 20% Phi-3 description	b3
+20240823-151805	::ffff:203.4.203.133	cvallance@nla.gov.au	4	Duntroon	0	Image semantic similarity  compares the CLIP embedding of th	6	80% CLIP 20% OpenAI description	ab
+20240823-151843	::ffff:203.4.203.133	cvallance@nla.gov.au	5	person giving a speech at a lecturn	10	50% CLIP 30% OpenAI description 20% NLA metadata	0	Image semantic similarity  compares the CLIP embedding of th	a3
+20240823-151916	::ffff:203.4.203.133	cvallance@nla.gov.au	6	flock of sheep	6	80% CLIP 20% OpenAI description	4	80% CLIP 20% NLA metadata	a2
+20240823-151948	::ffff:203.4.203.133	cvallance@nla.gov.au	7	ballet	7	50% CLIP 50% OpenAI description	10	50% CLIP 30% OpenAI description 20% NLA metadata	ab
+20240823-152011	::ffff:203.4.203.133	cvallance@nla.gov.au	8	book covers	11	50% CLIP 30% Phi-3 description 20% NLA metadata	3	Phi-3 description keyword  compares the Phi-3 description te	ab
+20240823-152625	::ffff:203.4.203.133	cvallance@nla.gov.au	9	bridge construction	8	80% CLIP 20% Phi-3 description	11	50% CLIP 30% Phi-3 description 20% NLA metadata	ab
+20240823-153502	::ffff:203.4.203.133	cvallance@nla.gov.au	10	busy country town street	6	80% CLIP 20% OpenAI description	5	50% CLIP 50% NLA metadata	ab
+20240823-153923	::ffff:203.4.203.133	cvallance@nla.gov.au	11	children having fun in the snow	0	Image semantic similarity  compares the CLIP embedding of th	10	50% CLIP 30% OpenAI description 20% NLA metadata	ab
+20240823-153946	::ffff:203.4.203.133	cvallance@nla.gov.au	12	people on horseback	6	80% CLIP 20% OpenAI description	9	50% CLIP 50% Phi-3 description	b2
+20240823-154041	::ffff:203.4.203.133	cvallance@nla.gov.au	13	civil disobediance  sic	10	50% CLIP 30% OpenAI description 20% NLA metadata	11	50% CLIP 30% Phi-3 description 20% NLA metadata	b2
+20240823-155155	::ffff:203.4.203.133	cvallance@nla.gov.au	14	energetic and fast motion	0	Image semantic similarity  compares the CLIP embedding of th	8	80% CLIP 20% Phi-3 description	ab
+20240823-155231	::ffff:203.4.203.133	cvallance@nla.gov.au	15	fancy dress party	8	80% CLIP 20% Phi-3 description	11	50% CLIP 30% Phi-3 description 20% NLA metadata	ab
+20240823-155244	::ffff:203.4.203.133	cvallance@nla.gov.au	16	flamboyent  outrageous  colorful hat	10	50% CLIP 30% OpenAI description 20% NLA metadata	7	50% CLIP 50% OpenAI description	ab
+20240823-155250	::ffff:203.4.203.133	cvallance@nla.gov.au	17	gothic building	1	NLA metadata keyword  compares the NLA metadata text with th	11	50% CLIP 30% Phi-3 description 20% NLA metadata	b3
+20240823-165012	::ffff:203.4.203.133	cvallance@nla.gov.au	18	having fun at the beach	5	50% CLIP 50% NLA metadata	3	Phi-3 description keyword  compares the Phi-3 description te	a3
+20240823-165215	::ffff:203.4.203.133	cvallance@nla.gov.au	19	mother and child	4	80% CLIP 20% NLA metadata	7	50% CLIP 50% OpenAI description	ab
+20240823-165247	::ffff:203.4.203.133	cvallance@nla.gov.au	20	scenic view of a lake	3	Phi-3 description keyword  compares the Phi-3 description te	9	50% CLIP 50% Phi-3 description	ab
+20240823-165305	::ffff:203.4.203.133	cvallance@nla.gov.au	21	man in front of bookcase	5	50% CLIP 50% NLA metadata	2	OpenAI description keyword  compares the OpenAI description	b2
+20240823-165323	::ffff:203.4.203.133	cvallance@nla.gov.au	22	mining with heavy machinery	2	OpenAI description keyword  compares the OpenAI description	10	50% CLIP 30% OpenAI description 20% NLA metadata	ab
+20240823-165331	::ffff:203.4.203.133	cvallance@nla.gov.au	23	old movie houses	1	NLA metadata keyword  compares the NLA metadata text with th	2	OpenAI description keyword  compares the OpenAI description	b3
+20240823-165404	::ffff:203.4.203.133	cvallance@nla.gov.au	24	people looking very happy  smiling or laughing outside	0	Image semantic similarity  compares the CLIP embedding of th	9	50% CLIP 50% Phi-3 description	b2
+20240823-165547	::ffff:203.4.203.133	cvallance@nla.gov.au	25	people on boat	10	50% CLIP 30% OpenAI description 20% NLA metadata	8	80% CLIP 20% Phi-3 description	a2
+20240823-165553	::ffff:203.4.203.133	cvallance@nla.gov.au	26	people studying in a library	1	NLA metadata keyword  compares the NLA metadata text with th	9	50% CLIP 50% Phi-3 description	b3
+20240823-165601	::ffff:203.4.203.133	cvallance@nla.gov.au	27	playing music	0	Image semantic similarity  compares the CLIP embedding of th	5	50% CLIP 50% NLA metadata	ab
+20240823-165606	::ffff:203.4.203.133	cvallance@nla.gov.au	28	politician in a suit	5	50% CLIP 50% NLA metadata	4	80% CLIP 20% NLA metadata	ab
+20240823-165611	::ffff:203.4.203.133	cvallance@nla.gov.au	29	propaganda posters	11	50% CLIP 30% Phi-3 description 20% NLA metadata	2	OpenAI description keyword  compares the OpenAI description	ab
+20240823-165625	::ffff:203.4.203.133	cvallance@nla.gov.au	30	surveyors at work with theodolite	6	80% CLIP 20% OpenAI description	7	50% CLIP 50% OpenAI description	ab
+20240823-165638	::ffff:203.4.203.133	cvallance@nla.gov.au	31	three people in a photograph	5	50% CLIP 50% NLA metadata	4	80% CLIP 20% NLA metadata	ab
+20240823-165645	::ffff:203.4.203.133	cvallance@nla.gov.au	32	using horses for agricultural work	0	Image semantic similarity  compares the CLIP embedding of th	2	OpenAI description keyword  compares the OpenAI description	b2
+20240823-165724	::ffff:203.4.203.133	cvallance@nla.gov.au	33	olympic games	0	Image semantic similarity  compares the CLIP embedding of th	1	NLA metadata keyword  compares the NLA metadata text with th	ab
+20240823-165737	::ffff:203.4.203.133	cvallance@nla.gov.au	34	walking in the bush	11	50% CLIP 30% Phi-3 description 20% NLA metadata	3	Phi-3 description keyword  compares the Phi-3 description te	a2
+20240823-165745	::ffff:203.4.203.133	cvallance@nla.gov.au	35	train passengers	4	80% CLIP 20% NLA metadata	6	80% CLIP 20% OpenAI description	b2
+20240823-165753	::ffff:203.4.203.133	cvallance@nla.gov.au	36	scences from world war two	9	50% CLIP 50% Phi-3 description	4	80% CLIP 20% NLA metadata	a2
+20240823-165759	::ffff:203.4.203.133	cvallance@nla.gov.au	37	Japanese print showing the sea or ocean	10	50% CLIP 30% OpenAI description 20% NLA metadata	2	OpenAI description keyword  compares the OpenAI description	ab
+20240823-165804	::ffff:203.4.203.133	cvallance@nla.gov.au	38	Japanese print with lots of red	9	50% CLIP 50% Phi-3 description	8	80% CLIP 20% Phi-3 description	ab
+20240823-165816	::ffff:203.4.203.133	cvallance@nla.gov.au	39	Japanese image of mountains	2	OpenAI description keyword  compares the OpenAI description	4	80% CLIP 20% NLA metadata	ab
+20240823-165829	::ffff:203.4.203.133	cvallance@nla.gov.au	40	house in Bowral	10	50% CLIP 30% OpenAI description 20% NLA metadata	2	OpenAI description keyword  compares the OpenAI description	b2
+20240823-165842	::ffff:203.4.203.133	cvallance@nla.gov.au	41	tennis court	0	Image semantic similarity  compares the CLIP embedding of th	7	50% CLIP 50% OpenAI description	b2
+20240823-165846	::ffff:203.4.203.133	cvallance@nla.gov.au	42	Sydney Cricket Ground	1	NLA metadata keyword  compares the NLA metadata text with th	4	80% CLIP 20% NLA metadata	ab
+20240823-165859	::ffff:203.4.203.133	cvallance@nla.gov.au	43	Sydney Town Hall	5	50% CLIP 50% NLA metadata	10	50% CLIP 30% OpenAI description 20% NLA metadata	b2
+20240823-165903	::ffff:203.4.203.133	cvallance@nla.gov.au	44	Alexander Downer	11	50% CLIP 30% Phi-3 description 20% NLA metadata	2	OpenAI description keyword  compares the OpenAI description	a3
+20240823-165920	::ffff:203.4.203.133	cvallance@nla.gov.au	45	broken hill	0	Image semantic similarity  compares the CLIP embedding of th	2	OpenAI description keyword  compares the OpenAI description	ab
+20240823-165933	::ffff:203.4.203.133	cvallance@nla.gov.au	46	person looking at the water	0	Image semantic similarity  compares the CLIP embedding of th	7	50% CLIP 50% OpenAI description	b2
+20240823-165941	::ffff:203.4.203.133	cvallance@nla.gov.au	47	people working in a factory	10	50% CLIP 30% OpenAI description 20% NLA metadata	4	80% CLIP 20% NLA metadata	a2
+20240823-165951	::ffff:203.4.203.133	cvallance@nla.gov.au	48	Frensham School	11	50% CLIP 30% Phi-3 description 20% NLA metadata	2	OpenAI description keyword  compares the OpenAI description	a3
+20240823-174712	::ffff:192.102.239.195	the bubble-headed-booby	1	aircraft  pilots  mechanics	3	Phi-3 description keyword  compares the Phi-3 description te	0	Image semantic similarity  compares the CLIP embedding of th	ab
+20240823-174726	::ffff:192.102.239.195	the bubble-headed-booby	2	animals trapped by a flood	10	50% CLIP 30% OpenAI description 20% NLA metadata	0	Image semantic similarity  compares the CLIP embedding of th	b1
+20240823-174732	::ffff:192.102.239.195	the bubble-headed-booby	3	art deco movie theatre	3	Phi-3 description keyword  compares the Phi-3 description te	6	80% CLIP 20% OpenAI description	ab
+20240823-174739	::ffff:192.102.239.195	the bubble-headed-booby	4	Duntroon	1	NLA metadata keyword  compares the NLA metadata text with th	10	50% CLIP 30% OpenAI description 20% NLA metadata	ab
+20240823-174747	::ffff:192.102.239.195	the bubble-headed-booby	5	person giving a speech at a lecturn	1	NLA metadata keyword  compares the NLA metadata text with th	6	80% CLIP 20% OpenAI description	b3
+20240823-174759	::ffff:192.102.239.195	the bubble-headed-booby	6	flock of sheep	0	Image semantic similarity  compares the CLIP embedding of th	3	Phi-3 description keyword  compares the Phi-3 description te	ab
+20240823-174804	::ffff:192.102.239.195	the bubble-headed-booby	7	ballet	10	50% CLIP 30% OpenAI description 20% NLA metadata	6	80% CLIP 20% OpenAI description	ab
+20240823-174811	::ffff:192.102.239.195	the bubble-headed-booby	8	book covers	8	80% CLIP 20% Phi-3 description	6	80% CLIP 20% OpenAI description	ab
+20240823-174820	::ffff:192.102.239.195	the bubble-headed-booby	9	bridge construction	3	Phi-3 description keyword  compares the Phi-3 description te	10	50% CLIP 30% OpenAI description 20% NLA metadata	a1
+20240823-174823	::ffff:192.102.239.195	the bubble-headed-booby	10	busy country town street	1	NLA metadata keyword  compares the NLA metadata text with th	2	OpenAI description keyword  compares the OpenAI description	b3
+20240823-174830	::ffff:192.102.239.195	the bubble-headed-booby	11	children having fun in the snow	0	Image semantic similarity  compares the CLIP embedding of th	10	50% CLIP 30% OpenAI description 20% NLA metadata	ab
+20240823-174841	::ffff:192.102.239.195	the bubble-headed-booby	12	people on horseback	11	50% CLIP 30% Phi-3 description 20% NLA metadata	2	OpenAI description keyword  compares the OpenAI description	ab
+20240823-174850	::ffff:192.102.239.195	the bubble-headed-booby	13	civil disobediance  sic	0	Image semantic similarity  compares the CLIP embedding of th	8	80% CLIP 20% Phi-3 description	ab
+20240823-174854	::ffff:192.102.239.195	the bubble-headed-booby	14	energetic and fast motion	6	80% CLIP 20% OpenAI description	1	NLA metadata keyword  compares the NLA metadata text with th	a3
+20240823-174901	::ffff:192.102.239.195	the bubble-headed-booby	15	fancy dress party	3	Phi-3 description keyword  compares the Phi-3 description te	11	50% CLIP 30% Phi-3 description 20% NLA metadata	ab
+20240823-174909	::ffff:192.102.239.195	the bubble-headed-booby	16	flamboyent  outrageous  colorful hat	8	80% CLIP 20% Phi-3 description	11	50% CLIP 30% Phi-3 description 20% NLA metadata	ab
+20240823-174927	::ffff:192.102.239.195	the bubble-headed-booby	17	gothic building	10	50% CLIP 30% OpenAI description 20% NLA metadata	0	Image semantic similarity  compares the CLIP embedding of th	ab
+20240823-174934	::ffff:192.102.239.195	the bubble-headed-booby	18	having fun at the beach	2	OpenAI description keyword  compares the OpenAI description	3	Phi-3 description keyword  compares the Phi-3 description te	a1
+20240823-174944	::ffff:192.102.239.195	the bubble-headed-booby	19	mother and child	6	80% CLIP 20% OpenAI description	2	OpenAI description keyword  compares the OpenAI description	a1
+20240823-174956	::ffff:192.102.239.195	the bubble-headed-booby	20	scenic view of a lake	2	OpenAI description keyword  compares the OpenAI description	0	Image semantic similarity  compares the CLIP embedding of th	b1
+20240823-175007	::ffff:192.102.239.195	the bubble-headed-booby	21	man in front of bookcase	2	OpenAI description keyword  compares the OpenAI description	8	80% CLIP 20% Phi-3 description	ab
+20240823-175015	::ffff:192.102.239.195	the bubble-headed-booby	22	mining with heavy machinery	6	80% CLIP 20% OpenAI description	8	80% CLIP 20% Phi-3 description	ab
+20240823-175017	::ffff:192.102.239.195	the bubble-headed-booby	23	old movie houses	1	NLA metadata keyword  compares the NLA metadata text with th	6	80% CLIP 20% OpenAI description	b3
+20240823-175029	::ffff:192.102.239.195	the bubble-headed-booby	24	people looking very happy  smiling or laughing outside	6	80% CLIP 20% OpenAI description	0	Image semantic similarity  compares the CLIP embedding of th	ab
+20240823-175040	::ffff:192.102.239.195	the bubble-headed-booby	25	people on boat	0	Image semantic similarity  compares the CLIP embedding of th	8	80% CLIP 20% Phi-3 description	a1
+20240823-175046	::ffff:192.102.239.195	the bubble-headed-booby	26	people studying in a library	6	80% CLIP 20% OpenAI description	8	80% CLIP 20% Phi-3 description	ab
+20240823-175103	::ffff:192.102.239.195	the bubble-headed-booby	27	playing music	8	80% CLIP 20% Phi-3 description	6	80% CLIP 20% OpenAI description	ab
+20240823-175110	::ffff:192.102.239.195	the bubble-headed-booby	28	politician in a suit	0	Image semantic similarity  compares the CLIP embedding of th	6	80% CLIP 20% OpenAI description	b1
+20240823-175113	::ffff:192.102.239.195	the bubble-headed-booby	29	propaganda posters	1	NLA metadata keyword  compares the NLA metadata text with th	8	80% CLIP 20% Phi-3 description	b3
+20240823-175119	::ffff:192.102.239.195	the bubble-headed-booby	30	surveyors at work with theodolite	1	NLA metadata keyword  compares the NLA metadata text with th	10	50% CLIP 30% OpenAI description 20% NLA metadata	b3
+20240823-175131	::ffff:192.102.239.195	the bubble-headed-booby	31	three people in a photograph	10	50% CLIP 30% OpenAI description 20% NLA metadata	2	OpenAI description keyword  compares the OpenAI description	a1
+20240823-175141	::ffff:192.102.239.195	the bubble-headed-booby	32	using horses for agricultural work	3	Phi-3 description keyword  compares the Phi-3 description te	6	80% CLIP 20% OpenAI description	b2
+20240823-175150	::ffff:192.102.239.195	the bubble-headed-booby	33	olympic games	6	80% CLIP 20% OpenAI description	2	OpenAI description keyword  compares the OpenAI description	ab
+20240823-175200	::ffff:192.102.239.195	the bubble-headed-booby	34	walking in the bush	3	Phi-3 description keyword  compares the Phi-3 description te	0	Image semantic similarity  compares the CLIP embedding of th	ab
+20240823-175208	::ffff:192.102.239.195	the bubble-headed-booby	35	train passengers	11	50% CLIP 30% Phi-3 description 20% NLA metadata	8	80% CLIP 20% Phi-3 description	a1
+20240823-175213	::ffff:192.102.239.195	the bubble-headed-booby	36	scences from world war two	8	80% CLIP 20% Phi-3 description	0	Image semantic similarity  compares the CLIP embedding of th	a2
+20240823-175222	::ffff:192.102.239.195	the bubble-headed-booby	37	Japanese print showing the sea or ocean	3	Phi-3 description keyword  compares the Phi-3 description te	11	50% CLIP 30% Phi-3 description 20% NLA metadata	ab
+20240823-175226	::ffff:192.102.239.195	the bubble-headed-booby	38	Japanese print with lots of red	1	NLA metadata keyword  compares the NLA metadata text with th	8	80% CLIP 20% Phi-3 description	b3
+20240823-175231	::ffff:192.102.239.195	the bubble-headed-booby	39	Japanese image of mountains	3	Phi-3 description keyword  compares the Phi-3 description te	10	50% CLIP 30% OpenAI description 20% NLA metadata	ab
+20240823-175254	::ffff:192.102.239.195	the bubble-headed-booby	40	house in Bowral	0	Image semantic similarity  compares the CLIP embedding of th	8	80% CLIP 20% Phi-3 description	b1
+20240823-175305	::ffff:192.102.239.195	the bubble-headed-booby	41	tennis court	2	OpenAI description keyword  compares the OpenAI description	11	50% CLIP 30% Phi-3 description 20% NLA metadata	ab
+20240823-175311	::ffff:192.102.239.195	the bubble-headed-booby	42	Sydney Cricket Ground	8	80% CLIP 20% Phi-3 description	6	80% CLIP 20% OpenAI description	ab
+20240823-175325	::ffff:192.102.239.195	the bubble-headed-booby	43	Sydney Town Hall	6	80% CLIP 20% OpenAI description	11	50% CLIP 30% Phi-3 description 20% NLA metadata	b1
+20240823-175329	::ffff:192.102.239.195	the bubble-headed-booby	44	Alexander Downer	8	80% CLIP 20% Phi-3 description	0	Image semantic similarity  compares the CLIP embedding of th	a2
+20240823-175337	::ffff:192.102.239.195	the bubble-headed-booby	45	broken hill	1	NLA metadata keyword  compares the NLA metadata text with th	0	Image semantic similarity  compares the CLIP embedding of th	a2
+20240823-175341	::ffff:192.102.239.195	the bubble-headed-booby	46	person looking at the water	3	Phi-3 description keyword  compares the Phi-3 description te	1	NLA metadata keyword  compares the NLA metadata text with th	a2
+20240823-175345	::ffff:192.102.239.195	the bubble-headed-booby	47	people working in a factory	1	NLA metadata keyword  compares the NLA metadata text with th	11	50% CLIP 30% Phi-3 description 20% NLA metadata	b3
+20240823-175352	::ffff:192.102.239.195	the bubble-headed-booby	48	Frensham School	8	80% CLIP 20% Phi-3 description	11	50% CLIP 30% Phi-3 description 20% NLA metadata	b3
+20240826-090049	::ffff:192.102.239.195	_anonymous_	1	aircraft  pilots  mechanics	0	Image semantic similarity  compares the CLIP embedding of th	6	80% CLIP 20% OpenAI description	b2
+20240826-090051	::ffff:192.102.239.195	_anonymous_	2	animals trapped by a flood	3	Phi-3 description keyword  compares the Phi-3 description te	1	NLA metadata keyword  compares the NLA metadata text with th	ab
+20240826-090052	::ffff:192.102.239.195	_anonymous_	3	art deco movie theatre	2	OpenAI description keyword  compares the OpenAI description	0	Image semantic similarity  compares the CLIP embedding of th	a1
+20240826-090053	::ffff:192.102.239.195	_anonymous_	4	Duntroon	1	NLA metadata keyword  compares the NLA metadata text with th	2	OpenAI description keyword  compares the OpenAI description	a2
+20240826-144503	::ffff:192.102.239.195	xx3	0	aircraft  pilots  mechanics	1	NLA metadata keyword  compares the NLA metadata text with th	3	Phi-3 description keyword  compares the Phi-3 description te	b1
+20240826-144536	::ffff:192.102.239.195	xx3	1	purple flowers or foilage	6	80% CLIP 20% OpenAI description	0	Image semantic similarity  compares the CLIP embedding of th	b2
+20240826-144550	::ffff:192.102.239.195	xx3	2	gothic building	2	OpenAI description keyword  compares the OpenAI description	10	50% CLIP 30% OpenAI description 20% NLA metadata	a3
+20240826-144557	::ffff:192.102.239.195	xx3	3	animals trapped by a flood	0	Image semantic similarity  compares the CLIP embedding of th	6	80% CLIP 20% OpenAI description	b2
+20240826-144604	::ffff:192.102.239.195	xx3	4	art deco movie theatre	3	Phi-3 description keyword  compares the Phi-3 description te	2	OpenAI description keyword  compares the OpenAI description	a2
+20240826-144640	::ffff:192.102.239.195	xx3	5	Duntroon	1	NLA metadata keyword  compares the NLA metadata text with th	11	50% CLIP 30% Phi-3 description 20% NLA metadata	a1
+20240826-144735	::ffff:192.102.239.195	xx3	0	aircraft  pilots  mechanics	8	80% CLIP 20% Phi-3 description	1	NLA metadata keyword  compares the NLA metadata text with th	a1
+20240826-150752	::ffff:192.102.239.195	dsd1	3	animals trapped by a flood	1	NLA metadata keyword  compares the NLA metadata text with th	11	50% CLIP 30% Phi-3 description 20% NLA metadata	b1
+20240826-150808	::ffff:192.102.239.195	dsd1	4	art deco movie theatre	0	Image semantic similarity  compares the CLIP embedding of th	1	NLA metadata keyword  compares the NLA metadata text with th	a1
+20240826-150815	::ffff:192.102.239.195	dsd1	5	Duntroon	11	50% CLIP 30% Phi-3 description 20% NLA metadata	10	50% CLIP 30% OpenAI description 20% NLA metadata	ab
+20240826-150832	::ffff:192.102.239.195	dsd1	0	aircraft  pilots  mechanics	11	50% CLIP 30% Phi-3 description 20% NLA metadata	0	Image semantic similarity  compares the CLIP embedding of th	b2
+20240826-150843	::ffff:192.102.239.195	dsd1	1	purple flowers or foilage	6	80% CLIP 20% OpenAI description	1	NLA metadata keyword  compares the NLA metadata text with th	a2
+20240826-150848	::ffff:192.102.239.195	dsd1	2	gothic building	10	50% CLIP 30% OpenAI description 20% NLA metadata	0	Image semantic similarity  compares the CLIP embedding of th	a1
+20240826-151804	::ffff:192.102.239.195	xx11	3	animals trapped by a flood	6	80% CLIP 20% OpenAI description	8	80% CLIP 20% Phi-3 description	ab
+20240826-151805	::ffff:192.102.239.195	xx11	4	art deco movie theatre	0	Image semantic similarity  compares the CLIP embedding of th	3	Phi-3 description keyword  compares the Phi-3 description te	ab
+20240826-151806	::ffff:192.102.239.195	xx11	5	Duntroon	8	80% CLIP 20% Phi-3 description	11	50% CLIP 30% Phi-3 description 20% NLA metadata	ab
+20240826-151806	::ffff:192.102.239.195	xx11	0	aircraft  pilots  mechanics	2	OpenAI description keyword  compares the OpenAI description	11	50% CLIP 30% Phi-3 description 20% NLA metadata	ab
+20240826-151809	::ffff:192.102.239.195	xx11	1	purple flowers or foilage	0	Image semantic similarity  compares the CLIP embedding of th	1	NLA metadata keyword  compares the NLA metadata text with th	a1
+20240826-151815	::ffff:192.102.239.195	xx11	2	gothic building	10	50% CLIP 30% OpenAI description 20% NLA metadata	11	50% CLIP 30% Phi-3 description 20% NLA metadata	a1

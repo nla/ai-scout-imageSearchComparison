@@ -36,7 +36,7 @@ function genClass(docs) {
 <div id="results">
 
   <DIV style="float:right;font-size:75%">
-    Similarity image <%=seq%> of <%= totalSeq %><BR/>
+    Similarity image <%=(seq + 1)%> of <%= totalSeq %><BR/>
     Click a button to record your evaluation
   </DIV>
 
@@ -53,6 +53,7 @@ function genClass(docs) {
   <% if (aRes) {  %>
 
     <TABLE CELLSPACING="10">
+      <!-- 
       <TR valign="top">
         <TH width="47%">
           Set A<BR/>
@@ -70,6 +71,25 @@ function genClass(docs) {
           <button id="b3" class="<%=genClass(bRes.docs)%>" style="color:white;background-color: rgba(158, 102, 4, 0.719)"">Much better</button>
         </TH>
       </TR>
+      -->
+      <TR valign="top">
+        <TH width="45%">
+          Set A<BR/>
+          <button id="a3" class="<%=genClass(aRes.docs)%>" style="background-color: rgb(78, 196, 32)">Much better<BR/>&#9733; &#9733; &#9733; &#9733;</button>
+          <button id="a2" class="<%=genClass(aRes.docs)%>" style="background-color: rgba(44, 245, 44, 0.719)">Somewhat better<BR/>&#9733; &#9733;</button>
+          <button id="a1" class="<%=genClass(aRes.docs)%>" style="background-color: #92f3594f">Slightly better<BR/>&#9733;</button>
+        </TH>
+        <TH>&nbsp;<BR/>
+          <button id="ab" class="eb" style="background-color:#dddddd">No preference</button>
+        </TH>
+        <TH  width="45%">
+          Set B<BR/>
+          <button id="b1" class="<%=genClass(bRes.docs)%>" style="background-color: #92f3594f">Slightly better<BR/>&#9733;</button>
+          <button id="b2" class="<%=genClass(bRes.docs)%>" style="background-color: rgba(44, 245, 44, 0.719)"">Somewhat better<BR/>&#9733; &#9733;</button>
+          <button id="b3" class="<%=genClass(bRes.docs)%>" style="background-color: rgb(78, 196, 32)">Much better<BR/>&#9733; &#9733; &#9733; &#9733;</button>
+        </TH>
+      </TR>
+
 
 
      
@@ -83,24 +103,44 @@ function genClass(docs) {
         </TD>
       </TR>
      
-      
+      <!--
       <TR valign="top">
         <TH width="45%">
           Set A<BR/>
-          <button id="a3x" class="eb" style="color:white; background-color: rgb(4, 92, 146)">Much better</button>
-          <button id="a2x" class="eb" style="background-color: lightskyblue">Somewhat better</button>
-          <button id="a1x" class="eb" style="background-color: rgba(135, 206, 250, 0.308)">Marginally better</button>
+          <button id="a3x" class="<%=genClass(aRes.docs)%>" style="color:white; background-color: rgb(4, 92, 146)">Much better</button>
+          <button id="a2x" class="<%=genClass(aRes.docs)%>" style="background-color: lightskyblue">Somewhat better</button>
+          <button id="a1x" class="<%=genClass(aRes.docs)%>" style="background-color: rgba(135, 206, 250, 0.308)">Marginally better</button>
         </TH>
         <TH>&nbsp;<BR/>
           <button id="abx" class="eb" style="background-color:#dddddd">No preference</button>
         </TH>
         <TH  width="45%">
           Set B<BR/>
-          <button id="b1x" class="eb" style="background-color: rgba(241, 215, 169, 0.322)">Marginally better</button>
-          <button id="b2x" class="eb" style="background-color: rgba(243, 156, 5, 0.411)">Somewhat better</button>
-          <button id="b3x" class="eb" style="color:white;background-color: rgba(158, 102, 4, 0.719)"">Much better</button>
+          <button id="b1x" class="<%=genClass(bRes.docs)%>" style="background-color: rgba(241, 215, 169, 0.322)">Marginally better</button>
+          <button id="b2x" class="<%=genClass(bRes.docs)%>" style="background-color: rgba(243, 156, 5, 0.411)">Somewhat better</button>
+          <button id="b3x" class="<%=genClass(bRes.docs)%>" style="color:white;background-color: rgba(158, 102, 4, 0.719)"">Much better</button>
         </TH>
       </TR>
+    -->
+
+      <TR valign="top">
+        <TH width="45%">
+          Set A<BR/>
+          <button id="a3x" class="<%=genClass(aRes.docs)%>" style="background-color: rgb(78, 196, 32)">Much better<BR/>&#9733; &#9733; &#9733; &#9733;</button>
+          <button id="a2x" class="<%=genClass(aRes.docs)%>" style="background-color: rgba(44, 245, 44, 0.719)">Somewhat better<BR/>&#9733; &#9733;</button>
+          <button id="a1x" class="<%=genClass(aRes.docs)%>" style="background-color: #92f3594f">Slightly better<BR/>&#9733;</button>
+        </TH>
+        <TH>&nbsp;<BR/>
+          <button id="abx" class="eb" style="background-color:#dddddd">No preference</button>
+        </TH>
+        <TH  width="45%">
+          Set B<BR/>
+          <button id="b1x" class="<%=genClass(bRes.docs)%>" style="background-color: #92f3594f">Slightly better<BR/>&#9733;</button>
+          <button id="b2x" class="<%=genClass(bRes.docs)%>" style="background-color: rgba(44, 245, 44, 0.719)"">Somewhat better<BR/>&#9733; &#9733;</button>
+          <button id="b3x" class="<%=genClass(bRes.docs)%>" style="background-color: rgb(78, 196, 32)">Much better<BR/>&#9733; &#9733; &#9733; &#9733;</button>
+        </TH>
+      </TR>
+
     </TABLE>
   </FORM>
 

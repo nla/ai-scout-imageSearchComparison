@@ -177,11 +177,12 @@ module.exports = {
 		for (let line of lines) {
 			if ((line.length == 0) || line.startsWith('#') || line.startsWith('//')) continue ;
 			line = line.trim() ;
-			let i = line.indexOf(' ') ;	
-			if (i < 0) continue ;
-			reloadedQuestions.push({num: parseInt(line.substring(0, i)),
-														  q: line.substring(i).trim()}) ;
-			//if (reloadedQuestions.length > 5) break ; // DEBUG
+		//	let i = line.indexOf(' ') ;	
+			//if (i < 0) continue ;
+			reloadedQuestions.push(line.trim()) ;
+			// fancy rubbish reloadedQuestions.push({num: parseInt(line.substring(0, i)),
+											//			  q: line.substring(i).trim()}) ;
+			if (reloadedQuestions.length > 5999) break ; // DEBUG
 		}
 		if (reloadedQuestions.length == 0) throw "No questions in file " + appConfig.questionFilename ;
 		QUESTIONS = reloadedQuestions ;		
