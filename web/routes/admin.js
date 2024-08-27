@@ -89,7 +89,7 @@ async function recreateSOLRindex(req, res) {
         "-openAIDescription:(\"I can't provide assistance with that request\") AND -suppressed:*" + // added not suppressed 23Aug24 - removed 268 recs bring total down to 4363
     "&q.op=AND" +
     "&fl=id,url,contentType,title,metadataText,bibId,formGenre,format,author,originalDescription,notes,incomingUrls," +
-        "openAIDescription,msVisionDescription,imageVector,suppressed" ; // we dont get the text vectors (done with clip) because we are redoing them with nomic
+        "openAIDescription,msVisionDescription,msVision35Description,imageVector,suppressed" ; // we dont get the text vectors (done with clip) because we are redoing them with nomic
 
     res.write("Finding docs from " + appConfig.picturesCore + " to add to " + appConfig.comparisonImageSearchPicturesCore + "...\n") ;
 
@@ -108,6 +108,10 @@ async function recreateSOLRindex(req, res) {
       if (doc.msVisionDescription.startsWith("V12: ")) doc.msVisionDescription = doc.msVisionDescription.substring(5).trim() ;
       doc.msVisionDescription = removeDuplicateTrailingText(res, doc.msVisionDescription) ;
       doc.nomicMsVisionDescriptionEmbedding = setEmbeddingsAsFloats(await utils.getNomicEmbedding(doc.msVisionDescription.trim())) ;
+
+
+      doc.msVision35Description = removeDuplicateTrailingText(res, doc.msVision35Description) ;
+      doc.nomicMsVision35DescriptionEmbedding = setEmbeddingsAsFloats(await utils.getNomicEmbedding(doc.msVision35Description.trim())) ;
 
       doc.imageVector = setEmbeddingsAsFloats(doc.imageVector) ; // this is the original clip image embedding, unchanged
       doc.evaluationField = "Y" ; // dummy - see use above..

@@ -7,13 +7,15 @@ const axios = require('axios') ;
 const utils = require('../util/utils') ;
 
 let appConfig = null ;
-        
+let questions = null ;
+
 function init(appConfigParm) {
 
   appConfig = appConfigParm ;
   router.post('/',		                async (req, res) => { evaluate(req, res) }) ;
   router.get('/testSearch',		        async (req, res) => { testSearch(req, res) }) ;
   router.get('/testSimilarity',	      async (req, res) => { testSimilarity(req, res) }) ;
+
   return router ;  
 }
 
@@ -21,12 +23,12 @@ const abSimilaritySets = [
   {id:0,  desc: "CLIP similarity", matchField: "imageVector"},
   {id:1,  desc: "Metadata similarity", matchField: "nomicMetadataEmbedding"},
   {id:2,  desc: "OpenAI description similarity", matchField:"nomicOpenAIDescriptionEmbedding"},
-  {id:3,  desc: "Phi-3 description similarity", matchField: "nomicMsVisionDescriptionEmbedding"}
+  {id:3,  desc: "Phi-3.5 description similarity", matchField: "nomicMsVision35DescriptionEmbedding"}
 ]
 
 const similarityCallibrationImages = [
   "nla.obj-161285481", "nla.obj-159249858", "nla.obj-162422253",
-  "nla.obj-3284516716", "nla.obj-148911391" , "nla.obj-136835710", "nla.obj-159893642",
+  "nla.obj-3284516716", "nla.obj-146605134" , "nla.obj-136835710", "nla.obj-159893642",
   "nla.obj-147716313", "nla.obj-232652175", "nla.obj-139829745", "nla.obj-2881549102",
   "nla.obj-152044606", "nla.obj-3088810834", "nla.obj-136469065", "nla.obj-139328926",
   "nla.obj-159092668", "nla.obj-145170241", "nla.obj-152573561" , "nla.obj-151447880",
@@ -36,14 +38,17 @@ const similarityCallibrationImages = [
   "nla.obj-160529463", "nla.obj-151500576", "nla.obj-137011934", "nla.obj-133000693"
 ] ;
 
+
+
 async function evaluate(req, res) {
 
   try {
+    if (!questions)   questions = await utils.getQuestions() ; 
+
     let optionalUserIdentifier = req.cookies.optionalUserIdentifier ;
     let evaluationProgress = req.cookies.evaluationProgress ; // next search S-nn    or next similarity M-nn
     let startingPoint = req.cookies.startingPoint ;
     if ((startingPoint === undefined) || (startingPoint === null) || isNaN(startingPoint)) {
-      let questions = await utils.getQuestions() ;
       startingPoint = Math.floor(Math.random() * questions.length) ;
       res.cookie('startingPoint', "" + startingPoint, { maxAge: 3600 * 24 * 100, httpOnly: true }) ;
     }
@@ -104,9 +109,6 @@ async function showSearchEval(req, res, seq, optionalUserIdentifier, startingPoi
 
   console.log("\nin searchEval seq= " + seq + " startingPoint= " +startingPoint + " req=" +JSON.stringify(req.body));
 
-  let questions = await utils.getQuestions() ;
-  console.log("questions:" + JSON.stringify(questions) );
-
   // if eval, save it and increment seq
   if (req.body.question) {
     let realSeq = seq + startingPoint ;
@@ -128,7 +130,7 @@ async function showSearchEval(req, res, seq, optionalUserIdentifier, startingPoi
 
   console.log(" seq now " + seq) ;
 
-  if ((seq >= questions.length)) {  // all done!!
+  if ( (seq >= questions.length)) {  // all done!!
     res.cookie('evaluationProgress', "M-00", { maxAge: 3600 * 24 * 100, httpOnly: true }) ;
     res.render('endOfSearchEvals', {req: req, optionalUserIdentifier: optionalUserIdentifier}) ;
     return ;
@@ -167,7 +169,7 @@ async function showSearchEval(req, res, seq, optionalUserIdentifier, startingPoi
   let bRes = await runSearchSet(abSearchSets[b], question) ;
   console.log(" a="+a+" b="+b+" q=" + question + " seq=" + seq + " totalSeq=" + questions.length) ;
   res.render('evalSearch', {req: req, appConfig: appConfig, question: question, abSets: abSearchSets, a: a, b: b,
-      aRes: aRes, bRes: bRes, seq: seq, totalSeq: questions.length}) ;
+      aRes: aRes, bRes: bRes, seq: seq, totalDone: seq + 1, totalSeq: questions.length + similarityCallibrationImages.length}) ;
 }
 
 
@@ -225,7 +227,7 @@ async function showSimEval(req, res, seq, optionalUserIdentifier, startingPoint)
       " targetImage id" + targetImage.id + " aRes count " + aRes.docs.length + " bRes count " + bRes.docs.length) ;
 
   res.render('evalSimilarity', {req: req, appConfig: appConfig, image: image, abSets: abSearchSets, a: a, b: b,
-        aRes: aRes, bRes: bRes, seq: seq, totalSeq: similarityCallibrationImages.length }) ;
+        aRes: aRes, bRes: bRes, seq: seq, totalDone: questions.length + seq + 1, totalSeq: questions.length + similarityCallibrationImages.length }) ;
 }
 
 async function testSimilarity(req, res) {
@@ -292,14 +294,14 @@ async function getTargetImageForSimilarity(knownImage) {
  
       const searchParameters = 
         "&wt=json&rows=20&q.op=AND" +
-        "&fl=id,title,imageVector,nomicMetadataEmbedding,nomicOpenAIDescriptionEmbedding,nomicMsVisionDescriptionEmbedding" +
+        "&fl=id,title,imageVector,nomicMetadataEmbedding,nomicOpenAIDescriptionEmbedding,nomicMsVision35DescriptionEmbedding" +
         "&q=id:(*" + matchId + "*)"
 
       console.log("getTargetImageForSimilarity query " + searchParameters) ;
   
       let results = await solr.search(searchParameters, appConfig.comparisonImageSearchPicturesCore) ;
       if (!results.docs || results.docs.length < 1) {
-        console.log("getTargetImageForSimilarity found none for id " + rand) ;
+        console.log("getTargetImageForSimilarity found none for id " + matchId) ;
         continue ;
       }
       let selected = results.docs[0] ;
@@ -340,15 +342,16 @@ const abSearchSets = [
   {id:0,  desc: "Image semantic similarity: compares the CLIP embedding of the image with the CLIP embedding of the query text", bq: clipBQ},
   {id:1,  desc: "NLA metadata keyword: compares the NLA metadata text with the query text (traditional Lucene TF/IDF approach)", bq: metaBQ},
   {id:2,  desc: "OpenAI description keyword: compares the OpenAI description text with the query text (traditional Lucene TF/IDF approach).", bq: openAIBQ},
-  {id:3,  desc: "Phi-3 description keyword: compares the Phi-3 description text with the query text (traditional Lucene TF/IDF approach).", bq: phi3BQ},
+  {id:3,  desc: "Phi-3.5 description keyword: compares the Phi-3.5 description text with the query text (traditional Lucene TF/IDF approach).", bq: phi35BQ},
   {id:4,  notSelectable: true, blends: [{source: 0, perc: 80}, {source: 1, perc:20}], sdesc: "80% CLIP 20% NLA metadata"},
   {id:5,  notSelectable: true, blends: [{source: 0, perc: 50}, {source: 1, perc:50}], sdesc: "50% CLIP 50% NLA metadata"},
   {id:4,  blends: [{source: 0, perc: 80}, {source: 2, perc:20}], sdesc: "80% CLIP 20% OpenAI description"},
   {id:7,  notSelectable: true, blends: [{source: 0, perc: 50}, {source: 2, perc:50}], sdesc: "50% CLIP 50% OpenAI description"},
-  {id:8,  blends: [{source: 0, perc: 80}, {source: 3, perc:20}], sdesc: "80% CLIP 20% Phi-3 description"},
-  {id:9,  notSelectable: true, blends: [{source: 0, perc: 50}, {source: 3, perc:50}], sdesc: "50% CLIP 50% Phi-3 description"},
+  {id:8,  blends: [{source: 0, perc: 80}, {source: 3, perc:20}], sdesc: "80% CLIP 20% Phi-3.5 description"},
+  {id:9,  notSelectable: true, blends: [{source: 0, perc: 50}, {source: 3, perc:50}], sdesc: "50% CLIP 50% Phi-3.5 description"},
   {id:10, blends: [{source: 0, perc: 50}, {source: 2, perc:30}, {source: 1, perc:20}], sdesc: "50% CLIP 30% OpenAI description 20% NLA metadata"},
-  {id:11, blends: [{source: 0, perc: 50}, {source: 3, perc:30}, {source: 1, perc:20}], sdesc: "50% CLIP 30% Phi-3 description 20% NLA metadata"}
+  {id:11, blends: [{source: 0, perc: 50}, {source: 3, perc:30}, {source: 1, perc:20}], sdesc: "50% CLIP 30% Phi-3.5 description 20% NLA metadata"},
+  {id:3,  notSelectable: true, desc: "Phi-3 description keyword: compares the Phi-3 description text with the query text (traditional Lucene TF/IDF approach).", bq: phi3BQ},
 ] ;
 // we dont allow 4, 5, 7, 9 to be selected
 
@@ -409,7 +412,7 @@ const SEARCH_COMMON =
   "&wt=json&rows=10" + 
   "&q.op=AND" +
   "&fl=id,url,contentType,title,metadataText,bibId,formGenre,format,author,originalDescription,notes,incomingUrls," +
-      "openAIDescription,msVisionDescription,score" ; 
+      "openAIDescription,msVisionDescription,msVision35Description,score" ; 
 
 async function clipBQ(stxt) {
 
@@ -433,6 +436,12 @@ async function phi3BQ(stxt) {
 
   let embedding = setEmbeddingsAsFloats(await utils.getNomicEmbedding(stxt)) ;
   return "({!knn f=nomicMsVisionDescriptionEmbedding topK=50}" + JSON.stringify(embedding) + ")"  ;
+}
+
+async function phi35BQ(stxt) {
+
+  let embedding = setEmbeddingsAsFloats(await utils.getNomicEmbedding(stxt)) ;
+  return "({!knn f=nomicMsVision35DescriptionEmbedding topK=50}" + JSON.stringify(embedding) + ")"  ;
 }
 
 

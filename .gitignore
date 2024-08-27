@@ -24,3 +24,5 @@ web/visionScanCheckpoint.data
 data/*.tsv
 web/data/search.tsv
 web/data/similarity.tsv
+web/data/junk/*
+

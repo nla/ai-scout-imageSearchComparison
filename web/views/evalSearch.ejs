@@ -62,18 +62,29 @@ function genClass(docs) {
   return (docs && (docs.length > 0)) ? "eb" : "invisibleButton" ;
 }
 
+function getPerc() {
+
+  return Math.round(totalDone * 100 / totalSeq) + "%" ;
+}
 %>
 
 
 <div id="results">
 
-  <DIV style="float:right;font-size:75%">
-    Question <%=(seq + 1)%> of <%= totalSeq %><BR/>
+  <DIV style="float:right;font-size:75%;width:320px">
+    Question <%=totalDone%> of <%= totalSeq %><BR/>
+    <div class="wrapper">
+			<div class="progress-bar">
+				<span class="progress-bar-fill" style="width: <%=getPerc()%>;"> <center style='color:white;font-weight:bold;padding-top:3px'><%=getPerc()%></center></span>
+			</div>
+		</div>
+
+    <br>
     Click a button to record your evaluation
   </DIV>
 
   <H2><span style='font-weight:80;font-size:60%'>Search query:</span> <%= question %></H2>
- 
+  <br clear="all"/>
   <FORM action="/evaluate" method="post" name="evalForm" id="evalForm">
     <input type="hidden" name="seq" value="<%=seq%>"/>
     <input type="hidden" name="a" value="<%=a%>"/>
@@ -81,7 +92,7 @@ function genClass(docs) {
     <input type="hidden" name="question" value="<%=question%>"/>
     <input type="hidden" name="eval" id="eval" value="?"/>
 
-    <TABLE CELLSPACING="10">
+    <TABLE CELLSPACING="10" style="margin-left: auto;margin-right: auto">
       <TR valign="top">
         <TH width="45%">
           Set A<BR/>
