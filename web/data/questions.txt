@@ -4,55 +4,56 @@
 # Question sequence should not be changed.  Actually, just dont edit this file..
 # (was changeable, but too much pointless hassle)
 
+# 11 culled from 50 leaving 39
 
 aircraft, pilots, mechanics
 purple flowers or foilage
-gothic building
+large gothic church
 animals trapped by a flood
-art deco movie theatre
+art deco building
 Duntroon
-person giving a speech at a lecturn
+#XXperson giving a speech at a lecturn
 flock of sheep
-ballet
+#XXballet
 black and white images of big city streets
-50 colour images of big city streets
+colour images of big city streets
 book covers
 bridge construction
 busy country town street
 snow skiing
 people on horseback
-civil disobediance
+#XXcivil disobediance
 athletic events
-fancy dress party
+#XXfancy dress party
 having fun at the beach
 mother and child
 scenic view of a lake 
-man in front of bookcase
+#XXman in front of bookcase
 mining with heavy machinery
-old movie houses
+#XXold movie houses
 people looking very happy, smiling or laughing outside
-people on boat
+#XXpeople on boat
 bottle factory
 selling cattle
-politician in a suit
+#XXpolitician in a suit
 propaganda posters
 surveyors at work with theodolite
 three people in a photograph
 using horses for agricultural work
 scenes of isolation
 child with their toys
-train passengers
+#XXtrain passengers
 scences from world war two
 Japanese print showing the sea or ocean
 Japanese print with lots of red
 racing yachts
 boy scouts
-car dealerships
+#XXcar dealerships
 Sydney Cricket Ground
 Sydney Town Hall
 Alexander Downer
-broken hill
-person looking at the water
+Broken Hill
+#XXperson looking at the water
 people working in a factory
 Frensham School
 

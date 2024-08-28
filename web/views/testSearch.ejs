@@ -29,7 +29,7 @@
     if (doc.metadataText.length > 2)  // sheesh - they repeat for some reason
       for (let i = 2;i<1+doc.metadataText.length/2;i++) if (doc.metadataText[i]) desc.push(doc.metadataText[i]) ;
 
-    let descAI = "?" + descSource ;
+    let descAI = "" ;
     if (descSource) {
       if (descSource == 'p') descAI = "Phi-3: " + doc.msVisionDescription ;
       else if (descSource == 'p35') descAI = "Phi-35: " + doc.msVisionDescription ;
@@ -84,9 +84,10 @@ function getSearchedDescription(sets, id) { // return 'o' if openAi, 'p' is phi,
   }
   for (let blend of sets[id].blends) {
     if (sets[blend.source].desc.includes("OpenAI")) return 'o' ;
-    if (sets[id].desc.includes("Phi-3.5")) return 'p35' ;
+    if (sets[blend.source].desc.includes("Phi-3.5")) return 'p35' ;
     if (sets[blend.source].desc.includes("Phi-3")) return 'p' ;
   }
+   
   return null ;
 }
 

@@ -29,13 +29,14 @@ const abSimilaritySets = [
 const similarityCallibrationImages = [
   "nla.obj-161285481", "nla.obj-159249858", "nla.obj-162422253",
   "nla.obj-3284516716", "nla.obj-146605134" , "nla.obj-136835710", "nla.obj-159893642",
-  "nla.obj-147716313", "nla.obj-232652175", "nla.obj-139829745", "nla.obj-2881549102",
+  "nla.obj-147716313", "nla.obj-232652175", "nla.obj-139829745", "nla.obj-2881549102"
+  /*, culled from 35 to 11
   "nla.obj-152044606", "nla.obj-3088810834", "nla.obj-136469065", "nla.obj-139328926",
   "nla.obj-159092668", "nla.obj-145170241", "nla.obj-152573561" , "nla.obj-151447880",
   "nla.obj-1209799016", "nla.obj-153533075", "nla.obj-503947443", "nla.obj-140357064",
   "nla.obj-160451786", "nla.obj-142838917", "nla.obj-150140881", "nla.obj-146286848",
   "nla.obj-159763640", "nla.obj-137409017", "nla.obj-847179341", "nla.obj-160981535",
-  "nla.obj-160529463", "nla.obj-151500576", "nla.obj-137011934", "nla.obj-133000693"
+  "nla.obj-160529463", "nla.obj-151500576", "nla.obj-137011934", "nla.obj-133000693"*/
 ] ;
 
 
@@ -353,7 +354,7 @@ const abSearchSets = [
   {id:11, blends: [{source: 0, perc: 50}, {source: 3, perc:30}, {source: 1, perc:20}], sdesc: "50% CLIP 30% Phi-3.5 description 20% NLA metadata"},
   {id:12, notSelectable: true, desc: "Phi-3 description keyword: compares the Phi-3 description text with the query text (traditional Lucene TF/IDF approach).", bq: phi3BQ},
 ] ;
-// we dont allow 4, 5, 7, 9 to be selected
+
 
 
 async function testSearch(req, res) {
