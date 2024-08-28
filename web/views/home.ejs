@@ -23,6 +23,118 @@
         So, on behalf of future searchers, thanks in advance!
       </P>
 
+      <H3>What we are asking you to do</H3>
+      <P>We are asking you to perform two sets of evaluations:</P>
+      <OL>
+        <LI>You'll be shown <B>50 search results</B>.   For each search, two different approaches are chosen at random to produce the search
+        results: the results from each method are shown in their own column.  You are asked to choose which column has the most relevant
+        results in the best order.
+        </LI>
+        <LI>You'll be shown <B>35 <I>similarity</I> searches</B>: 30 random images have been chosen, and for each, two different approaches
+           are chosen at random to find the most similar images: the results from each method are shown in their own column. 
+            You are asked to choose which column has the most similar images.</LI>
+      </OL>
+      </P>
+      <P>Please perform <B>as many or as few evaluations</B> as you want - every evaluation helps us.  
+         It will take you <B>about 15 minutes</B> to complete both sets of evaluations. 
+        If you tell us who you are (below), we'll set a cookie in your browser to allow you to continue evaluating later if you don't 
+        complete both evaluation sets in one go.
+        If you provide an email, we'll send you a copy of the evaluation results.
+      </P>
+      <P>This evaluation site uses cookies and javascript, so in the unlikely event you've disabled
+        them for NLA sites, please enabled them now.  Also, please don't use the back button - once 
+        you've evaluated a result, pressing "back" won't "undo" that evaluation.
+      </P>
+
+      <P>
+          This evaluation has been created by Francis Crimmins and Kent Fitch.  Candace valliantly do all she could
+          to remediate the <i>programmer-chic</i> of this evaluation site.
+      </P>
+      
+      <% if (optionalUserIdentifier) {%>
+        <H3>Welcome back, <%=optionalUserIdentifier%>.</H3>
+        <P>The optional user identifier you chose has been retained as a cookie.
+        If you wish remove this user identifier from this site, just clear your cookies for this site in your browser or click 
+        this button:
+
+          <FORM action="/" method="post">
+            <input type="submit" value="Clear cookies for this page"/>
+          </FORM>
+
+      </P>
+      <%}
+       else {%>
+        <H3>Do you want to tell us who you are?</H3>
+        <P>It may be helpful if we can correlate evaluations from the same person, or, in very rare cases, ask you
+          for information about some of your evaluations (which of course, you can totally ignore). So, if you
+          don't mind, we'd appreciate it if you'd enter your name or email address, or, if you want to remain
+          anonymous but help us correlate evaluations, enter a random name of your choosing.  If you provide an NLA
+          email address, we'll send you a copy of the evaluation results in a few weeks.
+        </P>
+        <P>Again, telling us who you are is completely optional, so feel free to skip.
+        </P>
+        <div  style="margin-left:3em;padding:15px;border:1px solid #999999;width:60em">
+
+          <FORM action="/" method="post">
+            <label>Track my evaluations using this real name, NLA email address, or made-up name:</label>
+            <input type="text" name="optionalUserIdentifier" size="20"/>
+            <input type="submit" value="Track me!"/>
+          </FORM>
+        </div>
+      <%}%>
+      </P>
+
+    <% if (typeof evaluationProgress === 'undefined') {%>
+      <H3>Let's begin!</H3>
+      <div>
+          <FORM action="/evaluate" method="post">
+            <center><input type="submit" value="Show me the first result"/></center>
+          </FORM>
+      </div> 
+
+    <%}
+     else {%>
+      <H3>Let's continue!</H3>
+      <div>
+        <FORM action="/evaluate" method="post">
+          <center><input type="submit" value="Resume evaluations"/></center>
+        </FORM>
+      </div>
+    <%}%>
+  </div>
+</div>
+
+<div style="margin-top:50px">
+
+  <HR style="color:grey;width:80%"/>
+
+
+
+  <H3>Original version</H3>
+</div>
+
+<div class="indent">
+
+  <div style="max-width:70em;margin-left: auto;margin-right: auto">
+    <center><H1>Thank you for helping us evaluate image search</H1></center>
+    <H3>What is this?</H3>
+
+      <P>New <a href="https://en.wikipedia.org/wiki/Semantic_search">semantic searching</a> 
+        techniques which allow images to be found based on the semantic similarity between a
+        query and an image's contents rather than simple keyword matching between a query
+        and descriptive metadata provide better ways to find images, even
+        those with little or no descriptive metadata.  
+        But there are so many options and knobs to tweak that we need human judgement to 
+        reveal the better options.      
+      </P>
+      <P>By evaluating the quality of image search results produced using some of these techniques, you'll help us produce a better
+        image search engine for the Australia public, allowing everyone to find photos, drawings, cartoons, posters and art work much
+        easier than is currently possible amongst the huge haystacks of NLA images.  
+      </P>
+      <P>
+        So, on behalf of future searchers, thanks in advance!
+      </P>
+
       <H3>How does it work?</H3>
       <P>We ask you to perform two sets of evaluations:</P>
       <OL>

@@ -351,7 +351,7 @@ const abSearchSets = [
   {id:9,  notSelectable: true, blends: [{source: 0, perc: 50}, {source: 3, perc:50}], sdesc: "50% CLIP 50% Phi-3.5 description"},
   {id:10, blends: [{source: 0, perc: 50}, {source: 2, perc:30}, {source: 1, perc:20}], sdesc: "50% CLIP 30% OpenAI description 20% NLA metadata"},
   {id:11, blends: [{source: 0, perc: 50}, {source: 3, perc:30}, {source: 1, perc:20}], sdesc: "50% CLIP 30% Phi-3.5 description 20% NLA metadata"},
-  {id:3,  notSelectable: true, desc: "Phi-3 description keyword: compares the Phi-3 description text with the query text (traditional Lucene TF/IDF approach).", bq: phi3BQ},
+  {id:12, notSelectable: true, desc: "Phi-3 description keyword: compares the Phi-3 description text with the query text (traditional Lucene TF/IDF approach).", bq: phi3BQ},
 ] ;
 // we dont allow 4, 5, 7, 9 to be selected
 
