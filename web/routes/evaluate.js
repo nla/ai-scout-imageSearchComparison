@@ -15,6 +15,7 @@ function init(appConfigParm) {
   router.post('/',		                async (req, res) => { evaluate(req, res) }) ;
   router.get('/testSearch',		        async (req, res) => { testSearch(req, res) }) ;
   router.get('/testSimilarity',	      async (req, res) => { testSimilarity(req, res) }) ;
+  router.get('/showEvaluations',      async (req, res) => { showEvaluations(req, res) }) ;
 
   return router ;  
 }
@@ -27,8 +28,13 @@ const abSimilaritySets = [
 ]
 
 const similarityCallibrationImages = [
-  "nla.obj-161285481", "nla.obj-159249858", "nla.obj-162422253",
-  "nla.obj-3284516716", "nla.obj-146605134" , "nla.obj-136835710", "nla.obj-159893642",
+  "nla.obj-136469065", // "nla.obj-161285481", 
+  "nla.obj-159249858", "nla.obj-162422253",
+  "nla.obj-140357064", // "nla.obj-3284516716",
+   "nla.obj-133000693", // "nla.obj-146605134" 
+
+  "nla.obj-151500576", // "nla.obj-136835710",
+  "nla.obj-147125184", //   "nla.obj-159893642",
   "nla.obj-147716313", "nla.obj-232652175", "nla.obj-139829745", "nla.obj-2881549102"
   /*, culled from 35 to 11
   "nla.obj-152044606", "nla.obj-3088810834", "nla.obj-136469065", "nla.obj-139328926",
@@ -464,6 +470,16 @@ function innerProduct(v1, v2) {
   for (let i=0;i<v1.length;i++) r +=  v1[i] * v2[i] ;
   
   return r ;
+}
+
+
+async function showEvaluations(req,res) {
+
+  //read the tsv results, produce json summary for formatting
+
+
+
+  
 }
 
 module.exports.init = init ;

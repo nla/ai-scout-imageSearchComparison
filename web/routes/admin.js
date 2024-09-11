@@ -87,6 +87,7 @@ async function recreateSOLRindex(req, res) {
     "&wt=json&rows=999999" +  // only expecting 500   Skip the noise images
     "&q=openAIDescription:* AND -openAIDescription:(\"No preview available\") AND " +
         "-openAIDescription:(\"I can't provide assistance with that request\") AND -suppressed:*" + // added not suppressed 23Aug24 - removed 268 recs bring total down to 4363
+        " AND copyright:\"Out of Copyright\"" + // added 11sep24
     "&q.op=AND" +
     "&fl=id,url,contentType,title,metadataText,bibId,formGenre,format,author,originalDescription,notes,incomingUrls," +
         "openAIDescription,msVisionDescription,msVision35Description,imageVector,suppressed" ; // we dont get the text vectors (done with clip) because we are redoing them with nomic
@@ -145,4 +146,8 @@ async function reloadQuestions(req, res) {
   }
   res.end() ;
 }
+
+
+
+
 module.exports.init = init ;
