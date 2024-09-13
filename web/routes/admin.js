@@ -16,9 +16,67 @@ function init(appConfigParm) {
   router.get('/recreateSOLRindex',		async (req, res) => { recreateSOLRindex(req, res) }) ;
   router.get('/reloadQuestions',		  async (req, res) => { reloadQuestions(req, res) }) ;
 //router.get('/showEvaluations',      async (req, res) => { showEvaluations(req, res) }) ;
+  router.get('/generateFilesForClustering', async (req, res) => { generateFilesForClustering(req, res) }) ;
+  router.get('/addClustersToIndex',   async (req, res) => { addClustersToIndex(req, res) }) ;  
+  
   return router ;  
 }
 
+async function generateFilesForClustering(req, res) {
+
+  let searchParameters =
+  "&wt=json&rows=9999" +  
+  "&q=*:*" +
+  "&fl=id,imageVector,bibId" ; 
+
+  let searchResp = await solr.search(searchParameters, appConfig.comparisonImageSearchPicturesCore) ;
+  res.write("Found " + searchResp.numFound + " docs\n") ;
+
+  const outDir = "/home/kfitch/imageSearchComparison/python/data/"
+  for (let doc of searchResp.docs) 
+    fs.writeFileSync(outDir + doc.bibId + ".json", JSON.stringify({id: doc.id, bibId: doc.bibId, clipEmbedding: doc.imageVector})) ;
+  res.write("Done") ;
+  res.end() ;
+}
+
+async function addClustersToIndex(req, res) {
+
+  const src = "/home/kfitch/imageSearchComparison/python/clusterRunLog4" ;
+  res.write("NOTE!!!  this will not remove any existing clusters!!\n") ;
+  res.write("Reading from " + src) ;
+
+  const lines = fs.readFileSync(src, 'utf-8').split(/\r?\n/) ;
+
+  let processingYet = false ;
+  let c = 0 ;
+
+  for (let line of lines) {
+    if (!processingYet) {
+      if (line == "sourceId TAB clusterNumber TAB clusterSize TAB clusterCentroidId") {
+        processingYet = true ;
+        continue ;
+      }
+      res.write(line + "\n") ;
+      continue ;
+    }
+    if (line == "End of cluster info details") {
+      processingYet = false ;
+      continue ;
+    }
+    let parts = line.split("\t") ;
+    res.write("id " + parts[0] + " cluster " + parts[1] + " size " + parts[2] + " centroid " + parts[3] + "\n") ;
+
+    let updatedFields = {
+      clusterNumber: parts[1],
+      clusterCentroid: parts[3],
+      clusterSize: parts[2]
+    }
+    await updateDoc(parts[0], updatedFields) ;      
+    c++ ;
+  }
+  res.write("\n DONE - added " + c + " cluster memberships ") ;
+  res.end() ;
+}
 
 function removeDuplicateTrailingText(res, txt) {
   // some ms vision descriptions contain repeated junk at the end
@@ -148,6 +206,42 @@ async function reloadQuestions(req, res) {
 }
 
 
+async function updateDoc(id, updatedFields) {
+
+  try {
+    let selectData = 
+      "wt=json&rows=1" +
+      "&q=id:\"" + encodeURIComponent(id) + "\"" +
+      "&fl=*" ;
+
+    let solrRes = null ;
+ 
+    solrRes = await axios.get(
+        appConfig.solr.getSolrBaseUrl() + appConfig.comparisonImageSearchPicturesCore + "/select?" + selectData) ;
+
+    if ((solrRes.status != 200) || !(solrRes.data && solrRes.data.response && solrRes.data.response.docs))
+      throw "SOLR updateDoc id " + id + " unexpected response: " + solrRes.status + " or nothing found" ;
+
+    let doc = solrRes.data.response.docs[0] ;
+
+    for (let fldName in updatedFields) {
+        let val = updatedFields[fldName] ;
+        if (val === null) delete doc[fldName] ;
+        else doc[fldName] = updatedFields[fldName] ;
+    }
+    
+    delete doc["_version_"] ;  // update/replace wont work with this!
+
+    console.log("about to update doc with id:" + id) ;
+    await solr.addOrReplaceDocuments(doc, appConfig.comparisonImageSearchPicturesCore) ;  // unique key is id
+    console.log("picture updateDoc done") ;
+  }
+  catch (e) {
+    console.log("error in updateDoc, id:" + id + ", err:" + e) ;
+    e.stack ;
+    throw e ;
+  }
+}
 
 
 module.exports.init = init ;

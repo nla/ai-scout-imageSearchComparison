@@ -15,6 +15,8 @@ function init(appConfigParm) {
   router.post('/',		                async (req, res) => { evaluate(req, res) }) ;
   router.get('/testSearch',		        async (req, res) => { testSearch(req, res) }) ;
   router.get('/testSimilarity',	      async (req, res) => { testSimilarity(req, res) }) ;
+  router.get('/demoSearch',		        async (req, res) => { demoSearch(req, res) }) ;
+  router.get('/demoCluster',		      async (req, res) => { demoCluster(req, res) }) ;
   router.get('/showEvaluations',      async (req, res) => { showEvaluations(req, res) }) ;
 
   return router ;  
@@ -322,12 +324,12 @@ async function getTargetImageForSimilarity(knownImage) {
 
 async function getSimilaritySet(abSimilaritySet, targetImage) {
 
-  console.log("getSimilaritySet abSimilaritySet=" + JSON.stringify(abSimilaritySet) + " targetImage " + targetImage) ;
+  console.log("getSimilaritySet abSimilaritySet=" + JSON.stringify(abSimilaritySet) + " targetImage " + targetImage.id) ;
   let embedding = targetImage[abSimilaritySet.matchField] ;
   
   const searchParameters = 
-    "&wt=json&rows=20&q.op=AND" +
-    "&fl=id,title,score" +
+    "&wt=json&rows=50&q.op=AND" +
+    "&fl=id,title,score,bibId" +
     "&q=({!knn f=" + abSimilaritySet.matchField + " topK=50}" + JSON.stringify(embedding) + ")"  ;
 
   return await solr.search(searchParameters, appConfig.comparisonImageSearchPicturesCore) ;
@@ -394,10 +396,13 @@ async function testSearch(req, res) {
   }
 }
 
-async function runSearchSet(set, stxt) {
+
+
+async function runSearchSet(set, stxt, resultSetSize) {
 
     console.log("runSearchSet " + JSON.stringify(set)) ;
-    let searchParameters = SEARCH_COMMON + "&q=" + await buildQuery(set, stxt) ;
+    if (!resultSetSize) resultSetSize = 10 ;
+    let searchParameters = "&rows=" + resultSetSize + SEARCH_COMMON + "&q=" + await buildQuery(set, stxt) ;
 
     console.log("set: " + JSON.stringify(set) + "\nquery: len" + searchParameters.length + ": " + searchParameters.replaceAll(/\[[^\]]*\]/gi, "[..vectors..]")) ;
 
@@ -416,10 +421,10 @@ async function buildQuery(set, stxt) {
 }
 
 const SEARCH_COMMON = 
-  "&wt=json&rows=10" + 
+  "&wt=json" + 
   "&q.op=AND" +
   "&fl=id,url,contentType,title,metadataText,bibId,formGenre,format,author,originalDescription,notes,incomingUrls," +
-      "openAIDescription,msVisionDescription,msVision35Description,score" ; 
+      "openAIDescription,msVisionDescription,msVision35Description,score,bibId" ; 
 
 async function clipBQ(stxt) {
 
@@ -471,6 +476,140 @@ function innerProduct(v1, v2) {
   
   return r ;
 }
+
+
+async function demoCluster(req, res) {
+
+  console.log("in demoCluster rq=" +JSON.stringify(req.query));
+
+  try { // old school axios here - facet isnt in response :(
+
+    let solrRes = await axios.get(appConfig.solr.getSolrBaseUrl() + appConfig.comparisonImageSearchPicturesCore + "/select" +
+                      "?wt=json&facet.field=clusterCentroid&facet=true&fl=id%2CclusterCentroid&indent=true&q=*:*&rows=1") ;
+
+    if (!((solrRes.status == 200) && solrRes.data &&  solrRes.data.facet_counts)) {
+      res.write(" Failed to find any facet_counts, status: " + solrRes.status + "\n") ;
+      if (solrRes.data) res.write(" Solr data: " + JSON.stringify(solrRes.data) + "\n") ;
+      res.end() ;
+      return ;
+    }
+    let facetCounts = solrRes.data.facet_counts ;
+    if (!facetCounts) {
+      res.write(" No facet counts") ;
+      res.end() ;
+      return ;
+    }    
+    let facetFields = facetCounts.facet_fields ;
+    if (!facetFields) {
+      res.write(" No facet fields") ;
+      res.end() ;
+      return ;
+    }
+    //res.write("facetFields: " + JSON.stringify(facetFields) + "\n") ;
+    let clusterCentroid = facetFields.clusterCentroid ;
+    if (!clusterCentroid) {
+      res.write(" No clusterCentroid") ;
+      res.end() ;
+      return ;
+    }
+    let idList = [] ;
+    for (let i=0;i<clusterCentroid.length;i=i+2) {
+      // res.write("cluster " + clusterCentroid[i] + "\n") ;
+      idList.push("id:\"" + clusterCentroid[i] + "\"") ;
+    }
+
+    // get the centroids, show as a grid..
+
+    const searchParameters = 
+      "&wt=json&rows=999&q.op=OR" +
+      "&fl=id,clusterSize,title,bibId&sort=clusterSize desc" +
+      "&q=" + idList.join(" OR ") ;
+
+    console.log("demoCluster centroid getch query " + searchParameters) ;
+
+    let clusterResults = await solr.search(searchParameters, appConfig.comparisonImageSearchPicturesCore) ;
+    if (!clusterResults.docs || clusterResults.docs.length < 1) 
+    throw("demoCluster clusterResults found none for  " + searchParameters) ;
+
+
+    let showSimBaseParms = "searchOrSim=sim&method=0&layout=Grid&stxt=" ;
+
+    res.render('demoSearch', {req: req, appConfig: appConfig, stxt: "", abSets: abSearchSets, method: 0,
+      results: clusterResults, layout: "Grid", showSimBaseParms: showSimBaseParms, showingSimilar: false,
+      showingClusters:true }) ;
+    
+  }
+  catch(e) {
+    res.send("Error: " + err) ;
+    res.end() ;
+    console.log("demoCluster err:" + err) ;
+    console.log(err.stack) ;
+  }
+
+
+ }
+
+
+async function demoSearch(req, res) {
+
+  console.log("in demoSearch rq=" +JSON.stringify(req.query));
+
+  try {
+    let stxt = "" ;
+    let method = 10 ; // CLIP openAI NLA metadata
+    let layout = "List" ;
+    let searchOrSim = "Search" ;
+  
+    if (req.query) {
+      if (req.query.stxt) stxt = req.query.stxt ;
+      if (req.query.method) method = req.query.method ;
+      if (req.query.layout) layout = req.query.layout ;
+      if (req.query.searchOrSim) searchOrSim = req.query.searchOrSim ;
+    }
+
+    let showSimBaseParms = "searchOrSim=sim&method=" + method + "&layout=" + layout + "&stxt=" + encodeURIComponent(stxt) ;
+    if (searchOrSim == "sim") {
+      let baseImage = req.query.baseImage ;
+      if (!baseImage) throw("expected a base image?") ;
+
+      const searchParameters = 
+        "&wt=json&rows=1&q.op=AND" +
+        "&fl=id,title,imageVector,nomicMetadataEmbedding,nomicOpenAIDescriptionEmbedding,nomicMsVision35DescriptionEmbedding,bibId" +
+        "&q=id:\"" + baseImage + "\"" ;
+
+      console.log("demoSearch getTargetImageForSimilarity query " + searchParameters) ;
+
+      let findBaseImageResults = await solr.search(searchParameters, appConfig.comparisonImageSearchPicturesCore) ;
+      if (!findBaseImageResults.docs || findBaseImageResults.docs.length < 1) 
+        throw("demoSearch getTargetImageForSimilarity found none for id " + baseImage) ;
+
+      let targetImage = findBaseImageResults.docs[0] ;
+      console.log("found the target Image:" + targetImage.id) ;
+
+      let results = await getSimilaritySet(abSimilaritySets[0], targetImage) ; // *always* use CLIP similarity
+      res.render('demoSearch', {req: req, appConfig: appConfig, stxt: stxt, abSets: abSearchSets, method: method,
+        results: results, layout: "Grid", showSimBaseParms: showSimBaseParms, showingSimilar: true, showingClusters:false}) ;
+    }
+    else {
+      if ((method >= abSearchSets.length)) throw ("method must be less than " + abSearchSets.length) ;
+      stxt = cleanseLite(stxt).trim() ;
+
+      let results = (stxt) ? await runSearchSet(abSearchSets[method], stxt, ("Grid" == layout) ? 50 : 10) : null ;
+
+      res.render('demoSearch', {req: req, appConfig: appConfig, stxt: stxt, abSets: abSearchSets, method: method,
+          results: results, layout: layout, showSimBaseParms: showSimBaseParms, showingSimilar: false, showingClusters:false}) ;
+    }
+  }
+  catch (err) {
+    res.send("Error: " + err) ;
+    res.end() ;
+    console.log("demoSearch err:" + err) ;
+    console.log(err.stack) ;
+  }
+}
+
+
+
 
 
 async function showEvaluations(req,res) {

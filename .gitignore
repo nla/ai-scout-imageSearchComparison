@@ -25,4 +25,16 @@ data/*.tsv
 web/data/search.tsv
 web/data/similarity.tsv
 web/data/junk/*
+python/data/*
 
+python/clusterRunLog
+python/clusterRunLog2
+python/clusterRunLog3
+python/clusterRunLog4
+python/clusterRunLog5
+python/clusterRunLog6
+python/Generative_AI.egg-info/*
+python/Generative_AI.egg-info/dependency_links.txt
+python/Generative_AI.egg-info/requires.txt
+python/Generative_AI.egg-info/SOURCES.txt
+python/Generative_AI.egg-info/top_level.txt

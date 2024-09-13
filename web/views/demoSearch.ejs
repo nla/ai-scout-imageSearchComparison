@@ -1,0 +1,143 @@
+<%- include('../common/demoHeader') ; -%>
+
+
+<%- include('../common/demoSearchForm') ; -%>
+
+<% 
+
+  function genImageSrc(id) {
+    let im = id.replace('https://nla.gov.au', '/static/pics')
+            .replace('http://nla.gov.au', '/static/pics')
+            .replace("/image", ".jpg")
+            .replace("/representativeImage", ".jpg") ;
+    // something like   /static/pics/nla.obj-161515917.jpg
+    let i = im.indexOf('/nla.obj-') ;
+    let j = im.indexOf('.jpg') ;
+    let idd = Number(im.substring(i+9, j)) ;
+    let subDir = idd % 1000 ;
+    return im.substring(0, i) + "/" + subDir + im.substring(i) ;
+  }
+
+
+  function formatDoc(docs, seq, source) {
+
+    let doc = docs[seq] ;
+
+    let desc = [] ;
+    if (doc.metadataText) 
+      for (let t of doc.metadataText)  // sheesh - they repeat for some reason
+        if (t && !desc.includes(t)) desc.push(t) ;
+ 
+    if (desc) desc[0] = "<a href='https://catalogue.nla.gov.au/catalog/" + doc.bibId + "'>" + desc[0] + "</a><BR/>" ; // link title..
+    let descAI = "" ;
+    if (source) {
+      if (source == 'p') descAI = "<B>Phi-3 Description: </B>" + doc.msVisionDescription ;
+      else if (source == 'p35') descAI = "<B>Phi-35 Description: </B>" + doc.msVisionDescription ;
+      else if (source ==  'o') descAI = "<B>OpenAI Description: </B>" + doc.openAIDescription ; ;
+    }
+    return "<TD>" +    
+            "<a href='demoSearch?baseImage=" + doc.id + "&" + showSimBaseParms + "'>" +   
+              "<IMG src='" + genImageSrc(doc.id) + "' class='medSizeImage' style='float:left;width:350px'>" +
+            "</a>" +
+            "</TD>" +
+            "<TD>" +
+              desc.join("<BR/>") +
+              "<BR/>Score: " + doc.score +
+              "<P>" + descAI + "</P>" +
+              
+            "</TD>" ;
+  }
+  
+  function showList(docs, source) {
+
+    if (docs.length == 0) return "<TR><TD>No results</TD></TR>" ;
+
+    let rows = [] ;
+    for (let i=0;i<docs.length;i++) 
+      rows.push("<TR valign='top'>" + formatDoc(docs, i, source)  + "</TR>") ;
+    return rows.join("\n") ;
+  }
+
+  function showGrid(docs) {
+
+    if (docs.length < 1) return "<H4>No Results</H4>" ;
+    let r = "" ;
+    for (let doc of docs) {
+      let title = doc.title || "No title" ;
+      if (title.length > 60) title = title.substring(0, 55) + "..." ;
+
+      let prefix = (showingClusters) ? ("Cluster of " + doc.clusterSize + " based on ") : "" ;
+
+      r += "<DIV style='width:210px;xheight:300px;display:inline-block;padding-bottom:10px;vertical-align:top'>" + 
+              "<DIV style='width:200px;height:200px;display:inline-block'>" +
+              
+                "<a href='demoSearch?baseImage=" + doc.id + "&" + showSimBaseParms + "'>" +
+                "<IMG src='" + genImageSrc(doc.id) + "' class='smallSizeImage' style='width:200px;vertical-align:top'>" +
+               "</a>" +
+              "</DIV>" +
+              "<span style='display:inline-block;width:200px;font-size:80%;height:2em'>" +
+                prefix +
+              "<a href='https://catalogue.nla.gov.au/catalog/" + doc.bibId + "'>" + title + "</a>" + // link title..
+              "</span>" +
+            "</DIV>" ;
+    }
+    return r + "<BR clear='all'/>" ;
+  }
+
+function getSearchedDescription(sets, id) { // return 'o' if openAi, 'p' is phi, null otherwise
+
+  if (sets[id].desc) {
+    if (sets[id].desc.includes("OpenAI")) return 'o' ;
+    if (sets[id].desc.includes("Phi-3.5")) return 'p35' ;
+    if (sets[id].desc.includes("Phi-3")) return 'p' ;
+    return null ;
+  }
+  for (let blend of sets[id].blends) {
+    if (sets[blend.source].desc.includes("OpenAI")) return 'o' ;
+    if (sets[blend.source].desc.includes("Phi-3.5")) return 'p35' ;
+    if (sets[blend.source].desc.includes("Phi-3")) return 'p' ;
+  }
+   
+  return null ;
+}
+
+function showHeading(sets, id) {
+
+  if (sets[id].desc) return sets[id].desc ;
+
+  let parts = [] ;
+  for (let blend of sets[id].blends) {
+    parts.push(blend.perc + "% of " + sets[blend.source].desc) ;
+  }
+
+  return parts.join(" and <BR/>") ;
+}
+%>
+
+<div id="results">
+
+  <% if (showingSimilar) { %>
+    <H4>Showing similar images to the first image</H4>
+  <%} %>
+
+  <% if (showingClusters) { %>
+    <H4>Showing image clusters</H4>
+  <%} %>
+ 
+  <% if (results) {  %>
+
+    <P style="font-size:smaller">Clicking an image will display similar images.</P>
+    <% if ("List" == layout) { %>
+        <!-- showHeading(abSets, method) ; not necessary because of select? -->
+        <TABLE CELLSPACING="10" style="font-size:80%">
+          <%- showList(results.docs, getSearchedDescription(abSets, method)) %> 
+        </TABLE>
+    <% }
+       else {%>
+          <%- showGrid(results.docs) %>
+    <% }%>
+  <% } %>
+</div>
+
+<%- include('../common/footer') ; -%>
+

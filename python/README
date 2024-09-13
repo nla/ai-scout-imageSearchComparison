@@ -1,0 +1,6 @@
+conda create -n kfcluster python=3.11 -y
+
+SO
+conda activate kfcluster
+
+then based on Francis' https://github.com/nla/gen_ai/blob/main/src/cluster.py
