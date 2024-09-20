@@ -15,7 +15,6 @@ function init(appConfigParm) {
   appConfig = appConfigParm ;
   router.get('/recreateSOLRindex',		async (req, res) => { recreateSOLRindex(req, res) }) ;
   router.get('/reloadQuestions',		  async (req, res) => { reloadQuestions(req, res) }) ;
-//router.get('/showEvaluations',      async (req, res) => { showEvaluations(req, res) }) ;
   router.get('/generateFilesForClustering', async (req, res) => { generateFilesForClustering(req, res) }) ;
   router.get('/addClustersToIndex',   async (req, res) => { addClustersToIndex(req, res) }) ;  
   

@@ -350,17 +350,17 @@ function setEmbeddingsAsFloats(rawEmbedding) { // fixes a problem where embeddin
 const abSearchSets = [
   {id:0,  desc: "Image semantic similarity: compares the CLIP embedding of the image with the CLIP embedding of the query text", bq: clipBQ},
   {id:1,  desc: "NLA metadata keyword: compares the NLA metadata text with the query text (traditional Lucene TF/IDF approach)", bq: metaBQ},
-  {id:2,  desc: "OpenAI description keyword: compares the OpenAI description text with the query text (traditional Lucene TF/IDF approach).", bq: openAIBQ},
-  {id:3,  desc: "Phi-3.5 description keyword: compares the Phi-3.5 description text with the query text (traditional Lucene TF/IDF approach).", bq: phi35BQ},
+  {id:2,  desc: "OpenAI description keyword: compares the OpenAI description text embedding with the query text embedding.", bq: openAIBQ},
+  {id:3,  desc: "Phi-3.5 description keyword: compares the Phi-3.5 description text embedding with the query text embedding.", bq: phi35BQ},
   {id:4,  notSelectable: true, blends: [{source: 0, perc: 80}, {source: 1, perc:20}], sdesc: "80% CLIP 20% NLA metadata"},
   {id:5,  notSelectable: true, blends: [{source: 0, perc: 50}, {source: 1, perc:50}], sdesc: "50% CLIP 50% NLA metadata"},
-  {id:4,  blends: [{source: 0, perc: 80}, {source: 2, perc:20}], sdesc: "80% CLIP 20% OpenAI description"},
+  {id:6,  blends: [{source: 0, perc: 80}, {source: 2, perc:20}], sdesc: "80% CLIP 20% OpenAI description"},
   {id:7,  notSelectable: true, blends: [{source: 0, perc: 50}, {source: 2, perc:50}], sdesc: "50% CLIP 50% OpenAI description"},
   {id:8,  blends: [{source: 0, perc: 80}, {source: 3, perc:20}], sdesc: "80% CLIP 20% Phi-3.5 description"},
   {id:9,  notSelectable: true, blends: [{source: 0, perc: 50}, {source: 3, perc:50}], sdesc: "50% CLIP 50% Phi-3.5 description"},
   {id:10, blends: [{source: 0, perc: 50}, {source: 2, perc:30}, {source: 1, perc:20}], sdesc: "50% CLIP 30% OpenAI description 20% NLA metadata"},
   {id:11, blends: [{source: 0, perc: 50}, {source: 3, perc:30}, {source: 1, perc:20}], sdesc: "50% CLIP 30% Phi-3.5 description 20% NLA metadata"},
-  {id:12, notSelectable: true, desc: "Phi-3 description keyword: compares the Phi-3 description text with the query text (traditional Lucene TF/IDF approach).", bq: phi3BQ},
+  {id:12, notSelectable: true, desc: "Phi-3 description keyword: compares the Phi-3 description text embedding with the query text embedding.", bq: phi3BQ},
 ] ;
 
 
@@ -616,9 +616,34 @@ async function showEvaluations(req,res) {
 
   //read the tsv results, produce json summary for formatting
 
+  try {
+    let lines = fs.readFileSync("data/search.tsv", "utf-8").split("\n") ;
+    let imageEvals = [] ;
+    for (let line of lines) {
+      if (line.length < 20) continue ;
+      if (line.startsWith("#")) continue ;
+      let f = line.split("\t") ;
+      if (f.length < 10) continue ;
+      if (f[0] < '20240911-135119') continue ;
 
+      imageEvals.push({
+        imageSeq: Number(f[3]),
+        imageName: f[4],
+        methodA: Number(f[5]),
+        methodB: Number(f[7]),
+        eval:f[9] 
+      }) ;
+    }
+      
+    res.render('showEvaluations', {req: req, appConfig: appConfig, abSearchSets: abSearchSets, imageEvals: imageEvals}) ;
+  }
+  catch (err) {
+    res.send("Error: " + err) ;
+    res.end() ;
+    console.log("showEvaluations err:" + err) ;
+    console.log(err.stack) ;
+  }
 
-  
 }
 
 module.exports.init = init ;

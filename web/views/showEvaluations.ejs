@@ -1,0 +1,138 @@
+<%- include('../common/header') ; -%>
+
+<div class="indent">
+
+  <H3>Evaluation results</H3>
+
+    <% 
+ 
+    function genScore() {
+      return {awin: 0, bwin: 0, ab: 0, anet: 0, bnet: 0, count: 0}
+    }
+
+    function flipScore(s) {
+      return {awin: s.bwin, bwin:s.awin, ab:s.ab, anet: s.bnet, bnet:s.anet, count:s.count} ;
+    }
+
+    const searchSets = [
+      {id:0,  desc: "CLIP", sseq:0},
+      {id:1,  desc: "NLA metadata keyword", sseq:1},
+      {id:2,  desc: "OpenAI description embedding", sseq:2},
+      {id:3,  desc: "Phi-3.5 description embedding", sseq:3},
+      {id:4,  notSelectable: true, desc: "80% CLIP, 20% NLA metadata", sseq:-1},
+      {id:5,  notSelectable: true, desc: "50% CLIP, 50% NLA metadata", sseq:-1},
+      {id:6,  desc: "80% CLIP 20% OpenAI description", sseq:4},
+      {id:7,  notSelectable: true, desc: "50% CLIP, 50% OpenAI", sseq:-1},
+      {id:8,  desc: "80% CLIP 20% Phi-3.5", sseq:5},
+      {id:9,  notSelectable: true, desc: "50% CLIP, 50% Phi-3.5", sseq:-1},
+      {id:10, desc: "50% CLIP, 30% OpenAI, 20% NLA metadata", sseq:6},
+      {id:11, desc: "50% CLIP, 30% Phi-3.5, 20% NLA metadata", sseq:7},
+      {id:12, notSelectable: true, desc: "Phi-3 description", sseq:-1}
+    ] ;
+
+    const seqToSearchSet = [0, 1, 2, 3, 6, 8, 10, 11] ; // search sets used
+
+    let searchScores = [] ;
+    for (let i=0;i<8;i++) {
+      let l = [] ;
+      for (let j=0;j<8;j++) l.push(genScore()) ;
+      searchScores.push(l) ;
+    }
+ 
+    %>
+
+    <P>abSearchSets: </P>
+    <P><%= JSON.stringify(abSearchSets) %></P>
+
+    <P>search evals</P>
+    <OL>
+    <% for (let eval of imageEvals) {%>
+      <LI>
+      <%= JSON.stringify(eval) %>
+      </LI>
+    <%}%>
+    </OL>
+
+    <%
+ 
+    // build scores
+    for (let eval of imageEvals) {
+      
+      let a = -1 ; let b = -1 ;
+
+
+      if (eval.methodA < eval.methodB) {
+        a = eval.methodA ;
+        b = eval.methodB ;
+      }
+      else {  // swap
+        a = eval.methodB ;
+        b = eval.methodA ;
+        if (eval.eval != "ab") {  // swap
+          if (eval.eval.startsWith("a")) eval.eval = "b" + eval.eval.substring(1) ;
+          else eval.eval = "a" + eval.eval.substring(1) ;            
+        }
+      }
+
+      let score = (eval.eval == "ab") ? 0 : Number(eval.eval.substring(1)) ;
+      console.log("score " + score + " a =" + a + " b=" + b) ;
+
+      let scores = searchScores[searchSets[a].sseq][searchSets[b].sseq] ;
+       
+      scores.count++ ;
+
+      //  {awin: 0, bwin: 0, ab: 0, anet: 0, bnet: 0, count: 0}
+
+      if (score == 0) scores.ab++ ;
+      else {
+        if (eval.eval.startsWith("a")) {
+          scores.awin++ ;
+          scores.anet += score ;
+          scores.bnet -= score ;
+        }
+        else {
+          scores.bwin++ ;
+          scores.bnet += score ;
+          scores.anet -= score ;
+        }
+      }
+         
+    }
+       
+    %>
+
+<TABLE border="1">
+  <TR valign="top">
+    <TH></TH>
+    <% for (let seq of seqToSearchSet) {%>
+      <TH><%=searchSets[seq].desc%></TH>
+    <%}%>
+  </TR>
+
+  <% for (let r of seqToSearchSet) { %>
+    <TR valign="top">
+      <TD nowrap><%=searchSets[r].desc%></TD>
+
+      <%for (let c of seqToSearchSet) {
+         let s = searchScores[searchSets[r>c?c:r].sseq][searchSets[r>c?r:c].sseq] ; 
+         if (r > c) s = flipScore(s) ;
+        //let s = {r:r, c:c} ;
+        %>
+        <TD>
+          <% if (r != c) { %>
+          Awin: <%=s.awin%> Bwin: <%=s.bwin%> 
+          Draw: <%=s.ab%> anet: <%=s.anet%> bnet: <%=s.bnet%> count: <%=s.count%>
+          <%}%>
+
+        </TD>
+     <%}%>
+
+    </TR>
+  <%}%>
+</TABLE>
+
+
+
+</div>
+
+<%- include('../common/footer') ; -%>
