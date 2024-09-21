@@ -2,7 +2,13 @@
 
 <style>
 
-
+.vertical-header span {
+  writing-mode: vertical-rl;
+  transform: rotate(225deg);
+  text-align: left;
+  vertical-align: bottom;
+  max-height: 150px;
+}
 
 
 
@@ -90,47 +96,124 @@
         }
       }         
     }
-       
+     
     %>
 
 <H4>Search Evaluation, <%=imageEvals.length%> head-to-head contests</H4>
 
-<H5>Head-to-head win ratio</H5>
-<TABLE style="border:1px solid grey">
+<H5>Head-to-head pure win ratio</H5>
+<TABLE style="border:1px solid rgba(128, 128, 128, 0.199)">
 
   <TR valign="top">
+    <TH>Model to evaluate</TH><TH colspan="8" style="border-bottom: 1px solid grey;">Opponents</TH><TH>&nbsp;&nbsp;</TH><TH>Overall</TH>
+  </TR >
+  <TR valign='top'>
     <TH></TH>
     <% for (let seq of seqToSearchSet) {%>
-      <TH style="width:6em"><%=searchSets[seq].desc%></TH>
-    <%}%>
+      <TH style="width:6em" xclass="vertical-header"><span><%=searchSets[seq].desc%></span></TH>
+    <%}%>    
   </TR>
 
   <% for (let r of seqToSearchSet) { %>
     <TR valign="top">
       <TD nowrap><B><%=searchSets[r].desc%></B></TD>
-
-      <%for (let c of seqToSearchSet) {
-         let s = searchScores[searchSets[r>c?c:r].sseq][searchSets[r>c?r:c].sseq] ; 
-         if (r > c) s = flipScore(s) ;
-        %>
-        
-          <% if (r != c) { 
-            
+      <%
+        let totScore = genScore() ;
+        for (let c of seqToSearchSet) {
+          let s = searchScores[searchSets[r>c?c:r].sseq][searchSets[r>c?r:c].sseq] ; 
+          if (r > c) s = flipScore(s) ;
+                
+          if (r != c) {             
             let winPerc = Math.round((s.awin  * 100) / (s.awin + s.bwin)) ;
             let avDiff = (s.anet / s.count ).toFixed(2) ;
 
             let color = 20 - Math.round(winPerc / (100 / 19)) -1  ;
+
+            totScore.count += s.count ;
+            totScore.awin += s.awin ;
+            totScore.bwin += s.bwin ;
+            totScore.anet += s.anet ;
+            totScore.bnet += s.bnet ;
+            totScore.ab += s.ab ;
           %>
           <TD style="background-color:#<%=colours[color]%>;"><B><center><%=winPerc%></center></B></TD>
 
-          <%}
+        <%}
           else {%>
-              <TD></TD>
+              <TD style="background-color:rgba(128, 128, 128, 0.26)"></TD>
          <%}%>
-     <%}%>
+      <%  }      
+          // out total
+          {
+            let winPerc = Math.round((totScore.awin  * 100) / (totScore.awin + totScore.bwin)) ;
+            let avDiff = (totScore.anet / totScore.count ).toFixed(2) ;
+            let color = 20 - Math.round(winPerc / (100 / 19)) -1  ;
+            %>
+            <TD></TD><TD style="background-color:#<%=colours[color]%>;"><B><center><%=winPerc%></center></B></TD>
+       <% } 
+     %>
     </TR>
   <%}%>
 </TABLE>
+
+
+<H5>Head-to-head win ratio (footy ladder, share draw points)</H5>
+<TABLE style="border:1px solid rgba(128, 128, 128, 0.199)">
+
+  <TR valign="top">
+    <TH>Model to evaluate</TH><TH colspan="8" style="border-bottom: 1px solid grey;">Opponents</TH><TH>&nbsp;&nbsp;</TH><TH>Overall</TH>
+  </TR >
+  <TR valign='top'>
+    <TH></TH>
+    <% for (let seq of seqToSearchSet) {%>
+      <TH style="width:6em" xclass="vertical-header"><span><%=searchSets[seq].desc%></span></TH>
+    <%}%>    
+  </TR>
+
+  <% for (let r of seqToSearchSet) { %>
+    <TR valign="top">
+      <TD nowrap><B><%=searchSets[r].desc%></B></TD>
+      <%
+        let totScore = genScore() ;
+        for (let c of seqToSearchSet) {
+          let s = searchScores[searchSets[r>c?c:r].sseq][searchSets[r>c?r:c].sseq] ; 
+          if (r > c) s = flipScore(s) ;
+                
+          if (r != c) {             
+            let winPerc = Math.round(((s.awin + s.ab /2)  * 100) / (s.count)) ;
+            let avDiff = (s.anet / s.count ).toFixed(2) ;
+
+            let color = 20 - Math.round(winPerc / (100 / 19)) -1  ;
+
+            totScore.count += s.count ;
+            totScore.awin += s.awin ;
+            totScore.bwin += s.bwin ;
+            totScore.anet += s.anet ;
+            totScore.bnet += s.bnet ;
+            totScore.ab += s.ab ;
+          %>
+          <TD style="background-color:#<%=colours[color]%>;"><B><center><%=winPerc%></center></B></TD>
+
+        <%}
+          else {%>
+            <TD style="background-color:rgba(128, 128, 128, 0.26)"></TD>
+         <%}%>
+      <%  }      
+          // out total
+          {
+            let winPerc = Math.round(((totScore.awin + totScore.ab / 2) * 100) / (totScore.count)) ;
+            let avDiff = (totScore.anet / totScore.count ).toFixed(2) ;
+            let color = 20 - Math.round(winPerc / (100 / 19)) -1  ;
+            %>
+            <TD></TD><TD style="background-color:#<%=colours[color]%>;"><B><center><%=winPerc%></center></B></TD>
+       <% } 
+     %>
+    </TR>
+  <%}%>
+</TABLE>
+
+
+
 
 <H5>Head-to-head detail</H5>
 <TABLE border="1">
