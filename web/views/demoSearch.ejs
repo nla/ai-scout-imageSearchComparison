@@ -72,7 +72,10 @@
               "<DIV style='width:200px;height:200px;display:inline-block'>" +
               
                 "<a href='demoSearch?baseImage=" + doc.id + "&" + showSimBaseParms + "'>" +
-                "<IMG src='" + genImageSrc(doc.id) + "' class='smallSizeImage' style='width:200px;vertical-align:top'>" +
+                // "<IMG src='" + genImageSrc(doc.id) + "' class='smallSizeImage' style='width:200px;vertical-align:top'>" +
+                // suggested by Paul to remove distortion in the grid
+                "<IMG src='" + genImageSrc(doc.id) + "' class='smallSizeImage' style='object-fit:contain;object-position:top left'>" +
+                  
                "</a>" +
               "</DIV>" +
               "<span style='display:inline-block;width:200px;font-size:80%;height:2em'>" +

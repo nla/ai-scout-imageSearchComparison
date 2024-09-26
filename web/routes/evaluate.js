@@ -18,6 +18,7 @@ function init(appConfigParm) {
   router.get('/demoSearch',		        async (req, res) => { demoSearch(req, res) }) ;
   router.get('/demoCluster',		      async (req, res) => { demoCluster(req, res) }) ;
   router.get('/showEvaluations',      async (req, res) => { showEvaluations(req, res) }) ;
+  router.get('/showSimilarityEvaluations',      async (req, res) => { showSimilarityEvaluations(req, res) }) ;
 
   return router ;  
 }
@@ -612,7 +613,41 @@ async function demoSearch(req, res) {
 
 
 
-async function showEvaluations(req,res) {
+async function showSimilarityEvaluations(req,res) {
+
+  //read the tsv results, produce json summary for formatting
+
+  try {
+    let lines = fs.readFileSync("data/similarity.tsv", "utf-8").split("\n") ;
+    let imageEvals = [] ;
+    for (let line of lines) {
+      if (line.length < 20) continue ;
+      if (line.startsWith("#")) continue ;
+      let f = line.split("\t") ;
+      if (f.length < 10) continue ;
+      if (f[0] < '20240911-135119') continue ;
+
+      imageEvals.push({
+        imageSeq: Number(f[3]),
+        imageName: f[4],
+        methodA: Number(f[5]),
+        methodB: Number(f[7]),
+        eval:f[9] 
+      }) ;
+    }
+      
+    res.render('showSimilarityEvaluations', {req: req, appConfig: appConfig, abSimilaritySets: abSimilaritySets, imageEvals: imageEvals}) ;
+  }
+  catch (err) {
+    res.send("Error: " + err) ;
+    res.end() ;
+    console.log("showSimilarityEvaluations err:" + err) ;
+    console.log(err.stack) ;
+  }
+}
+
+
+async function showEvaluations(req,res) { // only search eval results
 
   //read the tsv results, produce json summary for formatting
 
@@ -643,7 +678,6 @@ async function showEvaluations(req,res) {
     console.log("showEvaluations err:" + err) ;
     console.log(err.stack) ;
   }
-
 }
 
 module.exports.init = init ;
